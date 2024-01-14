@@ -1,11 +1,15 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     margin: 50px;
 }
 
+.headline {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .chat-container {
-    max-width: 600px;
+    max-width: 650px;
     margin: 20px auto;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -22,16 +26,31 @@ body {
 .input-container {
     padding: 10px;
     border-top: 1px solid #ddd;
+    text-align: center;
 }
 
-
 .message {
+    display: block;
     text-align: left;
+    float: left;
     border-radius: 5px;
     border: 1px solid #ddd;
     padding: 10px;
     margin-bottom: 10px;
     background-color: #fafafa;
+    word-wrap: break-word;
+}
+
+.message-back {
+    display: block;
+    text-align: left;
+    float: right;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fafafa;
+    word-wrap: break-word;
 }
   
 #messageInput {
@@ -47,8 +66,4 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-}
-
-#result {
-    margin-top: 20px;
 }
