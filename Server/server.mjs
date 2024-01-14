@@ -8,13 +8,16 @@ app.use(cors());
 // user sent a message to flightbot
 app.post('/api/flightbot/:message', (req, res) => {
   const msg = req.params.message;
-  const modifiedMessage = `FlightBot processed: ${msg}`;
-  res.send(modifiedMessage);
+  // process message with AI and send response
+  // const answer = funciton(msg)
+  let response = "FlightBot Processed: " + msg;
+  res.send(response);
 })
 
 app.listen(port, () => {
   console.log(`Flight Bot listening on port ${port}`)
 })
+
 
 /** HOW GET WORKS EXPRESS:
  * get(url: string, middleware: function) {

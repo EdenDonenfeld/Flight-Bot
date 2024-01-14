@@ -1,5 +1,8 @@
 async function onSendMessage() {
   const input = document.getElementById('messageInput')
+  if (!input.value) {
+    return;
+  }
   const response = await fetch(`http://localhost:3000/api/flightbot/${input.value}`, {
     method: 'POST'
   });
