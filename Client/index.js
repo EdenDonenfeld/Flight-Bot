@@ -15,7 +15,6 @@ async function onSendMessage() {
     newMessage.className = "message";
     newMessage.textContent = val;
     chatMessages.appendChild(newMessage);
-    addLine(chatMessages, 2);
     input.value = "";
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
@@ -32,14 +31,5 @@ async function onSendMessage() {
   newMessage.className = "message-back";
   newMessage.textContent = message;
   chatMessages.appendChild(newMessage);
-  addLine(chatMessages, 3); 
   chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-
-function addLine(element, number) {
-  for (var i = 0; i < number; i++) {
-    var newLine = document.createElement('br');
-    element.appendChild(newLine);
-  }
 }
