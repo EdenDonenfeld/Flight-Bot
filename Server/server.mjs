@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import {analyzeMessage} from "./analyze.mjs";
 
 const app = express();
 const port = 3000;
@@ -9,8 +10,7 @@ app.use(cors());
 app.post('/api/flightbot/:message', (req, res) => {
   const msg = req.params.message;
   // process message with AI and send response
-  // const answer = funciton(msg)
-  let response = "FlightBot Processed: " + msg;
+  let response = analyzeMessage(msg);
   res.send(response);
 })
 
