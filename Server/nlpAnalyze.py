@@ -1,15 +1,15 @@
 import string
 
 sentences = [
-    'I love my dog',
-    'I love my cat',
-    'You love my dog!',
-    'Do you think my dog is amazing?'
+    'אני אוהב את הכלב שלי',
+    'אני אוהב את החתול שלי',
+    'אתה אוהב את הכלב שלי!',
+    'אתה חושב שהכלב שלי מדהים?'
 ]
 
 test_data = [
-    'i really love my dog',
-    'my dog loves my manatee'
+    'אני ממש אוהב את הכלב שלי',
+    'הכלב שלי אוהב את הנחש שלי'
 ]
 def assign_indexes(sentences):
     word_values = {}
