@@ -1,3 +1,8 @@
+import sys
+version = sys.version_info[0:2]
+if version > (3, 11) or version < (3, 9):
+    raise Exception('Requires python 3.11')
+
 import tensorflow as tf
 from tensorflow import keras
 
