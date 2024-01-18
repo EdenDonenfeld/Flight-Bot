@@ -1,5 +1,12 @@
-import string
+import tensorflow as tf 
+from tensorflow
 
+
+
+import string
+import json
+#pytourch
+ 
 sentences = [
     'אני אוהב את הכלב שלי',
     'אני אוהב את החתול שלי',
