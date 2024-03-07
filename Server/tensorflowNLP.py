@@ -1,6 +1,7 @@
 import sys
 version = sys.version_info[0:2]
-if version > (3, 11) or version < (3, 9):
+#check that version is in 3.9-3.11
+if version > (3, 11) or version < (3, 9): 
     raise Exception('Requires python 3.11')
 
 import tensorflow as tf
