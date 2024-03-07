@@ -29,5 +29,4 @@
     {"request": "איך אני יכול לבטל כרטיס טיסה", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "אני רוצה להזמין כרטיס לרומא", "is_order": 1, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "מהם החפצים שניתן להביא למטוס", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1}
-    
   ]
