@@ -24,7 +24,7 @@ max_length = 10
 trunc_type='post'
 padding_type='post'
 oov_tok = "<OOV>"
-num_epochs = 30
+
 
 
 with open ('./data/data.json', 'r', encoding="utf8") as f:
