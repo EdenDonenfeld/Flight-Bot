@@ -6,6 +6,9 @@ if version > (3, 11) or version < (3, 9):
 
 #imports
 
+# from transformers import pipeline
+# from transformers import AutoTokenizer, AutoModel
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -34,6 +37,9 @@ labels = []
 full = []
 
 
+# #hebert
+# tokenizer = AutoTokenizer.from_pretrained("avichr/heBERT")
+# model = AutoModel.from_pretrained("avichr/heBERT")
 
 for item in datastore:
     requests.append(item['request'])
@@ -43,7 +49,7 @@ for item in datastore:
 
 
 
-#lets split the data into training and testing
+#split the data into training and testing
 training_requests, testing_requests, training_labels, testing_labels = train_test_split(requests, labels, test_size=0.2, random_state=42)
 
 tokenizer = Tokenizer(num_words = vocab_size, oov_token=oov_tok)
