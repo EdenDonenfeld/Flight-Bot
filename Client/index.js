@@ -5,13 +5,12 @@ async function onSendMessage() {
     return;
   }
 
-  var val = input.value;
-  console.log(val);
+  let val = input.value;
 
   if (val.trim() != '') {
     // Adding a message from client
-    var chatMessages = document.getElementById("chat-messages");
-    var newMessage = document.createElement('div');
+    let chatMessages = document.getElementById("chat-messages");
+    let newMessage = document.createElement('div');
     newMessage.className = "message";
     newMessage.textContent = val;
     chatMessages.appendChild(newMessage);
