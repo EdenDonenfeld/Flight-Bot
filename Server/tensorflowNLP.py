@@ -75,7 +75,7 @@ model.fit(training_padded, training_labels)
 print(model.score(testing_padded, testing_labels))
 
 #test on a new request
-sentence = ["אני רוצה להזמין טיסה לבנקוק ביום שישי הקרוב"]
+sentence = [""]
 sequences = tokenizer.texts_to_sequences(sentence)
 padded = pad_sequences(sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
 print(model.predict(padded))
