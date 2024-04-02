@@ -1,69 +1,53 @@
-import tensorflow as tf 
+from transformers import BertTokenizer, TFBertForSequenceClassification
+import tensorflow as tf
+import sys
 
+# Load tokenizer and model
+def load_model(model_path):
+    tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+    model = TFBertForSequenceClassification.from_pretrained(model_path)
+    return tokenizer, model
 
-import string
-import json
-#pytourch
- 
-sentences = [
-    'אני אוהב את הכלב שלי',
-    'אני אוהב את החתול שלי',
-    'אתה אוהב את הכלב שלי!',
-    'אתה חושב שהכלב שלי מדהים?'
-]
+# Function to classify a sentence
+def classify_sentence(tokenizer, model, sentence):
+    # Tokenize and encode the input sentence
+    inputs = tokenizer(sentence, return_tensors='tf', padding=True, truncation=True)
 
-test_data = [
-    'אני ממש אוהב את הכלב שלי',
-    'הכלב שלי אוהב את הנחש שלי'
-]
-def assign_indexes(sentences):
-    word_values = {}
-    #def empty token
-    empty_tocken = "<OOV>"
-    word_values[empty_tocken] = len(word_values) + 1
-    for sentence in sentences:
-        words = sentence.split()
-        for word in words:
-            # Remove punctuation from the word and convert to lowercase
-            word = word.strip(string.punctuation).lower()
-            if word:
-                # Check if the processed word is not empty after removing punctuation
-                if word not in word_values:
-                    word_values[word] = len(word_values) + 1
+    # Make prediction
+    logits = model(inputs)[0]
 
-    return word_values
+    # Get predicted class label
+    predicted_class = tf.argmax(logits, axis=1).numpy()[0]
 
-#Example usage to assign index to words:
-word_indexes = assign_indexes(sentences)
-print("\nWord Index = " , word_indexes)
+    return predicted_class
 
-def text_to_sequences(sentences, word_indexes):
-    sequences = []
-    for sentence in sentences:
-        words = sentence.split()
-        sequence = [word_indexes.get(word.strip(string.punctuation).lower(), word_indexes['<OOV>']) for word in words]
-        sequences.append(sequence)
-    return sequences
+if len(sys.argv) < 2:
+    print("No message was sent to the model")
+    sys.exit(1)
 
-#Example usage to turnen sentences to sequences:
-sequences = text_to_sequences(sentences, word_indexes)
-print("\nSequences = " , sequences)
+def main():
+    model_path = './saved_model'  # Path to the directory where you saved your trained model
+    tokenizer, model = load_model(model_path)
+    sentence = sys.argv[1]
 
-test_seq = text_to_sequences(test_data, word_indexes)
-print("\nTest Sequence = ", test_seq)
+    predicted_label = classify_sentence(tokenizer, model, sentence)
+    if predicted_label == 0:
+        print('you want to order a ticket')
+    elif predicted_label == 1:
+        print('you want to refund a ticket')
+    elif predicted_label == 2:
+        print('you want to check the status of your ticket')
+    elif predicted_label == 3:
+        print('you want to change the date of your ticket')
+    elif predicted_label == 4:
+        print('you want to change the destination of your ticket')
+    elif predicted_label == 5:
+        print('you want to know the weather of your destination')
+    else:
+        print('you want to know what is allowed in the flight')
+    print("Predicted Label:", predicted_label)
 
-def pad_sequences(sequences):
-    #get the sequence with the max len
-    max_length = max(len(sequence) for sequence in sequences)
-    # Pad each sequence with zeros
-    padded_sequences = [[0] * (max_length - len(sequence)) + sequence for sequence in sequences]
-    return padded_sequences
-
-#Example usage to pad sequences:
-padded_data = pad_sequences(sequences)
-print("\nPadded Data = ", padded_data)
-
-
+main()
 
 
 

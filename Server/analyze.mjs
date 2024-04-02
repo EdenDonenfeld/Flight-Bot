@@ -25,17 +25,20 @@ async function classifySentence(tokenizer, model, sentence) {
     return predictedClass[0];
 }
 
-// Example usage
-async function analyzeMessage() {
-    const modelPath = './saved_model';  // Path to the directory where you saved your trained model
-    const { tokenizer, model } = await loadModel(modelPath);
+import spawn from "child_process"
 
-    const sentence = "אני רוצה לשנות את הזמן של הטיסה שלי";
-    const predictedLabel = await classifySentence(tokenizer, model, sentence);
-    console.log("Predicted Label:", predictedLabel);
+export function analyzeMessage(sentence) {
+    return new Promise((resolve, reject) => {
+        const child = spawn("python", ["nlpAnalyze.py", sentence]);
+        child.stdout.on('data', (data) => {
+          resolve(data.toString());
+        })
+        child.stderr.on('data', (data) => {
+          reject(data.toString());
+        })
+      })
 }
 
-analyzeMessage();
 
 
   
