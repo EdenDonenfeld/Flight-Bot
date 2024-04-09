@@ -10,7 +10,8 @@ app.use(cors());
 app.post('/api/flightbot/:message', (req, res) => {
   const msg = req.params.message;
   // process message with AI and send response
-  let response = analyzeMessage(msg);
+  let Label;
+  let response = analyzeMessage(msg, ());
   res.send(response);
 })
 
