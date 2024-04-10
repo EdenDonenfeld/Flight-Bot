@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>FlightBot Client</title>
-
-    <!-- Add Firebase products that you want to use -->
+    <title>Document</title>
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js'
     
@@ -28,21 +25,28 @@
       </script>
     <script defer type="module" src="./firebase.js"></script>
     <script defer type="module" src="./auth.js"></script>
+    
 </head>
 <body>
-    <h2 class="headline">FlightBot Client</h2>
-
-    <div dir="rtl" class="chat-container">
-
-        <div class="chat-messages" id="chat-messages"></div>
-
-        <div class="input-container">
-            <input type="text" id="messageInput" placeholder="כתוב הודעה">
-            <button id="submitButton" onclick="onSendMessage()">שלח</button>
-        </div>
-
-    </div>
-
-    <script src="./index.js"></script>
+    <script>
+        const signInForm = () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            window.signIn(email, password);
+        }
+    </script>
+    <!--add login/ sign up page-->
+    <h1>FlightBot Client</h1>
+    
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="signInForm()">Login</button>
+    
+    <form id="signupForm">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button>Sign Up</button>
+    </form>
+    
 </body>
 </html>
