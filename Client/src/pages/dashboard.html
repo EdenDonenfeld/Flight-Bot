@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <title>FlightBot Client</title>
+
+    <!-- Add Firebase products that you want to use -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js'
+    
+        // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js'
+    
+        // Add Firebase products that you want to use
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+        window.firebase = {
+          initializeApp,
+          getAnalytics,
+          getAuth,
+          getFirestore,
+          signInWithEmailAndPassword,
+          createUserWithEmailAndPassword,
+          signOut
+        };
+      </script>
+    <script defer type="module" src="../assets/js/firebase.js"></script>
+    <script defer type="module" src="../assets/js/auth.js"></script>
+</head>
+<body>
+    <h2 class="headline">FlightBot Client</h2>
+
+    <div dir="rtl" class="chat-container">
+
+        <div class="chat-messages" id="chat-messages"></div>
+
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="כתוב הודעה">
+            <button id="submitButton" onclick="onSendMessage()">שלח</button>
+        </div>
+
+    </div>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>
