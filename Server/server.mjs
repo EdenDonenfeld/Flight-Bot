@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..','Client','index.html'));
 })
 
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, '..','Client','src', 'pages', 'dashboard.html'));
+})
+
 // user sent a message to flightbot
 // app.post('/api/flightbot/:message', (req, res) => {
 //   const msg = req.params.message;

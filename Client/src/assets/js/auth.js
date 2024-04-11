@@ -1,5 +1,5 @@
 import { auth } from './firebase.js';
-const { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } = window.firebase;
+const { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } = window.firebase;
 
 function signUp(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
@@ -16,17 +16,7 @@ function signUp(email, password) {
 
 function signIn(email, password) {
     console.log(auth)
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in successfully
-        var user = userCredential.user;
-        console.log(user)
-    })
-    .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // Handle errors
-    });
+    return signInWithEmailAndPassword(auth, email, password)
 }
 
 function logOut() {
@@ -37,6 +27,23 @@ function logOut() {
     });
 }
 
+function getCurrentUser() {
+    return auth.currentUser;
+}
+
+function setCallbackAuthChanged(callback){
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            callback(user)
+        }
+        else {
+            callback(null)
+        }
+    })
+}
+
 window.signUp = signUp;
 window.signIn = signIn;
 window.signOut = logOut;
+window.getCurrentUser = getCurrentUser;
+window.setCallbackAuthChanged = setCallbackAuthChanged;
