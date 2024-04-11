@@ -30,23 +30,36 @@
 <body>
     <script>
         const signInForm = () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('emailSignIn').value;
+            const password = document.getElementById('passwordSignIn').value;
             window.signIn(email, password);
         }
+        const signUpForm = () => {
+            const email = document.getElementById('emailSignUp').value;
+            const password = document.getElementById('passwordSignUp').value;
+            window.signUp(email, password);
+        }
+        const logOutForm = () => {
+            window.signOut();
+        }
+
     </script>
-    <!--add login/ sign up page-->
+
     <h1>FlightBot Client</h1>
     
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+    <input type="email" id="emailSignIn" placeholder="Email">
+    <input type="password" id="passwordSignIn" placeholder="Password">
     <button onclick="signInForm()">Login</button>
     
-    <form id="signupForm">
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button>Sign Up</button>
-    </form>
+    <br>
+
+    <input type="email" id="emailSignUp" placeholder="Email">
+    <input type="password" id="passwordSignUp" placeholder="Password">
+    <button onclick="signUpForm()">SignUp</button>
+
+    <br>
+
+    <button onclick="logOutForm()">SignOut</button>
     
 </body>
 </html>
