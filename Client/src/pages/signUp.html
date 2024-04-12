@@ -25,49 +25,46 @@
             onAuthStateChanged
         };
     </script>
-    <script defer type="module" src="./src/assets/js/firebase.js"></script>
-    <script defer type="module" src="./src/assets/js/auth.js"></script>
-    <link rel="stylesheet" href="./src/assets/css/style.css">
+    <script defer type="module" src="../assets/js/firebase.js"></script>
+    <script defer type="module" src="../assets/js/auth.js"></script>
+    <link rel="stylesheet" href="../assets/css/signUp.css">
 
 </head>
 
 <body>
     <script>
-        const signInForm = () => {
-            const email = document.getElementById('emailSignIn').value;
-            const password = document.getElementById('passwordSignIn').value;
-            window.signIn(email, password)
+        const signUpForm = () => {
+            const email = document.getElementById('emailSignUp').value;
+            const password = document.getElementById('passwordSignUp').value;
+            window.signUp(email, password)
                 .then((userCredential) => {
-                    window.location.assign("/dashboard")
+                    window.location.assign("/")
                 })
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
+                    if (errorCode == "auth/weak-password")
+                        document.getElementById("errors").innerText = "Password is weak, should be at least 6 characters!"
+                    else if (errorCode == "auth/email-already-in-use")
+                        document.getElementById("errors").innerText = "Email is already in use, use another email!"
+                    else if (errorCode == "auth/invalid-email")
+                        document.getElementById("errors").innerText = "Email is invalid, check it out!"
+                    document.getElementById("errors").style.color = "red";
                     // Handle errors
                 });;
         }
-        
-        const logOutForm = () => {
-            window.signOut();
-        }
+
     </script>
 
 
     <div class="container">
 
-        <h1> FlightBot LogIn </h1>
+        <h1> FlightBot SignUp </h1>
 
-        <input type="email" id="emailSignIn" placeholder="Email">
-        <input type="password" id="passwordSignIn" placeholder="Password">
-        <button onclick="signInForm()">Login</button>
-
-        <br>
-
-        <p class="signup"> Still don't have an account ? <a href="./src/pages/signUp.html" class="signup-link"> Sign Up! </a></p>
-
-        <br>
-
-        <button onclick="logOutForm()">SignOut</button>
+        <input type="email" id="emailSignUp" placeholder="Email">
+        <input type="password" id="passwordSignUp" placeholder="Password">
+        <button onclick="signUpForm()">SignUp</button>
+        <div id="errors"></div>
 
     </div>
 
