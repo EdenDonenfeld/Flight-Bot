@@ -1,0 +1,567 @@
+[
+          {
+            "request": "רציתי להזמין כרטיס טיסה עבור 3 נוסעים.",
+            "class": 0,
+            "entities": []
+          },
+          {
+            "request": "אני רוצה לטוס לסינגפור",
+            "class": 0,
+            "entities": [
+             {"start": 13, "end": 17, "text": "סינגפור", "category": "DESTINATION"}
+            ]
+          },
+          {  
+            "request": "אני רוצה להזמין כרטיס לרומא",
+            "class": 0,
+            "entities": [
+             {"start": 19, "end": 23, "text": "רומא", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "האם ניתן להזמין כרטיס טיסה דרך הצ'אטבוט?",
+            "class": 0,
+            "entities": []
+          },
+          {
+            "request": "ברצוני להזמין כרטיס טיסה מתל אביב לניו יורק לתאריך 2024-05-01.",
+            "class": 0,
+            "entities": [
+              {"start": 18, "end": 27, "text": "תל אביב", "category": "ORIGIN"},
+              {"start": 31, "end": 40, "text": "ניו יורק", "category": "DESTINATION"},
+              {"start": 45, "end": 55, "text": "2024-05-01", "category": "DATE"}
+            ]
+          },
+          {
+            "request": "באיזה מחיר ניתן להזמין כרטיס טיסה הלוך ושוב לפריז?",
+            "class": 0,
+            "entities": [
+              {"start": 41, "end": 46, "text": "פריז", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "רציתי להזמין כרטיס טיסה לילד קטן.",
+            "class": 0,
+            "entities": []
+          },
+          {
+            "request": "ברצוני להזמין טיסה לספרד ליום חמישי",
+            "class": 0,
+            "entities": [
+              {"start": 18, "end": 22, "text": "ספרד", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "כמה עולה כרטיס טיסה לברצלונה?",
+            "class": 0,
+            "entities": [
+              {"start": 24, "end": 29, "text": "ברצלונה", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "אני רוצה להזמין טיסה להיום בלילה",
+            "class": 0,
+            "entities": []
+          },
+          {
+            "request": "בא לי 7 מושבים למדריד",
+            "class": 0,
+            "entities": [
+              {"start": 16, "end": 21, "text": "מדריד", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "אשמח להזמין טיסה שיוצאת עד שעה 18",
+            "class": 0,
+            "entities": []
+          },
+          {
+            "request": "יש טיסות הלוך לרומניה שיוצאת מחר בבוקר?",
+            "class": 0,
+            "entities": [
+              {"start": 18, "end": 23, "text": "רומניה", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "אני צריך שני מושבים ללונדון",
+            "class": 0,
+            "entities": [
+              {"start": 22, "end": 27, "text": "לונדון", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "אני רוצה לעשות הזמנה של טיסה",
+            "class": 0,
+            "entities": []
+          },
+          {
+            "request": "איך מזמינים טיסה למחר בבוקר?",
+            "class": 0,
+            "entities": []
+          },
+          {
+            "request": "מה המחיר של טיסה לברלין?",
+            "class": 0,
+            "entities": [
+              {"start": 20, "end": 25, "text": "ברלין", "category": "DESTINATION"}
+            ]
+          },
+          {
+            "request": "אני אשמח להזמין כרטיס טיסה לנכד שלי",
+            "class": 0,
+            "entities": []
+          },
+
+          {
+            "request": "איך אני יכול לבטל כרטיס טיסה",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "איך ניתן לבטל את כרטיס הטיסה שלי?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "ברצוני לבטל את הטיסה שלי שהייתה אמורה להתקיים מחר.",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "האם ניתן לקבל החזר כספי עבור כרטיס טיסה שבוטל על ידי חברת התעופה?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "מהן האפשרויות לקבלת החזר כספי עבור ביטול כרטיס טיסה?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "רציתי לבטל רק חלק מהכרטיסים שהזמנתי.",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "אני רוצה לבטל את הטיסה שלי מחר למדריד",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "הזמנתי כרטיס טיסה לניו יורק ואני צריך לבטל",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "לא בא לי לטוס",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "האם אני צריל לשלם עמלה כדי לקבל החזר כספי",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "אשתי בהריון ואסור לנו לטוס",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "כמה אחוז מעלות הכרטיס אני מקבל בעת ביטול?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "אם ניתן לבטל כרטיס טיסה דרך הצ'אטבוט?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "האם ניתן לבטל את הטיסה שלי?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "אני צריך לבטל את הטיסה של מחר ללונדון",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "מהן אופציות ביטול כרטיס?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "האם ניתן לקבל שובר?",
+            "class": 1,
+            "entities": []
+        },
+        {
+            "request": "אני אשמח לבטל את כרטיס הטיסה שלי",
+            "class": 1,
+            "entities": []
+        },
+
+
+
+    {
+        "request": "מה המצב של טיסה 505 לפראג",
+        "class": 2,
+        "entities": [
+            {"entity": "flight_number", "value": "505", "start": 12, "end": 15}
+        ]
+    },
+    {
+        "request": "האם הטיסה לבוקרשט יוצאת בזמן?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "האם ניתן לבדוק את המצב של טיסה 789 לברצלונה",
+        "class": 2,
+        "entities": [
+            {"entity": "flight_number", "value": "789", "start": 26, "end": 29}
+        ]
+    },
+    {
+        "request": "איך אני יכול לבדוק עיכובים בטיסה לבנגקוק",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "המטוס יגיע בזמן לטיסה?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "מהו סטטוס הטיסה שלי מברלין לרומא?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "האם הטיסה שלי לתאריך 2024-04-10 מתקיימת כסדרו?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "היכן נמצאת כרגע טיסה מספר EL1234?",
+        "class": 2,
+        "entities": [
+            {"entity": "flight_number", "value": "EL1234", "start": 21, "end": 27}
+        ]
+    },
+    {
+        "request": "האם הטיסה שלי בוטלה?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "אשמח לקבל סטטוס טיסה LY727",
+        "class": 2,
+        "entities": [
+            {"entity": "flight_number", "value": "LY727", "start": 17, "end": 22}
+        ]
+    },
+    {
+        "request": "מה מצב הטיסה שלי?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "האם ניתן לקבל עדכון על סטטוס הטיסה שלי?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "הטיסה תצא בזמן ללא עיכובים?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "יש לי טיסה מחר בבוקר, מה מצבה?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "מה מצב הטיסה של מחר ללונדון?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "האם הטיסה שלי הוקדמה?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "האם סטטוס הטיסה שלי ללא שינוי?",
+        "class": 2,
+        "entities": []
+    },
+    {
+        "request": "האם הטיסה שלי מאחרת?",
+        "class": 2,
+        "entities": []
+    },
+    {"request": "איך אני יכול לשנות את יום הטיסה שלי", "class": 3, "entities": []},
+    {"request": "אני רוצה לשנות את יום הטיסה שלי", "class": 3, "entities": []},
+    {"request": "הצ'אטבוט יכול לשנות לי את מועד הטיסה?", "class": 3, "entities": []},
+    {"request": "שנה לי את תאריך הטיסה ליום אחר", "class": 3, "entities": []},
+    {"request": "איך אני דוחה את הטיסה", "class": 3, "entities": []},
+    {"request": "איך אני יכול לשנות את יום הטיסה שלי", "class": 3, "entities": []},
+    {"request": "איך אני יכול לשנות את יום הטיסה שלי", "class": 3, "entities": []},
+    {"request": "אני רוצה להזיז את הטיסה שלי ליום אחר", "class": 3, "entities": []},
+    {"request": "אני רוצה להקדים את הטיסה שלי, איך עושים זאת?", "class": 3, "entities": []},
+    {"request": "אני רוצה לשנות את תאריך הטיסה שלי", "class": 3, "entities": []},
+    {"request": "האם יש אפשרות להזיז את הטיסה שלי ליום אחר?", "class": 3, "entities": []},
+    {"request": "האם יש יתרון לשינוי יום הטיסה בקיץ", "class": 3, "entities": []},
+    {"request": "האם ניתן לשנות את תאריך הטיסה שלי?", "class": 3, "entities": []},
+    {"request": "האם אפשר לשנות את תאריך הטיסה שלי?", "class": 3, "entities": []},
+    {"request": "כמה עולה להזיז את יום הטיסה?", "class": 3, "entities": []},
+    {"request": "מה העלות של שינוי תאריך הטיסה?", "class": 3, "entities": []},
+    {"request": "שינוי זמן טיסה", "class": 3, "entities": []},
+    {"request": "קיימת אפשרות לדחות את יום הטיסה?", "class": 3, "entities": []},
+    {"request": "אני אשמח לדחות את הטיסה שלי למחר בערב", "class": 3, "entities": []},
+    {"request": "אני לא יכול לטוס מחר, אפשר לטוס היום?", "class": 3, "entities": []},
+    
+    {
+      "request": "שנה לי את יעד הטיסה למדריד",
+      "class": 4,
+      "entities": [
+          {
+              "entity": "original_dest",
+              "start": 13,
+              "end": 17,
+              "value": ""
+          },
+          {
+              "entity": "new_dest",
+              "start": 21,
+              "end": 25,
+              "value": "מדריד"
+          }
+      ]
+  },
+  {
+      "request": "שינה לי את עיר היעד שלי לבודפסט",
+      "class": 4,
+      "entities": [
+          {
+              "entity": "original_dest",
+              "start": 24,
+              "end": 28,
+              "value": ""
+          },
+          {
+              "entity": "new_dest",
+              "start": 32,
+              "end": 36,
+              "value": "בודפסט"
+          }
+      ]
+  },
+  {
+      "request": "אני רוצה לשנות את יעד הטיסה למומבסה",
+      "class": 4,
+      "entities": [
+          {
+              "entity": "original_dest",
+              "start": 21,
+              "end": 25,
+              "value": ""
+          },
+          {
+              "entity": "new_dest",
+              "start": 29,
+              "end": 33,
+              "value": "מומבסה"
+          }
+      ]
+  },
+  {
+      "request": "שינה לי את יעד הטיסה לברצלונה",
+      "class": 4,
+      "entities": [
+          {
+              "entity": "original_dest",
+              "start": 13,
+              "end": 17,
+              "value": ""
+          },
+          {
+              "entity": "new_dest",
+              "start": 21,
+              "end": 26,
+              "value": "ברצלונה"
+          }
+      ]
+  },
+  {
+      "request": "שנה לי את יעד הטיסה לפראג",
+      "class": 4,
+      "entities": [
+          {
+              "entity": "original_dest",
+              "start": 13,
+              "end": 17,
+              "value": ""
+          },
+          {
+              "entity": "new_dest",
+              "start": 21,
+              "end": 25,
+              "value": "פראג"
+          }
+      ]
+  },
+  {
+      "request": "ברצוני לשנות את יעד הטיסה שלי מברלין למינכן.",
+      "class": 4,
+      "entities": [
+          {
+              "entity": "original_dest",
+              "start": 31,
+              "end": 35,
+              "value": "ברלין"
+          },
+          {
+              "entity": "new_dest",
+              "start": 39,
+              "end": 43,
+              "value": "מינכן"
+          }
+      ]
+  },
+  {
+      "request": "האם ניתן להחליף את הטיסה שלי לניו יורק בטיסה ללוס אנג'לס?",
+      "class": 4,
+      "entities": [
+          {
+              "entity": "original_dest",
+              "start": 29,
+              "end": 33,
+              "value": "ניו יורק"
+          },
+          {
+              "entity": "new_dest",
+              "start": 37,
+              "end": 47,
+              "value": "לוס אנג'לס"
+          }
+      ]
+  },
+  {
+      "request": "מהן האפשרויות לשינוי יעד הטיסה שלי?",
+      "class": 4,
+      "entities": []
+  },
+  {
+      "request": "מה העלות של שינוי יעד הטיסה?",
+      "class": 4,
+      "entities": []
+  },
+  {
+      "request": "דרך מה אני יכול לשנות את מיקום הטיסה",
+      "class": 4,
+      "entities": []
+  },
+  {
+      "request": "האם הצ'אטבוט יודע לשנות את מיקום ההמראה?",
+      "class": 4,
+      "entities": []
+  },
+  {
+      "request": "שינוי מיקום נחיתה",
+      "class": 4,
+      "entities": []
+  },
+  {
+      "request": "לא יכול להמריא מבוקרשט, אפשר להמריא מקלוז?",
+      "class": 4,
+      "entities": []
+  },
+    {
+      "request": "תשנה לי את עיר היעד לברצלונה",
+      "class": 4,
+      "entities": [
+          {
+          },
+          {
+              "entity": "new_dest",
+              "start": 21,
+              "end": 26,
+              "value": "ברצלונה"
+          }
+      ]
+  },
+    {
+        "request": "אני רוצה לשנות את מקום היעד",
+        "class": 4,
+        "entities": []
+    },
+    {
+        "request": "האם ניתן לשנות את יעד הטיסה?",
+        "class": 4,
+        "entities": []
+    },
+    {
+        "request": "איך אני יכול לשנות את יעד הטיסה שלי?",
+        "class": 4,
+        "entities": []
+    },
+    {
+        "request": "הזמנתי כרטיס טיסה לוינה ואני אשמח להחליף לברלין",
+        "class": 4,
+        "entities": [
+            {
+                "entity": "original_dest",
+                "start": 38,
+                "end": 42,
+                "value": "וינה"
+            },
+            {
+                "entity": "new_dest",
+                "start": 53,
+                "end": 57,
+                "value": "ברלין"
+            }
+        ]
+    },
+
+    {"request": "איך אני יכול לבדוק את מזג האוויר בקיוב", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "מה תחזית המזג האוויר ברומא", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "האם יש אפשרות לדעת מה תחזית המזג האוויר בלוס אנג'לס", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "מהו מזג האוויר הצפוי בברלין מחר?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "האם צפוי גשם בניו יורק בשבוע הבא?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "באיזו טמפרטורה צפויה הטיסה שלי לנחות?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "מהן תנאי מזג האוויר הצפויים ברומא בשבוע הקרוב?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "האם יש שלג כרגע בבוקרשט?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "האם חם ביוון?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "האם קר ביעד שאני טס אליו", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "האם הצ'אטבוט יודע להגיד מה המזג אוויר בלונדון?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "מה מזג האוויר מחר בלונדון?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "האם יהיה גשם מחר בברלין?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "מה תחזית מזג האוויר שבוע הבא בניו יורק?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "קר בלונדון?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+    {"request": "יהיה מחר חם בדובאי?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 1, "is_allowed": 0},
+
+    {"request": "מהם החפצים שניתן להביא במטוס כמזון", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "האם יש כללים להביא דברים מסוימים במטוס", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מהם החפצים שניתן להביא במטוס", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "האם מותר לי להעלות בקבוק מים למטוס", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מה מותר להעלות למטוס?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מהם החפצים שניתן להביא למטוס", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "האם מותר להביא מזוודה קטנה לטיסת יד?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "האם מותר להביא כריך בתיק הקטן למטוס?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מותר להעלות סכין למטוס?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "האם ניתן להעלות מטען יד נוסף לטיסה?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מהם הממדים המותרים למזוודה לטיסה?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "האם מותר להביא נוזלים במטען יד?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מה אסור להעלות למטוס?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מותר להעלות אוכל למטוס?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מהי רשימת הדברים האסורים לעלייה למטוס?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "מה מותר להביא איתי לטיסה??", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "כמה נוזלים אפשר להביא לטיסה?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1},
+    {"request": "האם מותר להעלות שתייה אלכוהולית למטוס?", "is_order": 0, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 1}
+]
+
