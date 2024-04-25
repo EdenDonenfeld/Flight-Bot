@@ -1,0 +1,131 @@
+[
+    {
+      "request": "רציתי להזמין כרטיס טיסה עבור 3 נוסעים.",
+      "class": 0,
+      "entities": []
+    },
+    {
+      "request": "אני רוצה לטוס לסינגפור",
+      "class": 0,
+      "entities": [
+       {"start": 13, "end": 17, "text": "סינגפור", "category": "DESTINATION"}
+      ]
+    },
+    {  
+      "request": "אני רוצה להזמין כרטיס לרומא",
+      "class": 0,
+      "entities": [
+       {"start": 19, "end": 23, "text": "רומא", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "האם ניתן להזמין כרטיס טיסה דרך הצ'אטבוט?",
+      "class": 0,
+      "entities": []
+    },
+    {
+      "request": "ברצוני להזמין כרטיס טיסה מתל אביב לניו יורק לתאריך 2024-05-01.",
+      "class": 0,
+      "entities": [
+        {"start": 18, "end": 27, "text": "תל אביב", "category": "ORIGIN"},
+        {"start": 31, "end": 40, "text": "ניו יורק", "category": "DESTINATION"},
+        {"start": 45, "end": 55, "text": "2024-05-01", "category": "DATE"}
+      ]
+    },
+    {
+        "request": "אני מעוניין לרכוש כרטיס טיסה שתצא מברצלונה ותגיע ליוון ב10.2",
+        "class": 0,
+        "entities": [
+          {"start": 18, "end": 27, "text": "ברצלונה", "category": "ORIGIN"},
+          {"start": 31, "end": 40, "text": "יוון", "category": "DESTINATION"},
+          {"start": 45, "end": 55, "text": "10.2", "category": "DATE"}
+        ]
+      },
+      {
+        "request": "בתאריך ה10 למרץ אני רוצה לטוס ליוטה",
+        "class": 0,
+        "entities": [
+          {"start": 31, "end": 40, "text": "יוטה", "category": "DESTINATION"},
+          {"start": 45, "end": 55, "text": "10 למרץ", "category": "DATE"}
+        ]
+      },
+    {
+      "request": "באיזה מחיר ניתן להזמין כרטיס טיסה הלוך ושוב לפריז?",
+      "class": 0,
+      "entities": [
+        {"start": 41, "end": 46, "text": "פריז", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "רציתי להזמין כרטיס טיסה לילד קטן.",
+      "class": 0,
+      "entities": []
+    },
+    {
+      "request": "ברצוני להזמין טיסה לספרד ליום חמישי",
+      "class": 0,
+      "entities": [
+        {"start": 18, "end": 22, "text": "ספרד", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "כמה עולה כרטיס טיסה לברצלונה?",
+      "class": 0,
+      "entities": [
+        {"start": 24, "end": 29, "text": "ברצלונה", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "אני רוצה להזמין טיסה להיום בלילה",
+      "class": 0,
+      "entities": []
+    },
+    {
+      "request": "בא לי 7 מושבים למדריד",
+      "class": 0,
+      "entities": [
+        {"start": 16, "end": 21, "text": "מדריד", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "אשמח להזמין טיסה שיוצאת עד שעה 18",
+      "class": 0,
+      "entities": []
+    },
+    {
+      "request": "יש טיסות הלוך לרומניה שיוצאת מחר בבוקר?",
+      "class": 0,
+      "entities": [
+        {"start": 18, "end": 23, "text": "רומניה", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "אני צריך שני מושבים ללונדון",
+      "class": 0,
+      "entities": [
+        {"start": 22, "end": 27, "text": "לונדון", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "אני רוצה לעשות הזמנה של טיסה",
+      "class": 0,
+      "entities": []
+    },
+    {
+      "request": "איך מזמינים טיסה למחר בבוקר?",
+      "class": 0,
+      "entities": []
+    },
+    {
+      "request": "מה המחיר של טיסה לברלין?",
+      "class": 0,
+      "entities": [
+        {"start": 20, "end": 25, "text": "ברלין", "category": "DESTINATION"}
+      ]
+    },
+    {
+      "request": "אני אשמח להזמין כרטיס טיסה לנכד שלי",
+      "class": 0,
+      "entities": []
+    }
+]
