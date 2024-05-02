@@ -8,7 +8,7 @@
       "request": "אני רוצה לטוס לסינגפור",
       "class": 0,
       "entities": [
-       {"start": 13, "end": 17, "text": "סינגפור", "category": "DESTINATION"}
+       {"start": 14, "end": 22, "text": "סינגפור", "category": "DESTINATION"}
       ]
     },
     {  
