@@ -1,176 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Airplane Seating</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-    }
-    .airplane-layout {
-        display: grid;
-        grid-template-columns: 50px repeat(6, 40px) 50px; /* 6 seats in each row */
-        grid-auto-rows: 40px; /* Height of each row */
-        grid-gap: 5px;
-        justify-content: center;
-        padding: 20px;
-        border: 2px solid #666;
-        border-radius: 10px;
-        width: 500px;
-        margin: 0 auto;
-        position: relative;
-    }
-    .seat {
-        width: 40px;
-        height: 40px;
-        background-color: #e0e0e0;
-        border: 1px solid #ccc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 0.8em;
-        cursor: pointer;
-    }
-    .seat.left-wing,
-    .seat.right-wing {
-        background-color: #a0a0a0;
-    }
-    .seat-row {
-        display: flex;
-        justify-content: center;
-    }
-    .aisle {
-        grid-column: 4 / 5; /* Middle aisle */
-    }
-    .seat.selected {
-        background-color: #4caf50;
-    }
-    h2 {
-        text-align: center;
-        color: #444;
-    }
-    .left-wing::before,
-    .right-wing::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 20px;
-        background-color: #a0a0a0;
-        border: 2px solid #666;
-        border-radius: 0 10px 10px 0;
-    }
-    .left-wing::before {
-        left: -25px;
-    }
-    .right-wing::after {
-        right: -25px;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Selection</title>
+    <link rel="stylesheet" href="../assets/css/seatOrder.css">
+    <script src="../assets/js/seatOrder.js"></script>
 </head>
 <body>
-
-<h2>Select Your Seat</h2>
-
-<div class="airplane-layout">
-    <!-- Example seats -->
-    <!-- Row 1 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">1A</button>
-    <button class="seat">1B</button>
-    <button class="seat">1C</button>
-    <button class="seat">1D</button>
-    <button class="seat">1E</button>
-    <button class="seat">1F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 2 -->
-    <!-- Repeat the seat arrangement for the remaining rows -->
-    <!-- Row 2 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">2A</button>
-    <button class="seat">2B</button>
-    <button class="seat">2C</button>
-    <button class="seat">2D</button>
-    <button class="seat">2E</button>
-    <button class="seat">2F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 3 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">3A</button>
-    <button class="seat">3B</button>
-    <button class="seat">3C</button>
-    <button class="seat">3D</button>
-    <button class="seat">3E</button>
-    <button class="seat">3F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 4 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">4A</button>
-    <button class="seat">4B</button>
-    <button class="seat">4C</button>
-    <button class="seat">4D</button>
-    <button class="seat">4E</button>
-    <button class="seat">4F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 5 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">5A</button>
-    <button class="seat">5B</button>
-    <button class="seat">5C</button>
-    <button class="seat">5D</button>
-    <button class="seat">5E</button>
-    <button class="seat">5F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 6 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">6A</button>
-    <button class="seat">6B</button>
-    <button class="seat">6C</button>
-    <button class="seat">6D</button>
-    <button class="seat">6E</button>
-    <button class="seat">6F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 7 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">7A</button>
-    <button class="seat">7B</button>
-    <button class="seat">7C</button>
-    <button class="seat">7D</button>
-    <button class="seat">7E</button>
-    <button class="seat">7F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 8 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">8A</button>
-    <button class="seat">8B</button>
-    <button class="seat">8C</button>
-    <button class="seat">8D</button>
-    <button class="seat">8E</button>
-    <button class="seat">8F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 9 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">9A</button>
-    <button class="seat">9B</button>
-    <button class="seat">9C</button>
-    <button class="seat">9D</button>
-    <button class="seat">9E</button>
-    <button class="seat">9F</button>
-    <div class="seat right-wing"></div>
-    <!-- Row 10 -->
-    <div class="seat left-wing"></div>
-    <button class="seat">10A</button>
-    <button class="seat">10B</button>
-    <button class="seat">10C</button>
-    <button class="seat">10D</button>
-    <button class="seat">10E</button>
-    <button class="seat">10F</button>
-    <div class="seat right-wing"></div>
-    
-    <!-- Repeat for remaining rows -->
-</div>
-
+    <div class="container" id="container">
+        <div class="plane">
+            <!-- Wings -->
+            <div class="wing left"></div>
+            <div class="wing right"></div>
+            
+            <!-- Rows will be dynamically added here -->
+            <div class="rows"></div>
+        </div>
+        <button id="nextButton" style="display:none;">Next</button>
+    </div>
 </body>
 </html>
