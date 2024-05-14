@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>FlightBot Client</title>
 
     <!-- Add Firebase products that you want to use -->
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js'
-    
-        // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
-        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js'
-    
-        // Add Firebase products that you want to use
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
         window.firebase = {
           initializeApp,
           getAnalytics,
@@ -25,24 +21,20 @@
           createUserWithEmailAndPassword,
           signOut
         };
-      </script>
-    <script defer type="module" src="./firebase.js"></script>
-    <script defer type="module" src="./auth.js"></script>
+    </script>
+    <script defer type="module" src="{{ url_for('static', filename='firebase.js') }}"></script>
+    <script defer type="module" src="{{ url_for('static', filename='auth.js') }}"></script>
 </head>
 <body>
     <h2 class="headline">FlightBot Client</h2>
 
     <div dir="rtl" class="chat-container">
-
         <div class="chat-messages" id="chat-messages"></div>
-
         <div class="input-container">
-            <input type="text" id="messageInput" placeholder="כתוב הודעה">
+            <input type="text" id="messageInput" placeholder="כתוב הודעה" onkeydown="handleKeyDown(event)">
             <button id="submitButton" onclick="onSendMessage()">שלח</button>
         </div>
-
     </div>
-
-    <script src="./index.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>

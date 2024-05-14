@@ -1,3 +1,9 @@
+function handleKeyDown(event) {
+  if (event.key === 'Enter') {
+      onSendMessage();
+  }
+}
+
 async function onSendMessage() {
   const input = document.getElementById('messageInput');
   
@@ -17,9 +23,8 @@ async function onSendMessage() {
     input.value = "";
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-  
 
-  const response = await fetch(`http://localhost:3000/api/flightbot/${val}`, {
+  const response = await fetch(`/api/flightbot/${encodeURIComponent(val)}`, {
     method: 'POST'
   });
   const message = await response.text();
