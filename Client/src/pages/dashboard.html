@@ -45,6 +45,11 @@
             }
         }, 100)
     </script>
+    <script>
+        const logOutForm = () => {
+            window.signOut();
+        }
+    </script>
 </head>
 
 <body>
@@ -61,6 +66,8 @@
         </div>
 
     </div>
+
+    <button onclick="logOutForm()">SignOut</button>
 
     <script src="/src/assets/js/dashboard.js"></script>
 </body>
