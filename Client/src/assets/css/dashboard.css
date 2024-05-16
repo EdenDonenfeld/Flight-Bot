@@ -71,7 +71,7 @@ body {
     cursor: pointer;
 }
 
-.signOut {
+.signOut, .myTickets, .seatOrder {
     margin: 10px 0;
     padding: 12px;
     border-radius: 25px;
@@ -84,10 +84,10 @@ body {
 
 }
 
-.signOut:hover {
+.signOut:hover, .myTickets:hover, .seatOrder:hover {
     background-color: #266328;
 }
 
-.signOut:active {
+.signOut:active, .myTickets:active, .seatOrder:active {
     transform: translateY(2px);
 }

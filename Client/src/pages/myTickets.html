@@ -45,39 +45,10 @@
             }
         }, 100)
     </script>
-    <script>
-        const logOutForm = () => {
-            window.signOut();
-        }
-        const myTicketsForm = () => {
-            window.location.assign('../myTickets');
-        }
-        const seatOrderForm = () => {
-            window.location.assign('../pages/seatOrder.html');
-        }
-    </script>
 </head>
 
 <body>
-    <h2 class="headline">FlightBot Client</h2>
-    <h2 class="headline" id="helloEmail"> Hello </h2>
-
-    <div dir="rtl" class="chat-container">
-
-        <div class="chat-messages" id="chat-messages"></div>
-
-        <div class="input-container">
-            <input type="text" id="messageInput" placeholder="כתוב הודעה">
-            <button id="submitButton" onclick="onSendMessage()">שלח</button>
-        </div>
-
-    </div>
-
-    <button class="signOut" onclick="logOutForm()">SignOut</button>
-    <button class="myTickets" onclick="window.location.assign=('/myTickets')">MyTickets</button>
-    <button class="seatOrder" onclick="window.location.href='seatOrder.html'">OrderSeat</button>
-
-    <script src="/src/assets/js/dashboard.js"></script>
+    <h1>Hello</h1>
 </body>
 
 </html>

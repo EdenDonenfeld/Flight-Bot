@@ -18,6 +18,18 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '..','Client','src', 'pages', 'dashboard.html'));
 })
 
+app.get('/signUp', (req, res) => {
+  res.sendFile(path.join(__dirname, '..','Client','src', 'pages', 'signUp.html'));
+})
+
+app.get('/seatOrder', (req, res) => {
+  res.sendFile(path.join(__dirname, '..','Client','src', 'pages', 'seatOrder.html'));
+})
+
+app.get('/myTickets', (req, res) => {
+  res.sendFile(path.join(__dirname, '..','Client','src', 'pages', 'myTickets.html'));
+})
+
 // user sent a message to flightbot
 // app.post('/api/flightbot/:message', (req, res) => {
 //   const msg = req.params.message;
