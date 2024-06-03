@@ -1,0 +1,25 @@
+from transformers import BertTokenizer, TFBertForSequenceClassification
+import tensorflow as tf
+# Load tokenizer and model
+def load_class_model(model_path):
+    tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+    model = TFBertForSequenceClassification.from_pretrained(model_path)
+    return tokenizer, model
+
+# Function to classify a sentence
+def classify_sentence(tokenizer, model, sentence):
+    # Tokenize and encode the input sentence
+    inputs = tokenizer(sentence, return_tensors='tf', padding=True, truncation=True)
+
+    # Make prediction
+    logits = model(inputs)[0]
+
+    # Get predicted class label
+    predicted_class = tf.argmax(logits, axis=1).numpy()[0]
+
+    return predicted_class
+
+def analyze_class(model_path, sentence):
+    tokenizer, model = load_class_model(model_path)
+    predicted_class = classify_sentence(tokenizer, model, sentence)
+    return predicted_class
