@@ -159,6 +159,30 @@ def change_dest(user_id: str, ticket_id: str, new_dest: str, new_seats: list):
     new_ticket_id = order_ticket(user_id, flight_num, new_seats)
     return new_ticket_id
 
+
+def check_status(user_id: str, ticket_id: str):
+    # Call the data base - check the status of the flight
+    db = firestore.client()
+    user_ref = db.collection('Users').document(user_id)
+    user = user_ref.get()
+
+    if not user.exists:
+        print("User", user_id, "does not exist in the database")
+        return
+    
+    user_data = user.to_dict()
+    user = User.from_dict(user_data)
+
+    ticket_data = user.get_ticket_by_id(ticket_id)
+    ticket = Ticket.from_dict(ticket_data)
+
+    flight_num = ticket.get_flight_num()
+    flight_ref = db.collection('Flights').document(flight_num)
+    flight = flight_ref.get().to_dict()
+
+    return flight["Status"]
+
+
 def main():
     cred = credentials.Certificate("Server/database/flightbot-credentials.json")
     firebase_admin.initialize_app(cred)
@@ -183,6 +207,9 @@ def main():
 
     # refund_ticket("12345678", "3cb89ff2")
     # refund_ticket("87654321", "5895a24f")
+
+    status = check_status("12345678", "3be7af8c")
+    print("Status:", status)
 
 
 if __name__ == '__main__':
