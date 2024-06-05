@@ -183,9 +183,74 @@ def check_status(user_id: str, ticket_id: str):
     return flight["Status"]
 
 
+def search_flights(origin: str, destination: str, date: datetime):
+    # Call the data base - search for flights
+    # date is y/m/d
+    # return 3 closest flights, if there's less than 3, return all
+    # add flights to the database
+    db = firestore.client()
+    flights = db.collection('Flights').where("Origin", "==", origin).where("Destination", "==", destination)
+    flights_list = flights.get()
+    if flights_list is None:
+        print("No flights found")
+        return None
+        
+    # Check for flights with the same date or 1 day or 2 days before or after
+
+    # Case 1: Best Case: date is the same, return all posible flights
+
+    date = date.date()
+
+    flights_list_1 = []
+    for flight in flights_list:
+        flight_data = flight.to_dict()
+        flight_date = flight_data["Date"]
+        flight_date_converted = flight_date.date()
+        if date == flight_date_converted:
+            flights_list_1.append(flight_data["FlightNumber"])
+
+    if flights_list_1:
+        return flights_list_1
+    
+    # Case 2: no flight in the same day, date is 1 day before or after
+    flights_list_2 = []
+    for flight in flights_list:
+        flight_data = flight.to_dict()
+        flight_date = flight_data["Date"]
+        flight_date_converted = flight_date.date()
+        difference = abs((date - flight_date_converted).days)
+        if difference <= 1:
+            flights_list_2.append(flight_data["FlightNumber"])
+    
+    if len(flights_list_2) > 2:
+        # there are 3 or more flights, return all
+        return flights_list_2
+    
+    # Case 3: Worst Case: no flight in the same day or 1 day before or after, date is 2 days before or after
+    flights_list_3 = []
+    for flight in flights_list:
+        flight_data = flight.to_dict()
+        flight_date = flight_data["Date"]
+        flight_date_converted = flight_date.date()
+        difference = abs((date - flight_date_converted).days)
+        if difference <= 2:
+            flights_list_3.append(flight_data["FlightNumber"])
+
+    if flights_list_3:
+        return flights_list_3
+        
+    return None
+
+
 def main():
     cred = credentials.Certificate("Server/database/flightbot-credentials.json")
     firebase_admin.initialize_app(cred)
+
+    flights = search_flights("JFK", "LAX", datetime(2024, 5, 12))
+    print("1: ", flights)
+
+    flights = search_flights("JFK", "LAX", datetime(2024, 5, 31))
+    print("2: ", flights)
 
     # TODO
     # User id is not random, its extracted from user's authentication firebase db - UID

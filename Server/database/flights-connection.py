@@ -124,6 +124,29 @@ flight10 = Flight(
     seats=seats_list  # Generates the seat list programmatically
 )
 
+flight11 = Flight(
+    flight_number='FB1235',
+    origin='JFK',
+    destination='LAX',
+    date=datetime.datetime(2024, 5, 30, 8, 0, 0),
+    duration='05:00',
+    price='500',
+    status='On Time',
+    seats=seats_list  # Generates the seat list programmatically
+)
+
+
+flight12 = Flight(
+    flight_number='FB1236',
+    origin='JFK',
+    destination='LAX',
+    date=datetime.datetime(2024, 5, 31, 12, 0, 0),
+    duration='05:00',
+    price='500',
+    status='On Time',
+    seats=seats_list  # Generates the seat list programmatically
+)
+
 
 # Save the flight to Firestore
 flight1.save(db)
@@ -136,3 +159,5 @@ flight7.save(db)
 flight8.save(db)
 flight9.save(db)
 flight10.save(db)
+flight11.save(db)
+flight12.save(db)

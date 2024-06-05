@@ -12,7 +12,7 @@ from nlpAnalyze import analyze_class
 from database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
 
 
-def lanch_functions(predicted_label, uid,):
+def lanch_functions(predicted_label):
     if predicted_label == 0:
         # order ticket(uid, flight_num, seats)
         order_ticket()
