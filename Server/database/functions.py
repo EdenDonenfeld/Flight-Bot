@@ -197,7 +197,7 @@ def search_flights(origin: str, destination: str, date: datetime):
         
     # Check for flights with the same date or 1 day or 2 days before or after
 
-    # Case 1: Best Case: date is the same, return all posible flights
+    # Case 1: Best Case: date is the same, return all possible flights
 
     date = date.date()
 
