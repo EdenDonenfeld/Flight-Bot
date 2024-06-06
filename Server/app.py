@@ -1,16 +1,16 @@
 import sys
 import os
+from flask import Flask, render_template, request, jsonify
+from database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
+from flow.flow_functions import analyze_class
+from flow.extract_functions import extract_places, extract_dates
+# from nlpAnalyze import analyze_class
 
 # Add the Server directory to sys.path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 server_dir = os.path.join(parent_dir, 'Server')
 sys.path.append(server_dir)
-
-from flask import Flask, render_template, request, jsonify
-from nlpAnalyze import analyze_class
-from database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
-
 
 def lanch_functions(predicted_label, uid,):
     if predicted_label == 0:
@@ -55,6 +55,7 @@ def create_app():
 
         print("Received message:", message)
         predicted_label, text = analyze_class(message)
+        
         # lanch_functions(predicted_label, uid)
         return jsonify({'response': text})
 

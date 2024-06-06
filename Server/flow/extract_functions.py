@@ -1,0 +1,71 @@
+import re
+
+# returns an array of dates in the text format of only with numbers
+def extract_dates(text):
+    # Corrected date pattern
+    date_pattern = r"\d{1,2}[./\-\s]\d{1,2}(?:[./\-\s]\d{2,4})?"
+
+    # Find all matches
+    matches = re.findall(date_pattern, text)
+    
+    # Sort matches by length in descending order
+    matches = sorted(matches, key=len, reverse=True)
+    
+    filtered_dates = []
+    seen = set()
+    
+    for match in matches:
+        # Check if the current match is not a substring of any already seen longer date
+        if not any(longer_match for longer_match in seen if match in longer_match):
+            filtered_dates.append(match)
+            seen.add(match)
+    
+    return filtered_dates
+
+import re
+
+
+#same code but in a function
+def extract_places(text):
+    places = ["ישראל", "יוון", "תל אביב", "ניו יורק", "לוס אנג'לס", "פריז", "לונדון", "ברלין", "רומא", "מדריד", "אמסטרדם", "פראג", "בודפשט", "וינה", "פרנקפורט", "מינכן", "זיריך", "קופנהגן", "אוסלו", "סטוקהולם", "הלסינקי", "ריגה", "וילנה", "קייב", "מוסקבה", "סנט פטרסבורג", "קראקוב", "וורשה", "בוקרשט", "סופיה", "בוקרשט", "בודפשט", "פראג", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון", "פריז", "לונדון", "מדריד", "ברצלונה", "רומא", "מילאנו", "פירנצה", "וינציה", "פראג", "ברטיסלבה", "בודפשט", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון"]
+    places_pattern = "|".join(places)
+
+    before_origin = ["מ", "מאת", "מן", "מן ה"]
+    before_destination = ["ל", "אל", "לאת", "לכיוון", "לכיוון של", "לכיוון של ה", "לכיוון שלא", "לכיוון שלאת"]
+
+    entities = {
+        "Origin": None,
+        "Destination": None,
+        "Date": None
+    }
+        
+    place_matches = re.findall(places_pattern, text)
+    # print(place_matches)
+    if place_matches:
+        for i, place in enumerate(place_matches):
+            if len(place_matches) == 2:
+                other_place = place_matches[i-1]
+            part_to_check = text.split(place)[0]
+            first_part_to_check = part_to_check.split(" ")[-1]
+            second_part_to_check = part_to_check.split(" ")[-2]
+            #check if the parts are in before_origin or before_destination
+            if first_part_to_check in before_origin or second_part_to_check in before_origin:
+                entities["Origin"] = place
+                if len(place_matches) == 2:
+                    entities["Destination"] = other_place
+            elif first_part_to_check in before_destination or second_part_to_check in before_destination:
+                entities["Destination"] = place
+                if len(place_matches) == 2:
+                    entities["Origin"] = other_place
+        #if didnt find origin or destination set the first place as origin
+        if entities["Origin"] == None:
+            entities["Origin"] = place_matches[0]
+        #if didnt find destination set the second place as destination
+        if entities["Destination"] == None and len(place_matches) == 2:
+            entities["Destination"] = place_matches[1]
+    else:
+        print("No places found")
+    return entities
+    
+    
+
