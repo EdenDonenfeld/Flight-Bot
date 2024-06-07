@@ -1,18 +1,16 @@
 import sys
 import os
 
-# Add the Server directory to sys.path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-server_dir = os.path.join(parent_dir, 'Server')
-sys.path.append(server_dir)
+# # Add the Server directory to sys.path
+# current_dir = os.path.dirname(os.path.abspath(__file__))
+# parent_dir = os.path.dirname(current_dir)
+# server_dir = os.path.join(parent_dir, 'Server')
+# sys.path.append(parent_dir)
 
 from flask import Flask, render_template, request, jsonify
-from database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
-from flow.flow_functions import analyze_class
-from flow.extract_functions import extract_places, extract_dates
-
-
+from Server.flow.flow_functions import analyze_class
+from Server.flow.extract_functions import extract_entities
+from Server.database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
 
 
 
@@ -59,7 +57,10 @@ def create_app():
 
         print("Received message:", message)
         predicted_label, text = analyze_class(message)
-        
+        entities = extract_entities(message, predicted_label)
+        print("Entities:", entities)
+        #return text and entities
+        text += str(entities)
         # lanch_functions(predicted_label, uid)
         return jsonify({'response': text})
 

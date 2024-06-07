@@ -1,9 +1,9 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from ticket import Ticket
-from user import User
-from flight import Flight
+from Server.database.ticket import Ticket
+from Server.database.user import User
+from Server.database.flight import Flight
 from datetime import datetime
 
 

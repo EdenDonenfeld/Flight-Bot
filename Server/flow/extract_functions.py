@@ -1,5 +1,33 @@
 import re
 
+def extract_entities(text, class_label):
+    entities = {
+        "Origin": None,
+        "Destination": None,
+        "Date": None,
+        "Date2": None
+    }
+    if class_label == 0:
+        entities["Origin"], entities["Destination"] = extract_places(text)
+        if extract_dates(text):
+            entities["Date"] = extract_dates(text)[0]
+        
+    elif class_label == 1:
+        entities["Origin"], entities["Destination"] = extract_places(text)
+        if extract_dates(text):
+            entities["Date"] = extract_dates(text)[0]
+    elif class_label == 2:
+        return extract_places(text)
+    elif class_label == 3:
+        return extract_dates(text)
+    elif class_label == 4:
+        return extract_places(text)
+    elif class_label == 5:
+        return extract_places(text)
+    else:
+        return extract_places(text)
+    return entities
+    
 # returns an array of dates in the text format of only with numbers
 def extract_dates(text):
     # Corrected date pattern
@@ -33,12 +61,9 @@ def extract_places(text):
     before_origin = ["מ", "מאת", "מן", "מן ה"]
     before_destination = ["ל", "אל", "לאת", "לכיוון", "לכיוון של", "לכיוון של ה", "לכיוון שלא", "לכיוון שלאת"]
 
-    entities = {
-        "Origin": None,
-        "Destination": None,
-        "Date": None
-    }
-        
+    Origin = None
+    Destination = None
+
     place_matches = re.findall(places_pattern, text)
     # print(place_matches)
     if place_matches:
@@ -50,22 +75,22 @@ def extract_places(text):
             second_part_to_check = part_to_check.split(" ")[-2]
             #check if the parts are in before_origin or before_destination
             if first_part_to_check in before_origin or second_part_to_check in before_origin:
-                entities["Origin"] = place
+                Origin = place
                 if len(place_matches) == 2:
-                    entities["Destination"] = other_place
+                    Destination = other_place
             elif first_part_to_check in before_destination or second_part_to_check in before_destination:
-                entities["Destination"] = place
+                Destination = place
                 if len(place_matches) == 2:
-                    entities["Origin"] = other_place
+                    Origin = other_place
         #if didnt find origin or destination set the first place as origin
-        if entities["Origin"] == None:
-            entities["Origin"] = place_matches[0]
+        if Origin == None:
+            Origin = place_matches[0]
         #if didnt find destination set the second place as destination
-        if entities["Destination"] == None and len(place_matches) == 2:
-            entities["Destination"] = place_matches[1]
+        if Destination == None and len(place_matches) == 2:
+            Destination = place_matches[1]
     else:
         print("No places found")
-    return entities
+    return Origin, Destination
     
     
 

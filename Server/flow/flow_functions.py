@@ -28,9 +28,9 @@ def classify_sentence(tokenizer, model, sentence):
 #     sys.exit(1)
 
 def analyze_class(sentence):
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    model_path = os.path.join(current_dir, 'saved_model')  # Path to the directory where you saved your trained model 
-    
+    # current_dir = os.path.dirname(os.path.abspath(__file__))
+    # model_path = os.path.join(current_dir, 'saved_model')  # Path to the directory where you saved your trained model 
+    model_path = "server/saved_model"
     tokenizer, model = load_model(model_path)
     predicted_label = classify_sentence(tokenizer, model, sentence)
     
