@@ -1,4 +1,42 @@
 import re
+APCode = {
+        "ישראל": "TLV",
+        "יוון": "ATH",
+        "תל אביב": "TLV",
+        "ניו יורק": "JFK",
+        "לוס אנג'לס": "LAX",
+        "פריז": "CDG",
+        "לונדון": "LHR",
+        "ברלין": "TXL",
+        "רומא": "FCO",
+        "מדריד": "MAD",
+        "אמסטרדם": "AMS",
+        "פראג": "PRG",
+        "בודפשט": "BUD",
+        "וינה": "VIE",
+        "פרנקפורט": "FRA",
+        "מינכן": "MUC",
+        "זיריך": "ZRH",
+        "קופנהגן": "CPH",
+        "אוסלו": "OSL",
+        "סטוקהולם": "ARN",
+        "הלסינקי": "HEL",
+        "ריגה": "RIX",
+        "וילנה": "VNO",
+        "קייב": "KBP",
+        "מוסקבה": "SVO",
+        "סנט פטרסבורג": "LED",
+        "קראקוב": "KRK",
+        "וורשה": "WAW",
+        "בוקרשט": "OTP",
+        "סופיה": "SOF",
+        "פראג": "PRG",
+        "וינה": "VIE",
+        "זלצבורג": "ZRH",
+        "קראקוב": "KRK",
+        "פרנקפורט": "FRA",
+        "מינכן": "MUC"
+    }   
 
 def extract_entities(text, class_label):
     entities = {
@@ -11,6 +49,8 @@ def extract_entities(text, class_label):
         entities["Origin"], entities["Destination"] = extract_places(text)
         if extract_dates(text):
             entities["Date"] = extract_dates(text)[0]
+        entities["Origin"] = extract_APCode(entities["Origin"])
+        entities["Destination"] = extract_APCode(entities["Destination"])
         
     elif class_label == 1:
         entities["Origin"], entities["Destination"] = extract_places(text)
@@ -55,7 +95,8 @@ import re
 
 #same code but in a function
 def extract_places(text):
-    places = ["ישראל", "יוון", "תל אביב", "ניו יורק", "לוס אנג'לס", "פריז", "לונדון", "ברלין", "רומא", "מדריד", "אמסטרדם", "פראג", "בודפשט", "וינה", "פרנקפורט", "מינכן", "זיריך", "קופנהגן", "אוסלו", "סטוקהולם", "הלסינקי", "ריגה", "וילנה", "קייב", "מוסקבה", "סנט פטרסבורג", "קראקוב", "וורשה", "בוקרשט", "סופיה", "בוקרשט", "בודפשט", "פראג", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון", "פריז", "לונדון", "מדריד", "ברצלונה", "רומא", "מילאנו", "פירנצה", "וינציה", "פראג", "ברטיסלבה", "בודפשט", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון"]
+    # places = ["ישראל", "יוון", "תל אביב", "ניו יורק", "לוס אנג'לס", "פריז", "לונדון", "ברלין", "רומא", "מדריד", "אמסטרדם", "פראג", "בודפשט", "וינה", "פרנקפורט", "מינכן", "זיריך", "קופנהגן", "אוסלו", "סטוקהולם", "הלסינקי", "ריגה", "וילנה", "קייב", "מוסקבה", "סנט פטרסבורג", "קראקוב", "וורשה", "בוקרשט", "סופיה", "בוקרשט", "בודפשט", "פראג", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון", "פריז", "לונדון", "מדריד", "ברצלונה", "רומא", "מילאנו", "פירנצה", "וינציה", "פראג", "ברטיסלבה", "בודפשט", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון"]
+    places = list(APCode.keys())
     places_pattern = "|".join(places)
 
     before_origin = ["מ", "מאת", "מן", "מן ה"]
@@ -92,5 +133,6 @@ def extract_places(text):
         print("No places found")
     return Origin, Destination
     
-    
-
+#function to extract the airport code from the place
+def extract_APCode(place):
+    return APCode[place] if place in APCode else None    
