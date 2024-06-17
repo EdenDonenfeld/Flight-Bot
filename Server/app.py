@@ -84,8 +84,17 @@ def create_app():
 
         print("Received message:", message)
         predicted_label, text = analyze_class(message)
+
+        # validate predicated label
+
         entities = extract_entities(message, predicted_label)
         print("Entities:", entities)
+
+        #check for missing entities
+        
+        #validate entities
+
+
         #return text and entities
         text += str(entities)
         # lanch_functions(predicted_label, uid)
