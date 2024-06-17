@@ -49,6 +49,7 @@ def extract_entities(text, class_label):
         entities["Origin"], entities["Destination"] = extract_places(text)
         if extract_dates(text):
             entities["Date"] = extract_dates(text)[0]
+            # entities["Date"] = format_date(entities["Date"])
         entities["Origin"] = extract_APCode(entities["Origin"])
         entities["Destination"] = extract_APCode(entities["Destination"])
         
