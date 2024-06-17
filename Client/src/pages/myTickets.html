@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/assets/css/dashboard.css">
+    <title>FlightBot Client</title>
+
+    <!-- Add Firebase products that you want to use -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js'
+
+        // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js'
+
+        // Add Firebase products that you want to use
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+        window.firebase = {
+            initializeApp,
+            getAnalytics,
+            getAuth,
+            getFirestore,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged
+        };
+    </script>
+    <script defer type="module" src="/static/src/assets/js/firebase.js"></script>
+    <script defer type="module" src="/static/src/assets/js/auth.js"></script>
+    <script defer>
+        const i = setInterval(() => {
+            if (window.getCurrentUser) {
+                window.setCallbackAuthChanged((user) => {
+                    if (!user) {window.location.assign('/')}
+                    else {
+                        const email = user.email
+                        const element = document.getElementById("helloEmail")
+                        element.textContent = "Hello " + email
+                    }
+                })
+                clearInterval(i)
+            }
+        }, 100)
+    </script>
+</head>
+
+<body>
+    <h1>Hello</h1>
+</body>
+
+</html>

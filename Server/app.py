@@ -7,7 +7,8 @@ import os
 # server_dir = os.path.join(parent_dir, 'Server')
 # sys.path.append(parent_dir)
 
-from flask import Flask, render_template, request, jsonify
+import mimetypes
+from flask import Flask, render_template, request, jsonify, send_file
 from Server.flow.flow_functions import analyze_class
 from Server.flow.extract_functions import extract_entities
 from Server.database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
@@ -42,9 +43,35 @@ def lanch_functions(predicted_label):
 def create_app():
     app = Flask(__name__, static_folder='../Client', template_folder='../Client')
 
-    @app.route('/chat')
+    mimetypes.init()
+    mimetypes.add_type('application/javascript', '.js')
+    mimetypes.add_type('text/css', '.css')
+    print(mimetypes.guess_type('auth.js'))
+
+    def get_mimetype(filename):
+        return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+
+    @app.route('/static/<path:filename>')
+    def serve_static(filename):
+        root_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(root_dir, '..', 'Client', filename)
+        if os.path.isfile(file_path):
+            mimetype = get_mimetype(filename)
+            return send_file(file_path, mimetype=mimetype)
+        else:
+            return 'File not found', 404
+
+    @app.route('/')
     def chat():
         return render_template('index.html')
+    
+    @app.route('/signUp')
+    def signUp():
+        return render_template('/src/pages/signUp.html')
+    
+    @app.route('/dashboard')
+    def dashboard():
+        return render_template('/src/pages/dashboard.html')
 
     @app.route('/api/flightbot', methods=['POST'])
     def flightbot():
