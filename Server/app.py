@@ -12,7 +12,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 from Server.flow.flow_functions import analyze_class
 from Server.flow.extract_functions import extract_entities
 from Server.database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
-
+from Server.flow.check_for_missing_entities import check_for_missing
 
 
 def lanch_functions(predicted_label):
@@ -92,7 +92,8 @@ def create_app():
         print("Entities:", entities)
 
         #check for missing entities
-        
+        check = check_for_missing(entities, predicted_label)
+
         #validate entities
 
 
