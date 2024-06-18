@@ -154,7 +154,10 @@ def format_date(date):
             # if year is given with 2 digits, add 20 to the beginning (24 => 2024)
             parts[2] = '20' + parts[2]
             date = '/'.join(parts)
-        date_obj = datetime.strptime(date, date_format)
+        try:
+            date_obj = datetime.strptime(date, date_format)
+        except ValueError:
+            return None
         return date_obj
 
     # day-month
@@ -162,10 +165,21 @@ def format_date(date):
         parts.append(str(datetime.today().year))
         print(parts)
         date = '/'.join(parts)
-        date_obj = datetime.strptime(date, date_format)
+        try:
+            date_obj = datetime.strptime(date, date_format)
+        except ValueError:
+            return None
         if date_obj < datetime.today():
             date_obj = date_obj.replace(year=date_obj.year + 1)
         return date_obj
+
+
+def is_valid_date(day, month, year=2024):
+    day_count_for_month = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
+        day_count_for_month[2] = 29
+    print(year, month, day, day_count_for_month[month])
+    return (1 <= month <= 12 and 1 <= day <= day_count_for_month[month])
 
         
 def valid_date_check(date):
@@ -183,14 +197,18 @@ def valid_date_check(date):
 
 def main():
     # For testing purposes
-    dates = ['12/12/2022', '12/12/22', '12-12-2022', '12-12-22', '12.12.2022', '12.12.22', '12/12', '12-5', '12.12']
+    dates = ['12/12/2022', '12/12/22', '12-12-2022', '12-12-22', '12.12.2022', '12.12.22', '12/12', '12-5', '12.12', '13.13']
     counter = 1
     for date in dates:
         print(f"Test {counter}")
         print(date)
         date = format_date(date)
-        print(date)
-        print(valid_date_check(date))
+        if date:
+            print(date)
+            print(is_valid_date(date.day, date.month, date.year))
+            print(valid_date_check(date))
+        else:
+            print("Invalid date")
         counter += 1
 
 
