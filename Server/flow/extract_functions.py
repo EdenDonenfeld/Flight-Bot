@@ -91,12 +91,8 @@ def extract_dates(text):
     
     return filtered_dates
 
-import re
-
-
 #same code but in a function
 def extract_places(text):
-    # places = ["ישראל", "יוון", "תל אביב", "ניו יורק", "לוס אנג'לס", "פריז", "לונדון", "ברלין", "רומא", "מדריד", "אמסטרדם", "פראג", "בודפשט", "וינה", "פרנקפורט", "מינכן", "זיריך", "קופנהגן", "אוסלו", "סטוקהולם", "הלסינקי", "ריגה", "וילנה", "קייב", "מוסקבה", "סנט פטרסבורג", "קראקוב", "וורשה", "בוקרשט", "סופיה", "בוקרשט", "בודפשט", "פראג", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון", "פריז", "לונדון", "מדריד", "ברצלונה", "רומא", "מילאנו", "פירנצה", "וינציה", "פראג", "ברטיסלבה", "בודפשט", "וינה", "זלצבורג", "קראקוב", "פרנקפורט", "מינכן", "ברלין", "קולון"]
     places = list(APCode.keys())
     places_pattern = "|".join(places)
 
@@ -138,10 +134,66 @@ def extract_places(text):
 def extract_APCode(place):
     return APCode[place] if place in APCode else None  
 
-# def format_date(date):
+def format_date(date):
+    from datetime import datetime
     # 1. date could be in a few formats - dd/mm/yyyy, dd-mm-yyyy, dd.mm.yyyy or without year - dd/mm, dd-mm, dd.mm
     # 2. if only day and month are given, check if possible for current year, if not, check for next year
     # 3. convert the date to the format dd/mm/yyyy
     # 5. conver to datetime object
     # 6. return the datetime object
+
+    date_format = '%d/%m/%Y'
+
+    date = date.replace('-', '/')
+    date = date.replace('.', '/')
+    parts = date.split('/')
     
+    # day-month-year
+    if len(parts) == 3:
+        if len(parts[2]) == 2:
+            # if year is given with 2 digits, add 20 to the beginning (24 => 2024)
+            parts[2] = '20' + parts[2]
+            date = '/'.join(parts)
+        date_obj = datetime.strptime(date, date_format)
+        return date_obj
+
+    # day-month
+    if len(parts) == 2:
+        parts.append(str(datetime.today().year))
+        print(parts)
+        date = '/'.join(parts)
+        date_obj = datetime.strptime(date, date_format)
+        if date_obj < datetime.today():
+            date_obj = date_obj.replace(year=date_obj.year + 1)
+        return date_obj
+
+        
+def valid_date_check(date):
+    from datetime import datetime
+    # 1. check if the date is in the past
+    # 2. check if the date is in the next 2 years
+    # 3. return True if the date is valid, False otherwise
+
+    if date < datetime.today():
+        return False
+    if date.year > datetime.today().year + 2:
+        return False
+    return True
+
+
+def main():
+    # For testing purposes
+    dates = ['12/12/2022', '12/12/22', '12-12-2022', '12-12-22', '12.12.2022', '12.12.22', '12/12', '12-5', '12.12']
+    counter = 1
+    for date in dates:
+        print(f"Test {counter}")
+        print(date)
+        date = format_date(date)
+        print(date)
+        print(valid_date_check(date))
+        counter += 1
+
+
+
+if __name__ == "__main__":
+    main()
