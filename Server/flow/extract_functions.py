@@ -138,10 +138,10 @@ def extract_places(text):
 def extract_APCode(place):
     return APCode[place] if place in APCode else None  
 
-def format_date(date):
+# def format_date(date):
     # 1. date could be in a few formats - dd/mm/yyyy, dd-mm-yyyy, dd.mm.yyyy or without year - dd/mm, dd-mm, dd.mm
     # 2. if only day and month are given, check if possible for current year, if not, check for next year
     # 3. convert the date to the format dd/mm/yyyy
     # 5. conver to datetime object
     # 6. return the datetime object
-
+    

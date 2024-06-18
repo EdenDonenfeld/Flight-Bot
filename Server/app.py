@@ -84,7 +84,8 @@ def create_app():
 
         print("Received message:", message)
         predicted_label, text = analyze_class(message)
-
+        # Convert predicted_label to a regular Python integer
+        predicted_label = int(predicted_label)
         # validate predicated label
 
         entities = extract_entities(message, predicted_label)
@@ -96,8 +97,10 @@ def create_app():
 
 
         #return text and entities
-        text += str(entities)
+        # response_message = text + " " + str(entities)
+        response_message = f"{text} {str(entities)}"
+
         # lanch_functions(predicted_label, uid)
-        return jsonify({'response': text})
+        return jsonify({'response': response_message, 'predicted_label': predicted_label})
 
     return app
