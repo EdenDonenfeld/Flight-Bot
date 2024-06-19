@@ -1,4 +1,4 @@
-// import { createFlightCard } from './flightCard.js';
+import { createFlightCard } from './flightCard.js';
 
 function handleKeyDown(event) {
   if (event.key === 'Enter') {
@@ -48,7 +48,7 @@ async function onSendMessage() {
     const predictedLabel = data.predicted_label;
     const responseData = data.response_data;
     const entities = data.entities;
-    
+
     ///confirmation message
     const userConfirmed = confirm("I interpreted your message as: " + responseData + ". Is this correct?");
     console.log(userConfirmed);
@@ -61,6 +61,18 @@ async function onSendMessage() {
     newMessage.textContent = message;
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    if (predictedLabel == 0) {
+      const flight = {
+        "departure_time": "9:00",
+        "origin": "TLV",
+        "duration": "2:30",
+        "arrival_time": "11:30",
+        "destination": "ATH",
+        "price": "200$"
+      }
+      createFlightCard(flight);
+    }
     
     if (userConfirmed) {
       validatedAction(predictedLabel, entities);

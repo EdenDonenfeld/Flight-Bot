@@ -91,7 +91,10 @@ def create_app():
         data = request.get_json()
         entities = data.get('entities', '')
         entities = json.loads(entities)
-        entities["Date"] = format_date(entities["Date"])
+        try:
+            entities["Date"] = format_date(entities["Date"])
+        except:
+            pass
 
         label = data.get('label', '')
         user = data.get('user', '')

@@ -30,7 +30,7 @@ body {
     overflow-y: auto;
 }
 
-.message, .message-back {
+.message, .message-back, .card {
     display: flex;
     flex-direction: column;
     text-align: right;
@@ -54,7 +54,79 @@ body {
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #bcf2bd;
-}  
+}
+
+.card {
+    display: grid;
+    grid-template-areas:
+        "departure duration arrival"
+        "origin arrow destination"
+        "price price price";
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-gap: 10px;
+    justify-content: center;
+    align-self: center;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.departure {
+    grid-area: departure;
+    color: #2C3E50; /* Dark blue-gray */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.arrival {
+    grid-area: arrival;
+    color: #2C3E50; /* Dark blue-gray */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.origin {
+    grid-area: origin;
+    color: #34495E; /* Dark blue */
+    font-size: 14px;
+}
+
+.destination {
+    grid-area: destination;
+    color: #34495E; /* Dark blue */
+    font-size: 14px;
+}
+
+.duration {
+    grid-area: duration;
+    color: #27AE60; /* Green */
+    font-size: 14px;
+    align-self: center;
+}
+
+.price {
+    grid-area: price;
+    color: #E74C3C; /* Red */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.arrow {
+    grid-area: arrow;
+    color: #27AE60; /* Green */
+    align-self: center;
+    font-size: 16px;
+    font-weight: bold;
+}
 
 #messageInput {
     height: 20px;
