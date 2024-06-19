@@ -77,7 +77,10 @@ def create_app():
     def flightbot():
         data = request.get_json()
         message = data.get('message', '')
-
+        
+        user = data.get('user', '')
+        print("UserID:", user["uid"])
+        uid = user["uid"]
         # TODO:
         # Data needed to be extracted from the user's authentication firebase db - UID
         # Data from message - flight number, new date, new destination, new seats, ticket id
@@ -92,14 +95,14 @@ def create_app():
         print("Entities:", entities)
 
         #check for missing entities
-        check_for_missing(entities, predicted_label)
+        # check_for_missing(entities, predicted_label)
 
         #validate entities
 
 
         #return text and entities
         # response_message = text + " " + str(entities)
-        response_message = f"{text} {str(entities)}"
+        response_message = f"{text} {str(entities)} {uid}"
 
         # lanch_functions(predicted_label, uid)
         return jsonify({'response': response_message, 'predicted_label': predicted_label})

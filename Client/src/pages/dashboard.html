@@ -36,6 +36,7 @@
                 window.setCallbackAuthChanged((user) => {
                     if (!user) {window.location.assign('/')}
                     else {
+                        window.user = user
                         const email = user.uid
                         const element = document.getElementById("helloEmail")
                         element.textContent = "Hello " + email

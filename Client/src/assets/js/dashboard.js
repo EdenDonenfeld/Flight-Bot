@@ -5,12 +5,14 @@ function handleKeyDown(event) {
 }
 
 async function onSendMessage() {
+  
   const input = document.getElementById('messageInput');
   
   if (!input.value) {
     return;
   }
 
+  console.log(window.user);
   let val = input.value;
 
   if (val.trim() != '') {
@@ -32,7 +34,7 @@ async function onSendMessage() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message: val })
+      body: JSON.stringify({ message: val, user: window.user})
     });
 
     if (!response.ok) {
