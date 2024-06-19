@@ -1,3 +1,5 @@
+import { createFlightCard } from './flightCard.js';
+
 function handleKeyDown(event) {
   if (event.key === 'Enter') {
       onSendMessage();
@@ -45,11 +47,10 @@ async function onSendMessage() {
     const message = data.response;
     const predictedLabel = data.predicted_label;
     const responseData = data.response_data;
-
+    
     ///confirmation message
     const userConfirmed = confirm("I interpreted your message as: " + responseData + ". Is this correct?");
     console.log(userConfirmed);
-    
     // Adding a message from server
     let chatMessages = document.getElementById("chat-messages");
     let newMessage = document.createElement('div');
@@ -67,3 +68,4 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('submitButton').addEventListener('click', onSendMessage);
   document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
 })
+

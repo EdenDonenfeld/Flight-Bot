@@ -95,7 +95,7 @@ def create_app():
         print("Entities:", entities)
 
         #check for missing entities
-        # check_for_missing(entities, predicted_label)
+        check_for_missing(entities, predicted_label)
 
         #validate entities
 

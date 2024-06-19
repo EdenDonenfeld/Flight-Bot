@@ -1,0 +1,3 @@
+function createFlightCard(flight) {
+
+}
