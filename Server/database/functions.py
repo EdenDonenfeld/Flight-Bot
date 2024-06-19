@@ -207,7 +207,7 @@ def search_flights(origin: str, destination: str, date: datetime):
         flight_date = flight_data["Date"]
         flight_date_converted = flight_date.date()
         if date == flight_date_converted:
-            flights_list_1.append(flight_data["FlightNumber"])
+            flights_list_1.append(flight_data)
 
     if flights_list_1:
         return flights_list_1
@@ -220,7 +220,7 @@ def search_flights(origin: str, destination: str, date: datetime):
         flight_date_converted = flight_date.date()
         difference = abs((date - flight_date_converted).days)
         if difference <= 1:
-            flights_list_2.append(flight_data["FlightNumber"])
+            flights_list_2.append(flight_data)
     
     if len(flights_list_2) > 2:
         # there are 3 or more flights, return all
@@ -234,7 +234,7 @@ def search_flights(origin: str, destination: str, date: datetime):
         flight_date_converted = flight_date.date()
         difference = abs((date - flight_date_converted).days)
         if difference <= 2:
-            flights_list_3.append(flight_data["FlightNumber"])
+            flights_list_3.append(flight_data)
 
     if flights_list_3:
         return flights_list_3
@@ -244,7 +244,7 @@ def search_flights(origin: str, destination: str, date: datetime):
 def init():
     cred = credentials.Certificate("Server/database/flightbot-credentials.json")
     firebase_admin.initialize_app(cred)
-    
+
 def main():
     cred = credentials.Certificate("Server/database/flightbot-credentials.json")
     firebase_admin.initialize_app(cred)

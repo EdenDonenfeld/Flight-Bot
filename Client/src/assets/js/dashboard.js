@@ -88,13 +88,13 @@ async function validatedAction(intent, entities) {
     }
 
     const data = await response.json();
-    const message = data.response;
+    const flights = data.response;
 
     // Adding a message from server
     let chatMessages = document.getElementById("chat-messages");
     let newMessage = document.createElement('div');
     newMessage.className = "message-back";
-    newMessage.textContent = message;
+    newMessage.textContent = flights[0]["FlightNumber"];
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   
