@@ -241,7 +241,10 @@ def search_flights(origin: str, destination: str, date: datetime):
         
     return None
 
-
+def init():
+    cred = credentials.Certificate("Server/database/flightbot-credentials.json")
+    firebase_admin.initialize_app(cred)
+    
 def main():
     cred = credentials.Certificate("Server/database/flightbot-credentials.json")
     firebase_admin.initialize_app(cred)

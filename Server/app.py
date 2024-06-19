@@ -1,6 +1,6 @@
 import sys
 import os
-
+import json
 # # Add the Server directory to sys.path
 # current_dir = os.path.dirname(os.path.abspath(__file__))
 # parent_dir = os.path.dirname(current_dir)
@@ -10,35 +10,10 @@ import os
 import mimetypes
 from flask import Flask, render_template, request, jsonify, send_file
 from Server.flow.flow_functions import analyze_class
-from Server.flow.extract_functions import extract_entities
-from Server.database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status
+from Server.flow.extract_functions import extract_entities, format_date
 from Server.flow.check_for_missing_entities import check_for_missing
-
-
-def lanch_functions(predicted_label):
-    if predicted_label == 0:
-        # order ticket(uid, flight_num, seats)
-        order_ticket()
-    elif predicted_label == 1:
-        # refund ticket(uid, ticket_id)
-        refund_ticket()
-    elif predicted_label == 2:
-        # check status(uid, ticket_id)
-        check_status()
-    elif predicted_label == 3:
-        # change date(uid, ticket_id, new_date, new_seats)
-        change_date()
-    elif predicted_label == 4:
-        # change dest(uid, ticket_id, new_dest, new_seats)
-        change_dest()
-    elif predicted_label == 5:
-        # weather
-        pass
-    else:
-        # what's allowed
-        pass
-
-
+from Server.flow.launchDBFunc import launch_functions, get_flights
+from Server.database.functions import init
 
 def create_app():
     app = Flask(__name__, static_folder='../Client', template_folder='../Client')
@@ -47,6 +22,7 @@ def create_app():
     mimetypes.add_type('application/javascript', '.js')
     mimetypes.add_type('text/css', '.css')
     print(mimetypes.guess_type('auth.js'))
+    init()
 
     def get_mimetype(filename):
         return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
@@ -79,8 +55,9 @@ def create_app():
         message = data.get('message', '')
         
         user = data.get('user', '')
-        print("UserID:", user["uid"])
-        uid = user["uid"]
+        # print("UserID:", user["uid"])
+        # uid = user["uid"]
+
         # TODO:
         # Data needed to be extracted from the user's authentication firebase db - UID
         # Data from message - flight number, new date, new destination, new seats, ticket id
@@ -102,18 +79,27 @@ def create_app():
 
         #return text and entities
         response_data = text 
-        response_message = f"{text} {str(entities)} {uid}"
+        response_message = f"{text} {str(entities)}"
+        response_entities = json.dumps(entities)
 
         # lanch_functions(predicted_label, uid)
-        return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data})
+        # return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, entities: response_entities})
+        return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, 'entities': response_entities})
 
     @app.route('/api/valflightbot', methods=['POST'])
     def vallightbotv():
         data = request.get_json()
-        message = data.get('message', '')
-        
-        user = data.get('user', '')
-        print("UserID:", user["uid"])
-        uid = user["uid"]
+        entities = data.get('entities', '')
+        entities = json.loads(entities)
+        entities["Date"] = format_date(entities["Date"])
 
+        label = data.get('label', '')
+        user = data.get('user', '')
+
+
+        if label == 0:
+            flights = get_flights(entities)
+            if flights == None:
+                return jsonify({'response': "No flights found"})
+            return jsonify({'response': flights})
     return app
