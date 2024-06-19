@@ -1,4 +1,5 @@
 import { createFlightCard } from './flightCard.js';
+import { confirmIntent } from './intentConfirmation.js';
 
 function handleKeyDown(event) {
   if (event.key === 'Enter') {
@@ -53,7 +54,8 @@ async function onSendMessage() {
     const userConfirmed = confirm("I interpreted your message as: " + responseData + ". Is this correct?");
     console.log(userConfirmed);
 
-    
+    /// validate using royi's function
+
     // Adding a message from server
     let chatMessages = document.getElementById("chat-messages");
     let newMessage = document.createElement('div');
@@ -106,7 +108,7 @@ async function validatedAction(intent, entities) {
     let chatMessages = document.getElementById("chat-messages");
     let newMessage = document.createElement('div');
     newMessage.className = "message-back";
-    newMessage.textContent = flights[0]["FlightNumber"];
+    newMessage.textContent = flights[0]["Date"];
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   
