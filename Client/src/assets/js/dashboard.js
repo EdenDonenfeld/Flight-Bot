@@ -12,7 +12,7 @@ async function onSendMessage() {
     return;
   }
 
-  console.log(window.user);
+  // console.log(window.user);
   let val = input.value;
 
   if (val.trim() != '') {
@@ -43,7 +43,13 @@ async function onSendMessage() {
 
     const data = await response.json();
     const message = data.response;
+    const predictedLabel = data.predicted_label;
+    const responseData = data.response_data;
 
+    ///confirmation message
+    const userConfirmed = confirm("I interpreted your message as: " + responseData + ". Is this correct?");
+    console.log(userConfirmed);
+    
     // Adding a message from server
     let chatMessages = document.getElementById("chat-messages");
     let newMessage = document.createElement('div');

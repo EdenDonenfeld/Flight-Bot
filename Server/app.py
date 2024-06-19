@@ -101,10 +101,19 @@ def create_app():
 
 
         #return text and entities
-        # response_message = text + " " + str(entities)
+        response_data = text 
         response_message = f"{text} {str(entities)} {uid}"
 
         # lanch_functions(predicted_label, uid)
-        return jsonify({'response': response_message, 'predicted_label': predicted_label})
+        return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data})
+
+    @app.route('/api/valflightbot', methods=['POST'])
+    def vallightbotv():
+        data = request.get_json()
+        message = data.get('message', '')
+        
+        user = data.get('user', '')
+        print("UserID:", user["uid"])
+        uid = user["uid"]
 
     return app
