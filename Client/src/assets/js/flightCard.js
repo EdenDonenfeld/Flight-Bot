@@ -9,7 +9,7 @@ export function createFlightCard(flight) {   // flight is a flight object
         <p class="origin"><strong>From:</strong> ${flight["Origin"]}</p>
         <p class="arrow">→</p>
         <p class="destination"><strong>To:</strong> ${flight["Destination"]}</p>
-        <p class="price"><strong>Price:</strong> $${flight["Price"]} </p>
+        <p class="price"><strong>Price:</strong> ${flight["Price"]}$ </p>
     `;
 
     const chatMessages = document.getElementById('chat-messages');

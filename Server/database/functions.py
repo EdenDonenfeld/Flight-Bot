@@ -200,12 +200,14 @@ def search_flights(origin: str, destination: str, date: datetime):
     # Case 1: Best Case: date is the same, return all possible flights
 
     date = date.date()
+    print("Date: ", date)
 
     flights_list_1 = []
     for flight in flights_list:
         flight_data = flight.to_dict()
         flight_date = flight_data["Date"]
         flight_date_converted = flight_date.date()
+        print("Flight Date: ", flight_date_converted)
         if date == flight_date_converted:
             flights_list_1.append(flight_data)
 
