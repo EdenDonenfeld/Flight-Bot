@@ -1,6 +1,11 @@
 from Server.database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status, search_flights
 
-
+def action_by_intent(predicted_label, entities, uid):
+    if predicted_label == 0:
+        flights = get_flights(entities)
+        if flights == None:
+            flights = []
+        return flights
 def get_flights(entities):
     return search_flights(entities['Origin'], entities['Destination'], entities['Date'])
 

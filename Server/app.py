@@ -12,7 +12,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 from Server.flow.flow_functions import analyze_class
 from Server.flow.extract_functions import extract_entities, format_date
 from Server.flow.check_for_missing_entities import check_for_missing
-from Server.flow.launchDBFunc import launch_functions, get_flights
+from Server.flow.launchDBFunc import launch_functions, get_flights, action_by_intent
 from Server.database.functions import init
 
 def create_app():
@@ -99,10 +99,6 @@ def create_app():
         label = data.get('label', '')
         user = data.get('user', '')
 
-
-        if label == 0:
-            flights = get_flights(entities)
-            if flights == None:
-                return jsonify({'response': "No flights found"})
-            return jsonify({'response': flights})
+        response = action_by_intent(label, entities, user["uid"])
+        return jsonify({'response': response})
     return app
