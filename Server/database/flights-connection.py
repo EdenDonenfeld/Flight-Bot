@@ -84,7 +84,7 @@ flight7 = Flight(
     flight_number='FB1804',
     origin='TLV',
     destination='MAD',
-    date=datetime.datetime(2024, 5, 5, 20, 0, 0),
+    date=datetime.datetime(2025, 5, 5, 20, 0, 0),
     duration='05:00',
     price='750',
     status='On Time',
@@ -149,15 +149,15 @@ flight12 = Flight(
 
 
 # Save the flight to Firestore
-# flight1.save(db)
-# flight2.save(db)
-# flight3.save(db)
-# flight4.save(db)
-# flight5.save(db)
-# flight6.save(db)
-# flight7.save(db)
+flight1.save(db)
+flight2.save(db)
+flight3.save(db)
+flight4.save(db)
+flight5.save(db)
+flight6.save(db)
+flight7.save(db)
 flight8.save(db)
-# flight9.save(db)
-# flight10.save(db)
-# flight11.save(db)
-# flight12.save(db)
+flight9.save(db)
+flight10.save(db)
+flight11.save(db)
+flight12.save(db)

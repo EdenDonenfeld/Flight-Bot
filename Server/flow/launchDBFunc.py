@@ -7,6 +7,7 @@ def action_by_intent(predicted_label, entities, uid):
             flights = []
         return flights
 def get_flights(entities):
+    print("Origin:", entities['Origin'], "Destination:", entities['Destination'], "Date:", entities['Date'])
     return search_flights(entities['Origin'], entities['Destination'], entities['Date'])
 
 def launch_functions(predicted_label, entities, uid):

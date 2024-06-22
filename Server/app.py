@@ -100,5 +100,6 @@ def create_app():
         user = data.get('user', '')
 
         response = action_by_intent(label, entities, user["uid"])
+        print("Response: ", response)
         return jsonify({'response': response})
     return app
