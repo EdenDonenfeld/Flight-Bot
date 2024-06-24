@@ -35,26 +35,20 @@ def analyze_class(sentence):
     predicted_label = classify_sentence(tokenizer, model, sentence)
     
     if predicted_label == 0:
-        print('you want to order a ticket')
         text = 'you want to order a ticket'
     elif predicted_label == 1:
-        print('you want to refund a ticket')
         text = 'you want to refund a ticket'
     elif predicted_label == 2:
-        print('you want to check the status of your ticket')
         text = 'you want to check the status of your ticket'
     elif predicted_label == 3:
-        print('you want to change the date of your ticket')
         text = 'you want to change the date of your ticket'
     elif predicted_label == 4:
-        print('you want to change the destination of your ticket')
         text = 'you want to change the destination of your ticket'
     elif predicted_label == 5:
-        print('you want to know the weather of your destination')
         text = 'you want to know the weather of your destination'
     else:
-        print('you want to know what is allowed in the flight')
         text = 'you want to know what is allowed in the flight'
+    print(text)
     print("Predicted Label:", predicted_label)
     return predicted_label, text
 
