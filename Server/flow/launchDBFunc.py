@@ -12,8 +12,8 @@ def get_flights(entities):
 
 def launch_functions(predicted_label, entities, uid):
     if predicted_label == 0:
-        # order ticket(uid, flight_num, seats)
-        order_ticket()
+        return order_ticket(uid, entities["flight_num"], entities["seats"])
+        
     elif predicted_label == 1:
         # refund ticket(uid, ticket_id)
         refund_ticket()

@@ -102,4 +102,25 @@ def create_app():
         response = action_by_intent(label, entities, user["uid"])
         print("Response: ", response)
         return jsonify({'response': response})
+    
+    @app.route('/api/finalActions', methods=['POST'])
+    def finalActions():
+        data = request.get_json()
+        entities = data.get('entities', '')
+        entities = json.loads(entities)
+        try:
+            entities["Date"] = format_date(entities["Date"])
+        except:
+            pass
+
+        label = data.get('label', '')
+        user = data.get('user', '')
+        flightNumber = data.get('flightNumber', '')
+        seats = data.get('seats', '')
+        #add flight num to entities
+        entities["flightNumber"] = flightNumber
+        entities["seats"] = seats
+        response = launch_functions(label, entities, user["uid"])
+        print("Response: ", response)
+        return jsonify({'response': response})
     return app

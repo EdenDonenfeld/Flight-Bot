@@ -110,9 +110,9 @@ async function validatedAction(intent, entities) {
     newMessage.className = "message-back";
     // check if flights is empty
     if (flights.length == 0) {
-      newMessage.textContent = "No flights found";
+      newMessage.textContent = "לא נמצאו טיסות";
     } else {
-      newMessage.textContent = "Here are the flights I found for you:";
+      newMessage.textContent = "הנה כמה טיסות שמצאתי עבורך";
     }
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
