@@ -100,7 +100,7 @@ def create_app():
         user = data.get('user', '')
 
         response = action_by_intent(label, entities, user["uid"])
-        print("Response: ", response)
+        # print("Response: ", response)
         return jsonify({'response': response})
     
     @app.route('/api/finalActions', methods=['POST'])
@@ -121,6 +121,6 @@ def create_app():
         entities["flightNumber"] = flightNumber
         entities["seats"] = seats
         response = launch_functions(label, entities, user["uid"])
-        print("Response: ", response)
+        # print("Response: ", response)
         return jsonify({'response': response})
     return app
