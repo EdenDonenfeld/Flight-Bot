@@ -88,7 +88,7 @@ async function onSendMessage() {
     let newIntentVerifiedRightMessage = document.createElement('button');
     newIntentVerifiedRightMessage.className = "message-back";
     newIntentVerifiedRightMessage.textContent = "כן, זוהי כוונתי";
-    newIntentVerifiedRightMessage.style.backgroundColor = "green";
+    newIntentVerifiedRightMessage.style.backgroundColor = "#27AE60";
     newIntentVerifiedRightMessage.onclick = function() {
       const userConfirmed = true;
       console.log(userConfirmed);
@@ -103,7 +103,7 @@ async function onSendMessage() {
     let newIntentVerifiedWrongMessage = document.createElement('button');
     newIntentVerifiedWrongMessage.className = "message-back";
     newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי";
-    newIntentVerifiedWrongMessage.style.backgroundColor = "red";
+    newIntentVerifiedWrongMessage.style.backgroundColor = "#E74C3C";
     newIntentVerifiedWrongMessage.onclick = function() {
       const userConfirmed = false;
       console.log(userConfirmed);
