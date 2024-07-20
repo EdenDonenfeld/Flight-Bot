@@ -74,7 +74,7 @@ def create_app():
         #check for missing entities
         check_for_missing(entities, predicted_label)
 
-        #validate entities
+        #validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
 
 
         #return text and entities
@@ -122,5 +122,5 @@ def create_app():
         entities["seats"] = seats
         response = launch_functions(label, entities, user["uid"])
         # print("Response: ", response)
-        return jsonify({'response': response})
+        return jsonify({'response': response, 'label': label})
     return app
