@@ -168,11 +168,10 @@ async function validatedAction(intent, entities) {
     }
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    /// create flight cards for each flight found
+    // create flight cards for each flight found
     console.log("Flights:", flights);
     let counter = 1;
     flights.forEach((flight) => {
-      console.log(`Flight ${counter} : ${flight}`)
       createFlightCard(flight);
     });
   }
@@ -185,4 +184,3 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('submitButton').addEventListener('click', onSendMessage);
   document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
 })
-
