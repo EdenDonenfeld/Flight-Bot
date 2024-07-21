@@ -55,7 +55,7 @@ export function createFlightCard(flight) {   // flight is a flight object
             container.className = 'container';
             chatMessages.appendChild(container);
 
-            createNextButton("הבא");
+            createNextButton("הבא", flight);
 
             createSeatsContainer();
 
@@ -134,7 +134,7 @@ function addMessageBack(message) {
 }
 
 
-function createNextButton(message) {
+function createNextButton(message, flight) {
     let chatMessages = document.getElementById("chat-messages");
     let nextButton = document.createElement('button');
     nextButton.className = "message-back next-button";
@@ -156,6 +156,61 @@ function createNextButton(message) {
         });
 
         console.log(seats);
+        // remove the seats container
+        document.getElementById('container').remove();
+        nextButton.remove();
+
+        //sends the selected seats to the server
+        sendSelectedSeats(seats, flight);
+        
+        
     });
 
+}
+
+async function sendSelectedSeats(seats, flight) {
+    // console.log(flight);
+    ///create the dictionary to send to the server named entities
+    let entities = {
+        "seats": seats,
+        "user": window.user,
+        "label": 0,
+        "flight_num": flight.FlightNumber,
+        "flight": flight
+    };
+    ///conver the dictionary to string
+    entities = JSON.stringify(entities);
+    try {
+        const response = await fetch(`/api/finalActions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({entities: entities})
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        const data = await response.json();
+        const ticket = data.response;
+
+        // Adding a message from server
+        let chatMessages = document.getElementById("chat-messages");
+        let newMessage = document.createElement('div');
+        newMessage.className = "message-back";
+        // check if ticket is empty
+        if (ticket.length == 0) {
+            newMessage.textContent = "לא ניתן להזמין כרטיסים";
+        } else {
+            newMessage.textContent = "הכרטיסים שהזמנת";
+        }
+        chatMessages.appendChild(newMessage);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    }
+    catch (error) {
+        console.error('Error getting ticket:', error);
+    }
 }

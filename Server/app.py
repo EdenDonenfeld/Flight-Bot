@@ -53,11 +53,8 @@ def create_app():
     def flightbot():
         data = request.get_json()
         message = data.get('message', '')
-        
         user = data.get('user', '')
-        # print("UserID:", user["uid"])
-        # uid = user["uid"]
-
+        
         # TODO:
         # Data needed to be extracted from the user's authentication firebase db - UID
         # Data from message - flight number, new date, new destination, new seats, ticket id
@@ -103,24 +100,15 @@ def create_app():
         # print("Response: ", response)
         return jsonify({'response': response})
     
+    # alpha version: buy flight ticket
     @app.route('/api/finalActions', methods=['POST'])
     def finalActions():
         data = request.get_json()
         entities = data.get('entities', '')
         entities = json.loads(entities)
-        try:
-            entities["Date"] = format_date(entities["Date"])
-        except:
-            pass
+        # print("Entities:", entities)
 
-        label = data.get('label', '')
-        user = data.get('user', '')
-        flightNumber = data.get('flightNumber', '')
-        seats = data.get('seats', '')
-        #add flight num to entities
-        entities["flightNumber"] = flightNumber
-        entities["seats"] = seats
-        response = launch_functions(label, entities, user["uid"])
+        response = launch_functions(entities["label"], entities, entities["user"]["uid"])
         # print("Response: ", response)
-        return jsonify({'response': response, 'label': label})
+        return jsonify({'response': response, 'label': entities["label"]})
     return app

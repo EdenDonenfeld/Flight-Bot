@@ -12,6 +12,7 @@ def get_flights(entities):
 
 def launch_functions(predicted_label, entities, uid):
     if predicted_label == 0:
+        print(uid, entities["flight_num"], entities["seats"])
         return order_ticket(uid, entities["flight_num"], entities["seats"])
         
     elif predicted_label == 1:

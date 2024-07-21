@@ -49,10 +49,8 @@ async function onSendMessage() {
     const predictedLabel = data.predicted_label;
     const responseData = data.response_data;
     const entities = data.entities;
-
-    /// confirmation message
-    // const userConfirmed = confirm("I interpreted your message as: " + responseData + ". Is this correct?");
-    // console.log(userConfirmed);
+    console.log("Entities", entities);
+    
 
     let hebrewResponseData = "";
     if (responseData == "you want to order a ticket") {
@@ -113,25 +111,6 @@ async function onSendMessage() {
     intentVerifiedWrongMessage.appendChild(newIntentVerifiedWrongMessage);
     intentVerifiedWrongMessage.scrollTop = intentVerifiedWrongMessage.scrollHeight;
 
-    // Adding a message from server
-    // let chatMessages = document.getElementById("chat-messages");
-    // let newMessage = document.createElement('div');
-    // newMessage.className = "message-back";
-    // newMessage.textContent = message;
-    // chatMessages.appendChild(newMessage);
-    // chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    // if (predictedLabel == 0) {
-    //   const flight = {
-    //     "departure_time": "9:00",
-    //     "origin": "TLV",
-    //     "duration": "2:30",
-    //     "arrival_time": "11:30",
-    //     "destination": "ATH",
-    //     "price": "200$"
-    //   }
-    //   createFlightCard(flight);
-    // }
     
 }
   catch (error) {
