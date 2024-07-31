@@ -38,9 +38,11 @@
                     if (!user) {window.location.assign('/')}
                     else {
                         window.user = user
-                        const email = user.uid
+                        const uid = user.uid
+                        const email = user.email
+                        emailSplit = email.split('@');
                         const element = document.getElementById("helloEmail")
-                        element.textContent = "Hello " + email
+                        element.textContent = "Hello " + emailSplit[0]
                     }
                 })
                 clearInterval(i)
