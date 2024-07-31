@@ -59,7 +59,6 @@ async function onSendMessage() {
     const entities = data.entities;
     console.log('Entities', entities);
 
-<<<<<<< HEAD
 
     let hebrewResponseData = "";
     if (responseData == "you want to order a ticket") {
@@ -82,29 +81,6 @@ async function onSendMessage() {
     }
     else if (responseData == "you want to know what is allowed in the flight") {
       hebrewResponseData = "אני רוצה לדעת מה מותר לעלות לטיסה";
-=======
-    let hebrewResponseData = '';
-    if (responseData == 'you want to order a ticket') {
-      hebrewResponseData = 'אני רוצה להזמין כרטיס';
-    } else if (responseData == 'you want to refund a ticket') {
-      hebrewResponseData = 'אני רוצה החזר על הכרטיס';
-    } else if (responseData == 'you want to check the status of your ticket') {
-      hebrewResponseData = 'אני רוצה לבדוק סטטוס של כרטיס';
-    } else if (responseData == 'you want to change the date of your ticket') {
-      hebrewResponseData = 'אני רוצה לשנות את התאריך של הכרטיס';
-    } else if (
-      responseData == 'you want to change the destination of your ticket'
-    ) {
-      hebrewResponseData = 'אני רוצה לשנות את היעד של הכרטיס';
-    } else if (
-      responseData == 'you want to know the weather of your destination'
-    ) {
-      hebrewResponseData = 'אני רוצה לדעת את המזג אוויר ביעד';
-    } else if (
-      responseData == 'you want to know what is allowed in the flight'
-    ) {
-      hebrewResponseData = 'אני רוצה לדעת מה מותר לעלות לטיסה';
->>>>>>> e69989ce44c263c2fdd8da522aa9bd6cc9cf210b
     }
 
     let intentVerifiedMessage = document.getElementById('chat-messages');
