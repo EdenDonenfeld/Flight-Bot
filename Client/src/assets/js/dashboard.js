@@ -7,6 +7,15 @@ function handleKeyDown(event) {
   }
 }
 
+function onloadfunction(){
+  let chatMessages = document.getElementById("chat-messages");
+  let welcomeMessage = document.createElement('div');
+  welcomeMessage.className = "message-back";
+  welcomeMessage.textContent = "מה הולך? ברוך הבא לבוט הכי חברי שתכיר אי פעם! כל מה שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)";
+  chatMessages.appendChild(welcomeMessage);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
 async function onSendMessage() {
 
   const input = document.getElementById('messageInput');
@@ -51,6 +60,7 @@ async function onSendMessage() {
     const entities = data.entities;
     console.log("Entities", entities);
     
+
 
     let hebrewResponseData = "";
     if (responseData == "you want to order a ticket") {
@@ -183,6 +193,7 @@ async function validatedAction(intent, entities) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  document.onload(onloadfunction())
   document.getElementById('submitButton').addEventListener('click', onSendMessage);
   document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
 })
