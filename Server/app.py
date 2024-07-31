@@ -13,7 +13,7 @@ from Server.flow.flow_functions import analyze_class
 from Server.flow.extract_functions import extract_entities, format_date
 from Server.flow.check_for_missing_entities import check_for_missing
 from Server.flow.launchDBFunc import launch_functions, get_flights, action_by_intent
-from Server.database.functions import init
+from Server.database.functions import init, add_new_user
 
 def create_app():
     app = Flask(__name__, static_folder='../Client', template_folder='../Client')
@@ -53,11 +53,7 @@ def create_app():
     def flightbot():
         data = request.get_json()
         message = data.get('message', '')
-        user = data.get('user', '')
-        
-        # TODO:
-        # Data needed to be extracted from the user's authentication firebase db - UID
-        # Data from message - flight number, new date, new destination, new seats, ticket id
+        user_id = data.get('user_id', '')
 
         print("Received message:", message)
         predicted_label, text = analyze_class(message)
@@ -73,7 +69,6 @@ def create_app():
 
         #validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
 
-
         #return text and entities
         response_data = text 
         response_message = f"{text} {str(entities)}"
@@ -82,6 +77,19 @@ def create_app():
         # lanch_functions(predicted_label, uid)
         # return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, entities: response_entities})
         return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, 'entities': response_entities})
+
+    @app.route('/api/flightbot/user', methods=['POST'])
+    def check_user():
+        data = request.get_json()
+        user_id = data.get('user_id', '')
+        print("User ID: ", user_id)
+        # add user_id if not exists
+        try:
+            add_new_user(user_id)
+            return jsonify({'response': 'User added successfully'}, 200)
+        except:
+            return jsonify({'response': 'User already exists'}, 400)
+
 
     @app.route('/api/valflightbot', methods=['POST'])
     def vallightbotv():

@@ -23,7 +23,7 @@ class User:
 
 
     def add_ticket(self, db, ticket):
-        from ticket import Ticket
+        from Server.database.ticket import Ticket
         # Ensure that the ticket is in dictionary form before appending
         if isinstance(ticket, Ticket):
             ticket_dict = ticket.to_dict()
