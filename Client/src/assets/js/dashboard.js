@@ -195,7 +195,7 @@ async function validatedAction(intent, entities) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.onload(onloadfunction())
+  window.onload = onloadfunction;
   document.getElementById('submitButton').addEventListener('click', onSendMessage);
   document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
 });
