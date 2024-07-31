@@ -219,17 +219,7 @@ async function validatedAction(intent, entities) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-<<<<<<< HEAD
   document.onload(onloadfunction())
   document.getElementById('submitButton').addEventListener('click', onSendMessage);
   document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
-})
-=======
-  document
-    .getElementById('submitButton')
-    .addEventListener('click', onSendMessage);
-  document
-    .getElementById('messageInput')
-    .addEventListener('keydown', handleKeyDown);
 });
->>>>>>> e69989ce44c263c2fdd8da522aa9bd6cc9cf210b
