@@ -8,7 +8,6 @@ function handleKeyDown(event) {
 }
 
 async function onSendMessage() {
-
   const input = document.getElementById('messageInput');
 
   if (!input.value) {
@@ -20,24 +19,24 @@ async function onSendMessage() {
 
   if (val.trim() != '') {
     // Adding a message from client
-    let chatMessages = document.getElementById("chat-messages");
+    let chatMessages = document.getElementById('chat-messages');
     let newMessage = document.createElement('div');
-    newMessage.className = "message";
+    newMessage.className = 'message';
     newMessage.textContent = val;
     chatMessages.appendChild(newMessage);
-    input.value = "";
+    input.value = '';
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  console.log("Message", val);
+  console.log('Message', val);
 
   try {
     const response = await fetch(`/api/flightbot`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: val, user: window.user })
+      body: JSON.stringify({ message: val, user_id: window.user }),
     });
 
     if (!response.ok) {
@@ -49,45 +48,45 @@ async function onSendMessage() {
     const predictedLabel = data.predicted_label;
     const responseData = data.response_data;
     const entities = data.entities;
-    console.log("Entities", entities);
-    
+    console.log('Entities', entities);
 
-    let hebrewResponseData = "";
-    if (responseData == "you want to order a ticket") {
-      hebrewResponseData = "אני רוצה להזמין כרטיס";
-    }
-    else if (responseData == "you want to refund a ticket") {
-      hebrewResponseData = "אני רוצה החזר על הכרטיס";
-    }
-    else if (responseData == "you want to check the status of your ticket") {
-      hebrewResponseData = "אני רוצה לבדוק סטטוס של כרטיס";
-    }
-    else if (responseData == "you want to change the date of your ticket") {
-      hebrewResponseData = "אני רוצה לשנות את התאריך של הכרטיס";
-    }
-    else if (responseData == "you want to change the destination of your ticket") {
-      hebrewResponseData = "אני רוצה לשנות את היעד של הכרטיס";
-    }
-    else if (responseData == "you want to know the weather of your destination") {
-      hebrewResponseData = "אני רוצה לדעת את המזג אוויר ביעד";
-    }
-    else if (responseData == "you want to know what is allowed in the flight") {
-      hebrewResponseData = "אני רוצה לדעת מה מותר לעלות לטיסה";
+    let hebrewResponseData = '';
+    if (responseData == 'you want to order a ticket') {
+      hebrewResponseData = 'אני רוצה להזמין כרטיס';
+    } else if (responseData == 'you want to refund a ticket') {
+      hebrewResponseData = 'אני רוצה החזר על הכרטיס';
+    } else if (responseData == 'you want to check the status of your ticket') {
+      hebrewResponseData = 'אני רוצה לבדוק סטטוס של כרטיס';
+    } else if (responseData == 'you want to change the date of your ticket') {
+      hebrewResponseData = 'אני רוצה לשנות את התאריך של הכרטיס';
+    } else if (
+      responseData == 'you want to change the destination of your ticket'
+    ) {
+      hebrewResponseData = 'אני רוצה לשנות את היעד של הכרטיס';
+    } else if (
+      responseData == 'you want to know the weather of your destination'
+    ) {
+      hebrewResponseData = 'אני רוצה לדעת את המזג אוויר ביעד';
+    } else if (
+      responseData == 'you want to know what is allowed in the flight'
+    ) {
+      hebrewResponseData = 'אני רוצה לדעת מה מותר לעלות לטיסה';
     }
 
-    let intentVerifiedMessage = document.getElementById("chat-messages");
+    let intentVerifiedMessage = document.getElementById('chat-messages');
     let newIntentVerifiedMessage = document.createElement('div');
-    newIntentVerifiedMessage.className = "message-back";
-    newIntentVerifiedMessage.textContent = "זיהיתי את ההודעה שלך כ: " + hebrewResponseData + ", האם זו כוונתך?";
+    newIntentVerifiedMessage.className = 'message-back';
+    newIntentVerifiedMessage.textContent =
+      'זיהיתי את ההודעה שלך כ: ' + hebrewResponseData + ', האם זו כוונתך?';
     intentVerifiedMessage.appendChild(newIntentVerifiedMessage);
     intentVerifiedMessage.scrollTop = intentVerifiedMessage.scrollHeight;
 
-    let intentVerifiedRightMessage = document.getElementById("chat-messages");
+    let intentVerifiedRightMessage = document.getElementById('chat-messages');
     let newIntentVerifiedRightMessage = document.createElement('button');
-    newIntentVerifiedRightMessage.className = "message-back";
-    newIntentVerifiedRightMessage.textContent = "כן, זוהי כוונתי";
-    newIntentVerifiedRightMessage.style.backgroundColor = "green";
-    newIntentVerifiedRightMessage.onclick = function() {
+    newIntentVerifiedRightMessage.className = 'message-back';
+    newIntentVerifiedRightMessage.textContent = 'כן, זוהי כוונתי';
+    newIntentVerifiedRightMessage.style.backgroundColor = 'green';
+    newIntentVerifiedRightMessage.onclick = function () {
       const userConfirmed = true;
       console.log(userConfirmed);
       newIntentVerifiedRightMessage.disabled = true;
@@ -95,21 +94,23 @@ async function onSendMessage() {
       validatedAction(predictedLabel, entities);
     };
     intentVerifiedRightMessage.appendChild(newIntentVerifiedRightMessage);
-    intentVerifiedRightMessage.scrollTop = intentVerifiedRightMessage.scrollHeight;
+    intentVerifiedRightMessage.scrollTop =
+      intentVerifiedRightMessage.scrollHeight;
 
-    let intentVerifiedWrongMessage = document.getElementById("chat-messages");
+    let intentVerifiedWrongMessage = document.getElementById('chat-messages');
     let newIntentVerifiedWrongMessage = document.createElement('button');
-    newIntentVerifiedWrongMessage.className = "message-back";
-    newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי";
-    newIntentVerifiedWrongMessage.style.backgroundColor = "red";
-    newIntentVerifiedWrongMessage.onclick = function() {
+    newIntentVerifiedWrongMessage.className = 'message-back';
+    newIntentVerifiedWrongMessage.textContent = 'לא, זוהי לא כוונתי';
+    newIntentVerifiedWrongMessage.style.backgroundColor = 'red';
+    newIntentVerifiedWrongMessage.onclick = function () {
       const userConfirmed = false;
       console.log(userConfirmed);
       newIntentVerifiedRightMessage.disabled = true;
       newIntentVerifiedWrongMessage.disabled = true;
     };
     intentVerifiedWrongMessage.appendChild(newIntentVerifiedWrongMessage);
-    intentVerifiedWrongMessage.scrollTop = intentVerifiedWrongMessage.scrollHeight;
+    intentVerifiedWrongMessage.scrollTop =
+      intentVerifiedWrongMessage.scrollHeight;
 
     // if (newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי") {
     // // הודעת נסח מחדש
@@ -134,21 +135,23 @@ async function onSendMessage() {
     //   }
     //   createFlightCard(flight);
     // }
-    
-}
-  catch (error) {
+  } catch (error) {
     console.error('Error getting entities:', error);
   }
 }
 async function validatedAction(intent, entities) {
-  console.log("Entities", entities);
+  console.log('Entities', entities);
   try {
     const response = await fetch(`/api/valflightbot`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ entities: entities, label: intent, user: window.user })
+      body: JSON.stringify({
+        entities: entities,
+        label: intent,
+        user: window.user,
+      }),
     });
 
     if (!response.ok) {
@@ -159,30 +162,33 @@ async function validatedAction(intent, entities) {
     const flights = data.response;
 
     // Adding a message from server
-    let chatMessages = document.getElementById("chat-messages");
+    let chatMessages = document.getElementById('chat-messages');
     let newMessage = document.createElement('div');
-    newMessage.className = "message-back";
+    newMessage.className = 'message-back';
     // check if flights is empty
     if (flights.length == 0) {
-      newMessage.textContent = "לא נמצאו טיסות";
+      newMessage.textContent = 'לא נמצאו טיסות';
     } else {
-      newMessage.textContent = "הנה כמה טיסות שמצאתי עבורך";
+      newMessage.textContent = 'הנה כמה טיסות שמצאתי עבורך';
     }
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
     // create flight cards for each flight found
-    console.log("Flights:", flights);
+    console.log('Flights:', flights);
     let counter = 1;
     flights.forEach((flight) => {
       createFlightCard(flight);
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error getting entities:', error);
   }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('submitButton').addEventListener('click', onSendMessage);
-  document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
-})
+  document
+    .getElementById('submitButton')
+    .addEventListener('click', onSendMessage);
+  document
+    .getElementById('messageInput')
+    .addEventListener('keydown', handleKeyDown);
+});

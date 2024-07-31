@@ -6,6 +6,19 @@ from Server.database.user import User
 from Server.database.flight import Flight
 from datetime import datetime
 
+def add_new_user(user_id: str):
+    # Call the data base - add a new user
+    db = firestore.client()
+    user_ref = db.collection('Users').document(user_id)
+    user = user_ref.get()
+    if user.exists:
+        print("User", user_id, "already exists in the database")
+        return
+
+    user = User(user_id)
+    user_ref.set(user.to_dict())
+    print("User", user_id, "added successfully to the database")
+
 
 def order_ticket(user_id: str, flight_num: str, seats: list):
     # Call the data base - remove the seat from the available seats - and add it to the user

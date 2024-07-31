@@ -33,23 +33,47 @@
 
 <body>
     <script>
-        const signInForm = () => {
+       const signInForm = () => {
             const email = document.getElementById('emailSignIn').value;
             const password = document.getElementById('passwordSignIn').value;
             window.signIn(email, password)
                 .then((userCredential) => {
-                    window.location.assign("/dashboard")
+                    // Set window.user to the user's ID
+                    window.user = userCredential.user.uid;
+
+                    // Send the user_id to the server
+                    fetch('/api/flightbot/user', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ "user_id": window.user })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            console.error("Error sending user_id to server:", response);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Redirect to the dashboard
+                        window.location.assign("/dashboard");
+                    })
+                    .catch((error) => {
+                        console.error("Error sending user_id to server:", error);
+                    });
                 })
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    if (errorCode == "auth/invalid-credential")
-                        document.getElementById("errors").innerText = "Incorrect Email or Password, check it out!"
-                    else if (errorCode == "auth/invalid-email")
-                        document.getElementById("errors").innerText = "Email is invalid, check it out!"
+                    if (errorCode === "auth/invalid-credential") {
+                        document.getElementById("errors").innerText = "Incorrect Email or Password, check it out!";
+                    } else if (errorCode === "auth/invalid-email") {
+                        document.getElementById("errors").innerText = "Email is invalid, check it out!";
+                    }
                     document.getElementById("errors").style.color = "red";
                     // Handle errors
-                });;
+                });
         }
     </script>
 
