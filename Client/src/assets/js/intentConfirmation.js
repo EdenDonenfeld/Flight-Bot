@@ -1,4 +1,12 @@
-function confirmIntent(label) {
+import { validatedAction } from './dashboard.js';
+
+export function confirmIntent(response, entities) {
+
+    const data = response;
+    const message = data.response;
+    const predictedLabel = data.predicted_label;
+    const responseData = data.response_data;
+    
     let hebrewResponseData = "";
     if (responseData == "you want to order a ticket") {
         hebrewResponseData = "אני רוצה להזמין כרטיס";
@@ -63,8 +71,4 @@ function confirmIntent(label) {
     // if (newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי") {
     // // הודעת נסח מחדש
     // }
-
-
-
-    return label
 }
