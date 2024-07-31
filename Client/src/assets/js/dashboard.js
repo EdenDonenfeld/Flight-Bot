@@ -49,10 +49,8 @@ async function onSendMessage() {
     const predictedLabel = data.predicted_label;
     const responseData = data.response_data;
     const entities = data.entities;
-
-    /// confirmation message
-    // const userConfirmed = confirm("I interpreted your message as: " + responseData + ". Is this correct?");
-    // console.log(userConfirmed);
+    console.log("Entities", entities);
+    
 
     let hebrewResponseData = "";
     if (responseData == "you want to order a ticket") {
@@ -89,7 +87,7 @@ async function onSendMessage() {
     newIntentVerifiedRightMessage.className = "message-back";
     newIntentVerifiedRightMessage.textContent = "כן, זוהי כוונתי";
     newIntentVerifiedRightMessage.style.backgroundColor = "green";
-    newIntentVerifiedRightMessage.onclick = function () {
+    newIntentVerifiedRightMessage.onclick = function() {
       const userConfirmed = true;
       console.log(userConfirmed);
       newIntentVerifiedRightMessage.disabled = true;
@@ -104,7 +102,7 @@ async function onSendMessage() {
     newIntentVerifiedWrongMessage.className = "message-back";
     newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי";
     newIntentVerifiedWrongMessage.style.backgroundColor = "red";
-    newIntentVerifiedWrongMessage.onclick = function () {
+    newIntentVerifiedWrongMessage.onclick = function() {
       const userConfirmed = false;
       console.log(userConfirmed);
       newIntentVerifiedRightMessage.disabled = true;
@@ -136,8 +134,8 @@ async function onSendMessage() {
     //   }
     //   createFlightCard(flight);
     // }
-
-  }
+    
+}
   catch (error) {
     console.error('Error getting entities:', error);
   }
@@ -172,11 +170,10 @@ async function validatedAction(intent, entities) {
     }
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    /// create flight cards for each flight found
+    // create flight cards for each flight found
     console.log("Flights:", flights);
     let counter = 1;
     flights.forEach((flight) => {
-      console.log(`Flight ${counter} : ${flight}`)
       createFlightCard(flight);
     });
   }
@@ -189,4 +186,3 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('submitButton').addEventListener('click', onSendMessage);
   document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
 })
-
