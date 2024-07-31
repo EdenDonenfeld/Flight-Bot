@@ -3,14 +3,14 @@ import { createFlightCard } from './flightCard.js';
 
 function handleKeyDown(event) {
   if (event.key === 'Enter') {
-      onSendMessage();
+    onSendMessage();
   }
 }
 
 async function onSendMessage() {
-  
+
   const input = document.getElementById('messageInput');
-  
+
   if (!input.value) {
     return;
   }
@@ -37,7 +37,7 @@ async function onSendMessage() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message: val, user: window.user})
+      body: JSON.stringify({ message: val, user: window.user })
     });
 
     if (!response.ok) {
@@ -89,7 +89,7 @@ async function onSendMessage() {
     newIntentVerifiedRightMessage.className = "message-back";
     newIntentVerifiedRightMessage.textContent = "כן, זוהי כוונתי";
     newIntentVerifiedRightMessage.style.backgroundColor = "green";
-    newIntentVerifiedRightMessage.onclick = function() {
+    newIntentVerifiedRightMessage.onclick = function () {
       const userConfirmed = true;
       console.log(userConfirmed);
       newIntentVerifiedRightMessage.disabled = true;
@@ -104,7 +104,7 @@ async function onSendMessage() {
     newIntentVerifiedWrongMessage.className = "message-back";
     newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי";
     newIntentVerifiedWrongMessage.style.backgroundColor = "red";
-    newIntentVerifiedWrongMessage.onclick = function() {
+    newIntentVerifiedWrongMessage.onclick = function () {
       const userConfirmed = false;
       console.log(userConfirmed);
       newIntentVerifiedRightMessage.disabled = true;
@@ -112,6 +112,10 @@ async function onSendMessage() {
     };
     intentVerifiedWrongMessage.appendChild(newIntentVerifiedWrongMessage);
     intentVerifiedWrongMessage.scrollTop = intentVerifiedWrongMessage.scrollHeight;
+
+    // if (newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי") {
+    // // הודעת נסח מחדש
+    // }
 
     // Adding a message from server
     // let chatMessages = document.getElementById("chat-messages");
@@ -132,8 +136,8 @@ async function onSendMessage() {
     //   }
     //   createFlightCard(flight);
     // }
-    
-}
+
+  }
   catch (error) {
     console.error('Error getting entities:', error);
   }
@@ -146,7 +150,7 @@ async function validatedAction(intent, entities) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ entities: entities, label: intent, user: window.user})
+      body: JSON.stringify({ entities: entities, label: intent, user: window.user })
     });
 
     if (!response.ok) {
@@ -181,7 +185,7 @@ async function validatedAction(intent, entities) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('submitButton').addEventListener('click', onSendMessage);
   document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
 })
