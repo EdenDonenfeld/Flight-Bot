@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/src/assets/css/dashboard.css">
-    <title>FlightBot Client</title>
+    <title>FlightBot    </title>
 
     <!-- Add Firebase products that you want to use -->
     <script type="module">
@@ -42,7 +42,7 @@
                         const email = user.email
                         emailSplit = email.split('@');
                         const element = document.getElementById("helloEmail")
-                        element.textContent = "Hello " + emailSplit[0]
+                        element.textContent = "!" + emailSplit[0] + " ברוך הבא"
                     }
                 })
                 clearInterval(i)
@@ -60,7 +60,7 @@
 </head>
 
 <body>
-    <h2 class="headline">FlightBot Client</h2>
+    <h2 class="headline">FlightBot</h2>
     <h2 class="headline" id="helloEmail"> Hello </h2>
 
     <div dir="rtl" class="chat-container">
