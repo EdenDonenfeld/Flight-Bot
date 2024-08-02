@@ -30,6 +30,10 @@ body {
     overflow-y: auto;
 }
 
+.message, .message-back {
+    max-width: 75%;
+}
+
 .message, .message-back, .card {
     display: flex;
     flex-direction: column;
@@ -59,11 +63,11 @@ body {
 .card {
     display: grid;
     grid-template-areas:
-        "arrival duration departure"
-        "destination arrow origin"
+        "departure duration arrival"
+        "origin arrow destination"
         "price price price";
     grid-template-columns: 2fr 1fr 2fr;
-    grid-gap: 10px;
+    grid-gap: 5px;
     justify-content: center;
     align-self: center;
     border-radius: 10px;
@@ -76,6 +80,10 @@ body {
     margin-bottom: 15px;
     text-align: center;
     cursor: pointer;
+}
+
+.card p {
+    align-self: center;
 }
 
 .card:hover {
@@ -126,7 +134,7 @@ body {
     grid-area: arrow;
     color: #27AE60; /* Green */
     align-self: center;
-    font-size: 16px;
+    font-size: 25px;
     font-weight: bold;
 }
 

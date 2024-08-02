@@ -7,11 +7,12 @@ function handleKeyDown(event) {
   }
 }
 
-function onloadfunction(){
-  let chatMessages = document.getElementById("chat-messages");
+function onloadfunction() {
+  let chatMessages = document.getElementById('chat-messages');
   let welcomeMessage = document.createElement('div');
-  welcomeMessage.className = "message-back";
-  welcomeMessage.textContent = "מה הולך? ברוך הבא לבוט הכי חברי שתכיר אי פעם! כל מה שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)";
+  welcomeMessage.className = 'message-back';
+  welcomeMessage.textContent =
+    'מה הולך? ברוך הבא לבוט הכי חברי שתכיר אי פעם! כל מה שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)';
   chatMessages.appendChild(welcomeMessage);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -128,6 +129,10 @@ export async function validatedAction(intent, entities) {
 
 document.addEventListener('DOMContentLoaded', function () {
   window.onload = onloadfunction;
-  document.getElementById('submitButton').addEventListener('click', onSendMessage);
-  document.getElementById('messageInput').addEventListener('keydown', handleKeyDown);
+  document
+    .getElementById('submitButton')
+    .addEventListener('click', onSendMessage);
+  document
+    .getElementById('messageInput')
+    .addEventListener('keydown', handleKeyDown);
 });
