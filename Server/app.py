@@ -13,7 +13,7 @@ from Server.flow.flow_functions import analyze_class
 from Server.flow.extract_functions import extract_entities, format_date
 from Server.flow.check_for_missing_entities import check_for_missing
 from Server.flow.launchDBFunc import launch_functions, get_flights, action_by_intent
-from Server.database.functions import init, add_new_user
+from Server.database.functions import init, add_new_user, return_available_seats
 
 def create_app():
     app = Flask(__name__, static_folder='../Client', template_folder='../Client')
@@ -89,6 +89,12 @@ def create_app():
             return jsonify({'response': 'User added successfully'}, 200)
         except:
             return jsonify({'response': 'User already exists'}, 400)
+        
+    @app.route('/api/seats/<flight_id>', methods=['GET'])
+    def get_seats(flight_id):
+        seats = return_available_seats(flight_id)
+        return jsonify({'response': seats})
+        
 
 
     @app.route('/api/valflightbot', methods=['POST'])

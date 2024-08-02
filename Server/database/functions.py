@@ -20,6 +20,14 @@ def add_new_user(user_id: str):
     print("User", user_id, "added successfully to the database")
 
 
+def return_available_seats(flight_num: str):
+    # Call the data base - return the available seats for the flight
+    db = firestore.client()
+    flight_ref = db.collection('Flights').document(flight_num)
+    flight = flight_ref.get().to_dict()
+    return flight['Seats']
+
+
 def order_ticket(user_id: str, flight_num: str, seats: list):
     # Call the data base - remove the seat from the available seats - and add it to the user
     db = firestore.client()
