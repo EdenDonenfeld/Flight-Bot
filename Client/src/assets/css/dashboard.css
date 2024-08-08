@@ -250,6 +250,10 @@ body {
     border-radius: 7px;
 }
 
+.disabled-seat:hover {
+    cursor: default;
+}
+
 .selected {
     background-color: #4CAF50;
     color: white;
