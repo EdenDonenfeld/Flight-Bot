@@ -64,7 +64,7 @@ def order_ticket(user_id: str, flight_num: str, seats: list):
     # Add ticket to user and save
     user.add_ticket(db, ticket)
 
-    return ticket_id
+    return ticket.to_dict()
 
 
 

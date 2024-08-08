@@ -60,18 +60,11 @@ body {
     background-color: #bcf2bd;
 }
 
-.card {
+.card, .ticket-card {
     display: grid;
-    grid-template-areas:
-        "departure duration arrival"
-        "origin arrow destination"
-        "price price price";
-    grid-template-columns: 2fr 1fr 2fr;
-    grid-gap: 5px;
     justify-content: center;
     align-self: center;
     border-radius: 10px;
-    border: 1px solid #ddd;
     padding: 20px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -80,6 +73,27 @@ body {
     margin-bottom: 15px;
     text-align: center;
     cursor: pointer;
+}
+
+.card {
+    grid-template-areas:
+        "departure duration arrival"
+        "origin arrow destination"
+        "price price price";
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-gap: 5px;
+    border: 1px solid #ddd;
+}
+
+.ticket-card {
+    grid-template-areas:
+        "ticket-id"
+        "flight-number"
+        "seats";
+    grid-template-columns: 1fr;
+    width: 50vh;
+    margin-bottom: 20px;
+    border: 1px solid green;
 }
 
 .card p {
@@ -136,6 +150,27 @@ body {
     align-self: center;
     font-size: 25px;
     font-weight: bold;
+}
+
+.ticket-id {
+    grid-area: ticket-id;
+    color: #27AE60;
+    align-self: center;
+    font-size: 17px;
+}
+
+.flight-number {
+    grid-area: flight-number;
+    color: #27AE60;
+    align-self: center;
+    font-size: 17px;
+}
+
+.seats {
+    grid-area: seats;
+    color: #27AE60;
+    align-self: center;
+    font-size: 17px;
 }
 
 #messageInput {

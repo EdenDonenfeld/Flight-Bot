@@ -227,11 +227,31 @@ async function sendSelectedSeats(seats, flight) {
     if (ticket.length == 0) {
       newMessage.textContent = 'לא ניתן להזמין כרטיסים';
     } else {
-      newMessage.textContent = 'הכרטיסים שהזמנת';
+      newMessage.textContent = 'הכרטיס שהזמנת';
     }
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+    createTicketCard(ticket);
   } catch (error) {
     console.error('Error getting ticket:', error);
   }
+}
+
+function createTicketCard(ticket) {
+  // ticket is a Ticket object dictionary
+  const ticketCard = document.createElement('div');
+  ticketCard.className = 'ticket-card';
+  const ticket_id = ticket['TicketID'];
+  const flight_number = ticket['FlightNumber'];
+  const seats = ticket['Seats'].join(', ');
+
+  ticketCard.innerHTML = `
+        <p class="ticket-id"><strong>מספר כרטיס: </strong> ${ticket_id}</p>
+        <p class="flight-number"><strong>מספר טיסה :</strong> ${flight_number}</p>
+        <p class="seats"><strong>מושבים :</strong> ${seats}</p>
+    `;
+
+  const chatMessages = document.getElementById('chat-messages');
+  chatMessages.appendChild(ticketCard);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 }
