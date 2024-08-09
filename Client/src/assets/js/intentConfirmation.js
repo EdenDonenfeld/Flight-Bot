@@ -6,7 +6,7 @@ export function confirmIntent(response, entities) {
     const message = data.response;
     const predictedLabel = data.predicted_label;
     const responseData = data.response_data;
-    
+
     let hebrewResponseData = "";
     if (responseData == "you want to order a ticket") {
         hebrewResponseData = "אני רוצה להזמין כרטיס";
@@ -48,7 +48,7 @@ export function confirmIntent(response, entities) {
         console.log(userConfirmed);
         newIntentVerifiedRightMessage.disabled = true;
         newIntentVerifiedWrongMessage.disabled = true;
-        validatedAction(predictedLabel, entities);
+        confirmEntities(predictedLabel, entities);
     };
     intentVerifiedRightMessage.appendChild(newIntentVerifiedRightMessage);
     intentVerifiedRightMessage.scrollTop =
@@ -68,7 +68,39 @@ export function confirmIntent(response, entities) {
     intentVerifiedWrongMessage.appendChild(newIntentVerifiedWrongMessage);
     intentVerifiedWrongMessage.scrollTop = intentVerifiedWrongMessage.scrollHeight;
 
-    // if (newIntentVerifiedWrongMessage.textContent = "לא, זוהי לא כוונתי") {
-    // // הודעת נסח מחדש
-    // }
+    /// Entities Confirmation :
+    function confirmEntities(predictedLabel, entities) {
+        const dictEntities = JSON.parse(entities);
+        const requireEntities = [0, 0, 0, 0];
+        if (predictedLabel == 0 || predictedLabel == 1) {
+            requireEntities[0] = 1;
+            requireEntities[1] = 1;
+            requireEntities[2] = 1;
+            requireEntities[3] = 0;
+        }
+        const existsEntities = [0, 0, 0, 0];
+        if (dictEntities["Origin"] != null)
+            existsEntities[0] = 1;
+        if (dictEntities["Destination"] != null)
+            existsEntities[1] = 1;
+        if (dictEntities["Date"] != null)
+            existsEntities[2] = 1;
+        if (dictEntities["Date2"] != null)
+            existsEntities[3] = 1;
+
+        if (existsEntities[0] - requireEntities[0] < 0)
+            return;
+            //Missing Origin;
+        if (existsEntities[1] - requireEntities[1] < 0)
+            return;
+            //Missing Destination;
+        if (existsEntities[2] - requireEntities[2] < 0)
+            return;
+            //Missing Date;
+        if (existsEntities[3] - requireEntities[3] < 0)
+            return;
+            //Missing Date2;
+            
+        validatedAction(predictedLabel, entities);
+    }
 }

@@ -83,7 +83,6 @@ async function onSendMessage() {
   }
 }
 export async function validatedAction(intent, entities) {
-  console.log('Entities', entities);
   try {
     const response = await fetch(`/api/valflightbot`, {
       method: 'POST',
