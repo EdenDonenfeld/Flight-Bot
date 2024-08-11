@@ -49,9 +49,10 @@ def extract_entities(text, class_label):
         entities["Origin"], entities["Destination"] = extract_places(text)
         if extract_dates(text):
             entities["Date"] = extract_dates(text)[0]
-            # entities["Date"] = format_date(entities["Date"])
+            entities["Date"] = format_date(entities["Date"])
         entities["Origin"] = extract_APCode(entities["Origin"])
         entities["Destination"] = extract_APCode(entities["Destination"])
+        # If the origin and destination are the same, set the origin to TLV
         if entities["Origin"] == entities["Destination"]:
             entities["Origin"] = "TLV"
         
@@ -136,12 +137,12 @@ def extract_places(text):
 def extract_APCode(place):
     return APCode[place] if place in APCode else None  
 
-def format_date(date):
+def format_date(date: str) -> str:
     from datetime import datetime
     # 1. date could be in a few formats - dd/mm/yyyy, dd-mm-yyyy, dd.mm.yyyy or without year - dd/mm, dd-mm, dd.mm
     # 2. if only day and month are given, check if possible for current year, if not, check for next year
     # 3. convert the date to the format dd/mm/yyyy
-    # 5. conver to datetime object
+    # 5. convert to datetime object
     # 6. return the datetime object
 
     date_format = '%d/%m/%Y'
@@ -160,7 +161,8 @@ def format_date(date):
             date_obj = datetime.strptime(date, date_format)
         except ValueError:
             return None
-        return date_obj
+        date_string = date_obj.strftime(date_format)
+        return date_string
 
     # day-month
     if len(parts) == 2:
@@ -173,7 +175,9 @@ def format_date(date):
             return None
         if date_obj < datetime.today():
             date_obj = date_obj.replace(year=date_obj.year + 1)
-        return date_obj
+        # return the date as a string in the format dd/mm/yyyy
+        date_string = date_obj.strftime(date_format)
+        return date_string
 
 
 def is_valid_date(day, month, year=2024):

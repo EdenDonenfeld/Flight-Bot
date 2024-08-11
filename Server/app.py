@@ -62,16 +62,16 @@ def create_app():
         # validate predicated label
 
         entities = extract_entities(message, predicted_label)
-        print("Entities:", entities)
 
-        #check for missing entities
+        #TODO: check for missing entities
         check_for_missing(entities, predicted_label)
 
-        #validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
+        #TODO: validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
 
         #return text and entities
         response_data = text 
         response_message = f"{text} {str(entities)}"
+        print("*********** Entities: ***********", entities)
         response_entities = json.dumps(entities)
 
         # lanch_functions(predicted_label, uid)
@@ -103,11 +103,7 @@ def create_app():
         entities = data.get('entities', '')
         entities = json.loads(entities)
         print("Entities:", entities)
-        try:
-            entities["Date"] = format_date(entities["Date"])
-        except:
-            pass
-
+    
         label = data.get('label', '')
         user = data.get('user', '')
 
