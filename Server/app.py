@@ -102,6 +102,7 @@ def create_app():
         data = request.get_json()
         entities = data.get('entities', '')
         entities = json.loads(entities)
+        print("Entities:", entities)
         try:
             entities["Date"] = format_date(entities["Date"])
         except:
@@ -111,7 +112,7 @@ def create_app():
         user = data.get('user', '')
 
         response = action_by_intent(label, entities, user["uid"])
-        # print("Response: ", response)
+        print("Response: ", response)
         return jsonify({'response': response})
     
     # alpha version: buy flight ticket

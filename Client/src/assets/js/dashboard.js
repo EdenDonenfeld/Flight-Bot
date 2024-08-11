@@ -103,6 +103,9 @@ export async function validatedAction(intent, entities) {
     const data = await response.json();
     const flights = data.response;
 
+    console.log('Data: ', data);
+    console.log('Flights: ', flights);
+
     // Adding a message from server
     let chatMessages = document.getElementById('chat-messages');
     let newMessage = document.createElement('div');

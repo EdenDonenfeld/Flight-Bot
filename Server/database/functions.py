@@ -28,8 +28,6 @@ def return_available_seats(flight_num: str):
     return flight['Seats']
 
 
-
-
 def order_ticket(user_id: str, flight_num: str, seats: list):
     # Call the data base - remove the seat from the available seats - and add it to the user
     db = firestore.client()
