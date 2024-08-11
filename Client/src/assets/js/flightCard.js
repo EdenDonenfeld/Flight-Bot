@@ -246,10 +246,10 @@ function createTicketCard(ticket) {
   const seats = ticket['Seats'].join(', ');
 
   ticketCard.innerHTML = `
-        <p class="ticket-id"><strong>מספר כרטיס: </strong> ${ticket_id}</p>
-        <p class="flight-number"><strong>מספר טיסה :</strong> ${flight_number}</p>
-        <p class="seats"><strong>מושבים :</strong> ${seats}</p>
-    `;
+    <p class="ticket-id"><strong>מספר כרטיס: </strong> ${ticket_id}</p>
+    <p class="flight-number"><strong>מספר טיסה :</strong> ${flight_number}</p>
+    <p class="seats"><strong>מושבים :</strong> ${seats}</p>
+  `;
 
   const chatMessages = document.getElementById('chat-messages');
   chatMessages.appendChild(ticketCard);
