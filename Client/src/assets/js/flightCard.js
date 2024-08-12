@@ -63,6 +63,21 @@ export function createFlightCard(flight) {
   });
 }
 
+export function createTicketCardCancel(ticket) {
+  createTicketCard(ticket, 'red');
+  const ticketCard = document.querySelector('.ticket-card');
+  ticketCard.addEventListener('click', () => {
+    ticketCard.style.border = '1px solid red';
+    // delete other ticket cards
+    const cards = document.getElementsByClassName('ticket-card');
+    for (let i = 0; i < cards.length; i++) {
+      if (cards[i] !== ticketCard) {
+        cards[i].remove();
+      }
+    }
+  });
+}
+
 async function createSeatsContainer(flightNumber) {
   const container = document.getElementById('container');
   container.innerHTML = `
@@ -231,19 +246,25 @@ async function sendSelectedSeats(seats, flight) {
     }
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    createTicketCard(ticket);
+    createTicketCard(ticket, 'green');
   } catch (error) {
     console.error('Error getting ticket:', error);
   }
 }
 
-function createTicketCard(ticket) {
+function createTicketCard(ticket, color) {
   // ticket is a Ticket object dictionary
   const ticketCard = document.createElement('div');
   ticketCard.className = 'ticket-card';
   const ticket_id = ticket['TicketID'];
   const flight_number = ticket['FlightNumber'];
   const seats = ticket['Seats'].join(', ');
+
+  if (color === 'green') {
+    ticketCard.classList.add('green');
+  } else if (color === 'red') {
+    ticketCard.classList.add('red');
+  }
 
   ticketCard.innerHTML = `
     <p class="ticket-id"><strong>מספר כרטיס: </strong> ${ticket_id}</p>

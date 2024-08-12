@@ -73,6 +73,7 @@ body {
     margin-bottom: 15px;
     text-align: center;
     cursor: pointer;
+    border: 1px solid #ddd;
 }
 
 .card {
@@ -82,7 +83,6 @@ body {
         "price price price";
     grid-template-columns: 2fr 1fr 2fr;
     grid-gap: 5px;
-    border: 1px solid #ddd;
 }
 
 .ticket-card {
@@ -93,6 +93,14 @@ body {
     grid-template-columns: 1fr;
     width: 50vh;
     margin-bottom: 20px;
+}
+
+.red {
+    color: rgb(228, 65, 65);
+}
+
+.green {
+    color: #27AE60;
     border: 1px solid green;
 }
 
@@ -153,13 +161,7 @@ body {
     font-weight: bold;
 }
 
-.ticket-details {
-    width: 100%;
-    text-align: left;
-}
-
 .ticket-id, .flight-number, .seats {
-    color: #27AE60;
     font-size: 16px;
     margin-bottom: 10px;
 }

@@ -1,4 +1,4 @@
-import { createFlightCard } from './flightCard.js';
+import { createFlightCard, createTicketCardCancel } from './flightCard.js';
 import { confirmIntent } from './intentConfirmation.js';
 
 function handleKeyDown(event) {
@@ -106,18 +106,22 @@ export async function validatedAction(intent, entities) {
     }
     if (intent == 1) {
       const ticket = data.response;
-      console.log(ticket);
-      let message = 'הכרטיס נמצא בהצלחה'; 
-      let ticketID = ticket.TicketID;
-      // Adding a message from server
+
       let chatMessages = document.getElementById('chat-messages');
       let newMessage = document.createElement('div');
       newMessage.className = 'message-back';
-      newMessage.textContent = ticketID;
+
+      if (ticket == null) {
+        newMessage.textContent = 'לא נמצא כרטיס';
+      } else {
+        newMessage.textContent = 'הכרטיס נמצא בהצלחה';
+      }
+
       chatMessages.appendChild(newMessage);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      createTicketCardCancel(ticket);
     }
-    
   } catch (error) {
     console.error('Error getting entities:', error);
   }
