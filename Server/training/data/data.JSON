@@ -17,6 +17,8 @@
     {"request": "איך מזמינים טיסה למחר בבוקר?", "is_order": 1, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "מה המחיר של טיסה לברלין?", "is_order": 1, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "אני אשמח להזמין כרטיס טיסה לנכד שלי", "is_order": 1, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אני רוצה בבקשה להזמין כרטיס טיסה מתל אביב לדובאי ב5.5", "is_order": 1, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אפשר להזמין כרטיס למדריד בשבוע הבא?", "is_order": 1, "is_refund": 0, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
 
     {"request": "איך אני יכול לבטל כרטיס טיסה", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "איך ניתן לבטל את כרטיס הטיסה שלי?", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
@@ -36,6 +38,13 @@
     {"request": "מהן אופציות ביטול כרטיס?", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "האם ניתן לקבל שובר?", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "אני אשמח לבטל את כרטיס הטיסה שלי", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אני רוצה לבטל כרטיס מתל אביב ללונדון ב12.12", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אני רוצה לבטל כרטיס טיסה לברצלונה ב30/5/2025", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אני רוצה החזר על הכרטיס טיסה שלי לדובאי", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אני רוצה החזר כספי על הכרטיס שהזמנתי", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אני צריך ביטול עבור ההזמנה שלי", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אני אשמח לבטל את כרטיס הטיסה שהזמנתי לניו יורק ב5.6", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
+    {"request": "אפשר לבטל את הטיסה שלי ללונדון ב7.8?", "is_order": 0, "is_refund": 1, "is_status": 0, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
 
     {"request": "מה המצב של טיסה 505 לפראג", "is_order": 0, "is_refund": 0, "is_status": 1, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
     {"request": "האם הטיסה לבוקרשט יוצאת בזמן?", "is_order": 0, "is_refund": 0, "is_status": 1, "is_date_change": 0, "is_dest_change": 0, "is_weather": 0, "is_allowed": 0},
