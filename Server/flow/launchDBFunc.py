@@ -36,7 +36,7 @@ def launch_functions(predicted_label, entities, uid):
         
     elif predicted_label == 1:
         refund_ticket(uid, entities["ticket_id"])
-        return "Ticket refunded"
+        return "כרטיס בוטל בהצלחה"
     elif predicted_label == 2:
         # check status(uid, ticket_id)
         check_status()

@@ -75,6 +75,9 @@ export function createTicketCardCancel(ticket) {
         cards[i].remove();
       }
     }
+
+    // send cancel ticket request
+    sendCancelTicket(ticket);
   });
 }
 
@@ -275,4 +278,43 @@ function createTicketCard(ticket, color) {
   const chatMessages = document.getElementById('chat-messages');
   chatMessages.appendChild(ticketCard);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+async function sendCancelTicket(ticket) {
+  // send to /api/finalActions
+  let entities = {
+    user: window.user,
+    label: 1,
+    ticket_id: ticket.TicketID,
+    ticket: ticket,
+  };
+  ///conver the dictionary to string
+  entities = JSON.stringify(entities);
+  try {
+    const response = await fetch(`/api/finalActions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ entities: entities }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    const responseText = data.response;
+    console.log(responseText);
+
+    // Adding a message from server
+    let chatMessages = document.getElementById('chat-messages');
+    let newMessage = document.createElement('div');
+    newMessage.className = 'message-back';
+    newMessage.textContent = responseText;
+    chatMessages.appendChild(newMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  } catch (error) {
+    console.error('Error getting ticket:', error);
+  }
 }
