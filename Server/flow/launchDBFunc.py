@@ -1,4 +1,4 @@
-from Server.database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status, search_flights
+from Server.database.functions import order_ticket, refund_ticket, change_date, change_dest, check_status, search_flights, get_tickets
 
 def action_by_intent(predicted_label, entities, uid):
     if predicted_label == 0:
@@ -8,7 +8,19 @@ def action_by_intent(predicted_label, entities, uid):
         return flights
     elif predicted_label == 1:
         # TODO: User wants to refund ticket, search for ticket, and update user and flight seats
+        check_ticket(entities, uid)
         return "Refund ticket"
+
+def check_ticket(entities, uid):
+    # check if the user has a ticket that matches the entities
+    #load the users tickets
+    tickets = get_tickets(uid)
+    print("Tickets:", tickets)
+    return tickets
+
+
+    
+
 def get_flights(entities):
     print("Origin:", entities['Origin'], "Destination:", entities['Destination'], "Date:", entities['Date'])
     return search_flights(entities['Origin'], entities['Destination'], entities['Date'])

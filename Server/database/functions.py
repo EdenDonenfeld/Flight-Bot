@@ -19,6 +19,22 @@ def add_new_user(user_id: str):
     user_ref.set(user.to_dict())
     print("User", user_id, "added successfully to the database")
 
+def get_tickets(uid):
+    try:
+        db = firestore.client()
+        user_ref = db.collection('Users').document(uid)
+        user_doc = user_ref.get()
+        
+        if user_doc.exists:
+            # Retrieve the tickets array from the user's document
+            user_data = user_doc.to_dict()
+            return user_data.get('Tickets', [])
+        else:
+            print(f'User with ID {uid} does not exist.')
+            return []
+    except Exception as e:
+        print(f'Error retrieving tickets: {e}')
+        return []
 
 def return_available_seats(flight_num: str):
     # Call the data base - return the available seats for the flight
