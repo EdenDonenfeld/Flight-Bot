@@ -81,31 +81,43 @@ export async function validatedAction(intent, entities) {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-
     const data = await response.json();
-    const flights = data.response;
-
-    console.log('Data: ', data);
-    console.log('Flights: ', flights);
-
-    // Adding a message from server
-    let chatMessages = document.getElementById('chat-messages');
-    let newMessage = document.createElement('div');
-    newMessage.className = 'message-back';
-    // check if flights is empty
-    if (flights.length == 0) {
-      newMessage.textContent = 'לא נמצאו טיסות';
-    } else {
-      newMessage.textContent = 'הנה כמה טיסות שמצאתי עבורך';
+    console.log('got a response');
+    if (intent == 0) {
+      console.log('you want to order');
+      const flights = data.response;
+      // Adding a message from server
+      let chatMessages = document.getElementById('chat-messages');
+      let newMessage = document.createElement('div');
+      newMessage.className = 'message-back';
+      // check if flights is empty
+      if (flights.length == 0) {
+        newMessage.textContent = 'לא נמצאו טיסות';
+      } else {
+        newMessage.textContent = 'הנה כמה טיסות שמצאתי עבורך';
+      }
+      chatMessages.appendChild(newMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      // create flight cards for each flight found
+      let counter = 1;
+      flights.forEach((flight) => {
+        createFlightCard(flight);
+      });
     }
-    chatMessages.appendChild(newMessage);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    // create flight cards for each flight found
-    console.log('Flights:', flights);
-    let counter = 1;
-    flights.forEach((flight) => {
-      createFlightCard(flight);
-    });
+    if (intent == 1) {
+      const ticket = data.response;
+      console.log(ticket);
+      let message = 'הכרטיס נמצא בהצלחה'; 
+      let ticketID = ticket.TicketID;
+      // Adding a message from server
+      let chatMessages = document.getElementById('chat-messages');
+      let newMessage = document.createElement('div');
+      newMessage.className = 'message-back';
+      newMessage.textContent = ticketID;
+      chatMessages.appendChild(newMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
   } catch (error) {
     console.error('Error getting entities:', error);
   }

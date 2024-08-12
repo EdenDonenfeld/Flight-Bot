@@ -8,31 +8,35 @@ def action_by_intent(predicted_label, entities, uid):
         return flights
     elif predicted_label == 1:
         # TODO: User wants to refund ticket, search for ticket, and update user and flight seats
-        check_ticket(entities, uid)
-        return "Refund ticket"
+        ticket = check_ticket(entities, uid)
+        print("found ticket to refund", ticket)
+        return ticket
 
 def check_ticket(entities, uid):
     # check if the user has a ticket that matches the entities
     #load the users tickets
     tickets = get_tickets(uid)
-    print("Tickets:", tickets)
+    flights = get_flights(entities)
+    for ticket in tickets:
+        flight_num = ticket['FlightNumber']
+        for flight in flights:
+            if flight['FlightNumber'] == flight_num:
+                return ticket
     return tickets
-
+    
 
     
 
 def get_flights(entities):
-    print("Origin:", entities['Origin'], "Destination:", entities['Destination'], "Date:", entities['Date'])
     return search_flights(entities['Origin'], entities['Destination'], entities['Date'])
 
 def launch_functions(predicted_label, entities, uid):
     if predicted_label == 0:
-        print(uid, entities["flight_num"], entities["seats"])
         return order_ticket(uid, entities["flight_num"], entities["seats"])
         
     elif predicted_label == 1:
-        # refund ticket(uid, ticket_id)
-        refund_ticket()
+        refund_ticket(uid, entities["ticket_id"])
+        return "Ticket refunded"
     elif predicted_label == 2:
         # check status(uid, ticket_id)
         check_status()

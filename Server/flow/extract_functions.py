@@ -45,7 +45,7 @@ def extract_entities(text, class_label):
         "Date": None,
         "Date2": None
     }
-    if class_label == 0:
+    if class_label == 0 or class_label == 1:
         entities["Origin"], entities["Destination"] = extract_places(text)
         if extract_dates(text):
             entities["Date"] = extract_dates(text)[0]
@@ -56,20 +56,6 @@ def extract_entities(text, class_label):
         if entities["Origin"] == entities["Destination"]:
             entities["Origin"] = "TLV"
         
-    elif class_label == 1:
-        entities["Origin"], entities["Destination"] = extract_places(text)
-        if extract_dates(text):
-            entities["Date"] = extract_dates(text)[0]
-    elif class_label == 2:
-        return extract_places(text)
-    elif class_label == 3:
-        return extract_dates(text)
-    elif class_label == 4:
-        return extract_places(text)
-    elif class_label == 5:
-        return extract_places(text)
-    else:
-        return extract_places(text)
     return entities
     
 # returns an array of dates in the text format of only with numbers
