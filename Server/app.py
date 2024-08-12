@@ -55,10 +55,8 @@ def create_app():
         message = data.get('message', '')
         user_id = data.get('user_id', '')
 
-        print("Received message:", message)
         predicted_label = analyze_class(message)
         # Convert predicted_label to a regular Python integer
-        print("Predicted Label:", predicted_label)
         predicted_label = int(predicted_label)
         # validate predicated label
 
