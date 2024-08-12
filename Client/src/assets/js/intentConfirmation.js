@@ -8,27 +8,16 @@ export function confirmIntent(response, entities) {
     const responseData = data.response_data;
 
     let hebrewResponseData = "";
-    if (responseData == "you want to order a ticket") {
+    if (predictedLabel == 0) {
         hebrewResponseData = "אני רוצה להזמין כרטיס";
     }
-    else if (responseData == "you want to refund a ticket") {
+    else if (predictedLabel == 1) {
         hebrewResponseData = "אני רוצה החזר על הכרטיס";
     }
-    else if (responseData == "you want to check the status of your ticket") {
-        hebrewResponseData = "אני רוצה לבדוק סטטוס של כרטיס";
+    else if (predictedLabel == 2) {
+        hebrewResponseData = "אחר";
     }
-    else if (responseData == "you want to change the date of your ticket") {
-        hebrewResponseData = "אני רוצה לשנות את התאריך של הכרטיס";
-    }
-    else if (responseData == "you want to change the destination of your ticket") {
-        hebrewResponseData = "אני רוצה לשנות את היעד של הכרטיס";
-    }
-    else if (responseData == "you want to know the weather of your destination") {
-        hebrewResponseData = "אני רוצה לדעת את המזג אוויר ביעד";
-    }
-    else if (responseData == "you want to know what is allowed in the flight") {
-        hebrewResponseData = "אני רוצה לדעת מה מותר לעלות לטיסה";
-    }
+    
 
     let intentVerifiedMessage = document.getElementById('chat-messages');
     let newIntentVerifiedMessage = document.createElement('div');

@@ -3,3 +3,4 @@ Server/venv/
 Server/saved_model/
 Server/database/flights-credentials.json
 .prettierrc
+.venv/

@@ -56,8 +56,9 @@ def create_app():
         user_id = data.get('user_id', '')
 
         print("Received message:", message)
-        predicted_label, text = analyze_class(message)
+        predicted_label = analyze_class(message)
         # Convert predicted_label to a regular Python integer
+        print("Predicted Label:", predicted_label)
         predicted_label = int(predicted_label)
         # validate predicated label
 
@@ -69,14 +70,13 @@ def create_app():
 
         #validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
 
-        #return text and entities
-        response_data = text 
-        response_message = f"{text} {str(entities)}"
+        #return entities
+        response_message = f"{str(entities)}"
         response_entities = json.dumps(entities)
 
         # lanch_functions(predicted_label, uid)
         # return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, entities: response_entities})
-        return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, 'entities': response_entities})
+        return jsonify({'response': response_message, 'predicted_label': predicted_label, 'entities': response_entities})
 
     @app.route('/api/flightbot/user', methods=['POST'])
     def check_user():
