@@ -66,6 +66,7 @@ export function createFlightCard(flight) {
 export function createTicketCardCancel(ticket) {
   createTicketCard(ticket, 'red');
   const ticketCard = document.querySelector('.ticket-card');
+  let isFirstClick = true;
   ticketCard.addEventListener('click', () => {
     ticketCard.style.border = '1px solid red';
     // delete other ticket cards
@@ -76,8 +77,11 @@ export function createTicketCardCancel(ticket) {
       }
     }
 
-    // send cancel ticket request
-    sendCancelTicket(ticket);
+    if (isFirstClick) {
+      isFirstClick = false;
+      // send cancel ticket request
+      sendCancelTicket(ticket);
+    }
   });
 }
 
