@@ -147,17 +147,26 @@ flight12 = Flight(
     seats=seats_list  # Generates the seat list programmatically
 )
 
+import random
+destinations = ['LAX', 'JFK', 'CDG', 'LON', 'MAD', 'BER', 'BCN', 'DXB', 'MIA', 'SFO']
+dates = [datetime.datetime(2024, i, random.randint(1, 29), 12, 0, 0) for i in range(9, 13)] + [datetime.datetime(2025, i, random.randint(1, 31), 12, 0, 0) for i in range(1, 9)]
+durations = ['02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00' ]
 
-# Save the flight to Firestore
-flight1.save(db)
-flight2.save(db)
-flight3.save(db)
-flight4.save(db)
-flight5.save(db)
-flight6.save(db)
-flight7.save(db)
-flight8.save(db)
-flight9.save(db)
-flight10.save(db)
-flight11.save(db)
-flight12.save(db)
+for i in range(1300, 1321):
+    rnd_dest = random.randint(0, len(destinations) - 1)
+    rnd_date = random.randint(0, len(dates) - 1)
+    rnd_duration = random.randint(0, len(durations) - 1)
+    flight = Flight(
+        flight_number=f'FB{i}',
+        origin='TLV',
+        destination=destinations[rnd_dest],
+        date=dates[rnd_date],
+        duration=durations[rnd_duration],
+        price='1000',
+        status='On Time',
+        seats=seats_list  # Generates the seat list programmatically
+    )
+    flight.save(db)
+
+
+

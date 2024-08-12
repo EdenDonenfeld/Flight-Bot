@@ -63,12 +63,11 @@ def create_app():
         # validate predicated label
 
         entities = extract_entities(message, predicted_label)
-        print("Entities:", entities)
 
-        #check for missing entities
+        #TODO: check for missing entities
         check_for_missing(entities, predicted_label)
-
-        #validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
+ 
+        #TODO: validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
 
         #return entities
         response_message = f"{str(entities)}"
@@ -102,16 +101,13 @@ def create_app():
         data = request.get_json()
         entities = data.get('entities', '')
         entities = json.loads(entities)
-        try:
-            entities["Date"] = format_date(entities["Date"])
-        except:
-            pass
-
+        print("Entities:", entities)
+    
         label = data.get('label', '')
         user = data.get('user', '')
 
         response = action_by_intent(label, entities, user["uid"])
-        # print("Response: ", response)
+        print("Response: ", response)
         return jsonify({'response': response})
     
     # alpha version: buy flight ticket

@@ -58,32 +58,14 @@ async function onSendMessage() {
     console.log('Entities', entities);
 
     confirmIntent(data, entities);
-
-    // Adding a message from server
-    // let chatMessages = document.getElementById("chat-messages");
-    // let newMessage = document.createElement('div');
-    // newMessage.className = "message-back";
-    // newMessage.textContent = message;
-    // chatMessages.appendChild(newMessage);
-    // chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    // if (predictedLabel == 0) {
-    //   const flight = {
-    //     "departure_time": "9:00",
-    //     "origin": "TLV",
-    //     "duration": "2:30",
-    //     "arrival_time": "11:30",
-    //     "destination": "ATH",
-    //     "price": "200$"
-    //   }
-    //   createFlightCard(flight);
-    // }
   } catch (error) {
     console.error('Error getting entities:', error);
   }
 }
 export async function validatedAction(intent, entities) {
   try {
+    console.log('Intent: ', intent);
+    console.log('Entities: ', entities);
     const response = await fetch(`/api/valflightbot`, {
       method: 'POST',
       headers: {
@@ -102,6 +84,9 @@ export async function validatedAction(intent, entities) {
 
     const data = await response.json();
     const flights = data.response;
+
+    console.log('Data: ', data);
+    console.log('Flights: ', flights);
 
     // Adding a message from server
     let chatMessages = document.getElementById('chat-messages');

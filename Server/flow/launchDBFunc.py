@@ -6,6 +6,9 @@ def action_by_intent(predicted_label, entities, uid):
         if flights == None:
             flights = []
         return flights
+    elif predicted_label == 1:
+        # TODO: User wants to refund ticket, search for ticket, and update user and flight seats
+        return "Refund ticket"
 def get_flights(entities):
     print("Origin:", entities['Origin'], "Destination:", entities['Destination'], "Date:", entities['Date'])
     return search_flights(entities['Origin'], entities['Destination'], entities['Date'])

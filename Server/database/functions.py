@@ -204,11 +204,15 @@ def check_status(user_id: str, ticket_id: str):
     return flight["Status"]
 
 
-def search_flights(origin: str, destination: str, date: datetime):
+def search_flights(origin: str, destination: str, date: str):
     # Call the data base - search for flights
-    # date is y/m/d
+    # date is str dd/mm/yyyy
     # return 3 closest flights, if there's less than 3, return all
     # add flights to the database
+
+    # convert date to datetime object
+    date = datetime.strptime(date, "%d/%m/%Y")
+    
     db = firestore.client()
     flights = db.collection('Flights').where("Origin", "==", origin).where("Destination", "==", destination)
     flights_list = flights.get()
