@@ -114,7 +114,7 @@ export async function validatedAction(intent, entities) {
       if (ticket == null) {
         newMessage.textContent = 'לא נמצא כרטיס';
       } else {
-        newMessage.textContent = 'הכרטיס נמצא בהצלחה';
+        newMessage.textContent = 'הכרטיס נמצא בהצלחה, בחר בכרטיס כדי לבטלו';
       }
 
       chatMessages.appendChild(newMessage);

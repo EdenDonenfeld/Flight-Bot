@@ -305,7 +305,6 @@ async function sendCancelTicket(ticket) {
 
     const data = await response.json();
     const responseText = data.response;
-    console.log(responseText);
 
     // Adding a message from server
     let chatMessages = document.getElementById('chat-messages');
@@ -315,6 +314,6 @@ async function sendCancelTicket(ticket) {
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   } catch (error) {
-    console.error('Error getting ticket:', error);
+    console.error('Error getting response:', error);
   }
 }
