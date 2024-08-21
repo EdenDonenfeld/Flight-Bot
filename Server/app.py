@@ -10,10 +10,10 @@ import json
 import mimetypes
 from flask import Flask, render_template, request, jsonify, send_file
 from Server.flow.flow_functions import analyze_class
-from Server.flow.extract_functions import extract_entities, format_date
+from Server.flow.extract_functions import extract_entities
 from Server.flow.check_for_missing_entities import check_for_missing
-from Server.flow.launchDBFunc import launch_functions, get_flights, action_by_intent
-from Server.database.functions import init, add_new_user, return_available_seats
+from Server.flow.launchDBFunc import launch_functions, action_by_intent
+from Server.database.functions import init, add_new_user, return_available_seats, get_tickets
 
 def create_app():
     app = Flask(__name__, static_folder='../Client', template_folder='../Client')
@@ -48,6 +48,10 @@ def create_app():
     @app.route('/dashboard')
     def dashboard():
         return render_template('/src/pages/dashboard.html')
+    
+    @app.route('/myTickets')
+    def myTickets():
+        return render_template('/src/pages/myTickets.html')
 
     @app.route('/api/flightbot', methods=['POST'])
     def flightbot():
@@ -91,8 +95,6 @@ def create_app():
     def get_seats(flight_id):
         seats = return_available_seats(flight_id)
         return jsonify({'response': seats})
-        
-
 
     @app.route('/api/valflightbot', methods=['POST'])
     def vallightbotv():
@@ -119,4 +121,13 @@ def create_app():
         response = launch_functions(entities["label"], entities, entities["user"]["uid"])
         # print("Response: ", response)
         return jsonify({'response': response, 'label': entities["label"]})
+    
+    @app.route('/api/myTickets', methods=['POST'])
+    def sendUserTickets():
+        data = request.get_json()
+        user_id = data.get('user_id', '')
+        # tickets = get_tickets(user_id) - get_tickets not working
+        tickets = []
+        return jsonify({'response': tickets})
+
     return app
