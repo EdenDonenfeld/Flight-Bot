@@ -1,5 +1,6 @@
 Server/node_modules/
 Server/venv/
+Server/training/saved_model2/
 Server/saved_model/
 Server/database/flights-credentials.json
 .prettierrc
