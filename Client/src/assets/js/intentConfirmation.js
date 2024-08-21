@@ -15,7 +15,13 @@ export function confirmIntent(response, entities) {
         hebrewResponseData = "אני רוצה החזר על הכרטיס";
     }
     else if (predictedLabel == 2) {
-        hebrewResponseData = "אחר";
+        let intentVerifiedMessage = document.getElementById('chat-messages');
+        let newIntentVerifiedMessage = document.createElement('div');
+        newIntentVerifiedMessage.className = 'message-back';
+        newIntentVerifiedMessage.textContent = "אני חושש שאני לא יודע לעזור לך בבקשה זו, אנא בקש שוב";
+        intentVerifiedMessage.appendChild(newIntentVerifiedMessage);
+        intentVerifiedMessage.scrollTop = intentVerifiedMessage.scrollHeight;
+        return;
     }
     
 
