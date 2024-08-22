@@ -126,7 +126,8 @@ def create_app():
     def sendUserTickets():
         data = request.get_json()
         user_id = data.get('user_id', '')
-        # tickets = get_tickets(user_id) - get_tickets not working
+        # get_tickets not working
+        tickets = get_tickets(user_id)
         tickets = []
         return jsonify({'response': tickets})
 
