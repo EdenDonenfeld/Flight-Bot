@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function sendToServer(uid) {
+    console.log(uid);
     try {
         const response = await fetch('/api/myTickets', {
             method: 'POST',

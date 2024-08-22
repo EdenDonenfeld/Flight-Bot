@@ -125,10 +125,10 @@ def create_app():
     @app.route('/api/myTickets', methods=['POST'])
     def sendUserTickets():
         data = request.get_json()
-        user_id = data.get('user_id', '')
+        user_id = data.get('user-id', '')
+        print("User ID: ", user_id)
         # get_tickets not working
         tickets = get_tickets(user_id)
-        tickets = []
         return jsonify({'response': tickets})
 
     return app
