@@ -78,6 +78,7 @@ body {
 
 .card {
     grid-template-areas:
+        "date date date"
         "departure duration arrival"
         "origin arrow destination"
         "price price price";
@@ -124,6 +125,13 @@ body {
 
 .card p {
     align-self: center;
+}
+
+.date {
+    grid-area: date;
+    color: #2C3E50; /* Dark blue-gray */
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .departure {

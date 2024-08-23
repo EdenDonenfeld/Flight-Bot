@@ -4,6 +4,10 @@ export function createFlightCard(flight) {
     flightCard.className = 'card';
     const datetimeString = flight['Date'];
     const dateObj = new Date(datetimeString);
+    let day = dateObj.getDate();
+    let month = dateObj.getMonth() + 1;
+    let year = dateObj.getFullYear();
+    let date = `${day}.${month}.${year}`;
     let hours = dateObj.getHours();
     let minutes = dateObj.getMinutes();
     if (minutes < 10) {
@@ -19,6 +23,7 @@ export function createFlightCard(flight) {
     }
 
     flightCard.innerHTML = `
+        <p class="date"><strong>תאריך :</strong> ${date}</p>
         <p class="departure"><strong>המראה :</strong> ${departure}</p>
         <p class="duration"><strong>משך טיסה :</strong> ${flight['Duration']}</p>
         <p class="arrival"><strong>נחיתה :</strong> ${arrival}</p>
