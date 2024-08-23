@@ -5,10 +5,12 @@ import {
 
 document.addEventListener('DOMContentLoaded', () => {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
             const uid = user.uid;
-            sendToServer(uid);
+            const tickets = await sendToServer(uid);
+            console.log(tickets);
+            tickets.forEach((ticket) => createTicket(ticket));
 
             // Your code to use the UID
         } else {
@@ -29,8 +31,24 @@ async function sendToServer(uid) {
             body: JSON.stringify({ 'user-id': uid }),
         });
         const data = await response.json();
-        console.log(data);
+        return data.response;
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+function createTicket(ticket) {
+    const ticketContainer = document.querySelector('.tickets-container');
+    const ticketElement = document.createElement('div');
+    ticketElement.classList.add('ticket-card');
+    ticketElement.classList.add('my-ticket');
+    const ticket_id = ticket['TicketID'];
+    const flight_number = ticket['FlightNumber'];
+    const seats = ticket['Seats'].join(', ');
+    ticketElement.innerHTML = `
+        <p class="ticket-id" dir="rtl"><strong>מספר כרטיס: </strong> ${ticket_id}</p>
+        <p class="flight-number" dir="rtl"><strong>מספר טיסה :</strong> ${flight_number}</p>
+        <p class="seats" dir="rtl"><strong>מושבים :</strong> ${seats}</p>
+    `;
+    ticketContainer.appendChild(ticketElement);
 }

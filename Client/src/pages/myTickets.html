@@ -4,8 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/src/assets/css/dashboard.css">
 
     <title>FlightBot    </title>
+
+    <style>
+        body {
+            background-color: rgb(240, 240, 233);
+        }
+    </style>
 
     <!-- Add Firebase products that you want to use -->
     <script type="module">
@@ -39,8 +46,6 @@
                     else {
                         window.user = user
                         const uid = user.uid
-                        const element = document.getElementById("tickets")
-                        element.textContent = "Hello " + uid
                     }
                 })
                 clearInterval(i)
@@ -50,7 +55,7 @@
 </head>
 
 <body>
-    <div id="tickets"></div>
+    <div class="tickets-container"></div>
 </body>
 
 </html>
