@@ -48,7 +48,5 @@ trip_info = {
     'Date2': '2024-09-15'
 }
 
-corrected_trip_info = correct_trip_info(trip_info, valid_cities)
-print(corrected_trip_info)
-
 # Output will show the corrected origin and destination if there are any typos
+corrected_trip_info = correct_trip_info(trip_info, valid_cities)
