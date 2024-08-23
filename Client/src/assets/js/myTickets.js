@@ -9,7 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             const uid = user.uid;
             const tickets = await sendToServer(uid);
-            console.log(tickets);
+
+            if (tickets.length === 0) {
+                const ticketContainer =
+                    document.querySelector('.tickets-container');
+                const noTicketsElement = document.createElement('p');
+                noTicketsElement.classList.add('no-tickets-msg');
+                noTicketsElement.innerText = 'No tickets found';
+                ticketContainer.appendChild(noTicketsElement);
+            }
+
             tickets.forEach((ticket) => createTicket(ticket));
 
             // Your code to use the UID

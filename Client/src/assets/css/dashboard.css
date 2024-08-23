@@ -102,6 +102,12 @@ body {
     border: 2px solid rgb(240, 240, 233);
 }
 
+.no-tickets-msg {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
 .red {
     color: rgb(228, 65, 65);
 }
