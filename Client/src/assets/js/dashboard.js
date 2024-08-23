@@ -24,7 +24,6 @@ async function onSendMessage() {
         return;
     }
 
-    // console.log(window.user);
     let val = input.value;
 
     if (val.trim() != '') {
@@ -39,6 +38,21 @@ async function onSendMessage() {
     }
 
     console.log('Message', val);
+
+    let flagWelcome = false;
+    const welcomeWords = [
+        'שלום',
+        'היי',
+        'אהלן',
+        'מה נשמע',
+        'מה קורה',
+        'מה נשמע',
+    ];
+
+    // Check if the message is a welcome message only
+    if (welcomeWords.some((word) => val.includes(word))) {
+        flagWelcome = true;
+    }
 
     try {
         const response = await fetch(`/api/flightbot`, {
@@ -57,7 +71,7 @@ async function onSendMessage() {
         const entities = data.entities;
         console.log('Entities', entities);
 
-        confirmIntent(data, entities);
+        confirmIntent(data, entities, flagWelcome);
     } catch (error) {
         console.error('Error getting entities:', error);
     }
