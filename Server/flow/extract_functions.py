@@ -1,8 +1,4 @@
 import re
-from .error_distance import levenshtein_distance, find_closest_city, correct_trip_info
-
-# TODO: use correct_trip_info function from error_distance.py to the Origin and Destination fields
-
 APCode = {
         "ישראל": "TLV",
         "יוון": "ATH",

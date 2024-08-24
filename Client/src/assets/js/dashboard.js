@@ -46,7 +46,7 @@ async function onSendMessage() {
         'אהלן',
         'מה נשמע',
         'מה קורה',
-        'מה נשמע',
+        'מה הולך',
     ];
 
     // Check if the message is a welcome message only
