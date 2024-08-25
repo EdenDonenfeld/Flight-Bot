@@ -106,7 +106,9 @@ def create_app():
         label = data.get('label', '')
         user = data.get('user', '')
 
+        # if one way, response is only tickets, if round trup, response is tickets and flag
         response = action_by_intent(label, entities, user["uid"])
+
         print("Response: ", response)
         return jsonify({'response': response})
     

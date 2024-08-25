@@ -7,6 +7,23 @@ function handleKeyDown(event) {
     }
 }
 
+function handleWelcomeMessage(message) {
+    let flagWelcome = false;
+    const welcomeWords = [
+        'שלום',
+        'היי',
+        'אהלן',
+        'מה נשמע',
+        'מה קורה',
+        'מה הולך',
+    ];
+
+    if (welcomeWords.some((word) => message.includes(word))) {
+        flagWelcome = true;
+    }
+    return flagWelcome;
+}
+
 function onloadfunction() {
     let chatMessages = document.getElementById('chat-messages');
     let welcomeMessage = document.createElement('div');
@@ -39,20 +56,7 @@ async function onSendMessage() {
 
     console.log('Message', val);
 
-    let flagWelcome = false;
-    const welcomeWords = [
-        'שלום',
-        'היי',
-        'אהלן',
-        'מה נשמע',
-        'מה קורה',
-        'מה הולך',
-    ];
-
-    // Check if the message is a welcome message only
-    if (welcomeWords.some((word) => val.includes(word))) {
-        flagWelcome = true;
-    }
+    const flagWelcome = handleWelcomeMessage(val);
 
     try {
         const response = await fetch(`/api/flightbot`, {
@@ -97,6 +101,9 @@ export async function validatedAction(intent, entities) {
         }
         const data = await response.json();
         console.log('got a response');
+
+        const parsedEntities = JSON.parse(entities);
+
         if (intent == 0) {
             console.log('you want to order');
             const flights = data.response;
@@ -106,17 +113,42 @@ export async function validatedAction(intent, entities) {
             newMessage.className = 'message-back';
             // check if flights is empty
             if (flights.length == 0) {
+                console.log('flights is empty');
                 newMessage.textContent = 'לא נמצאו טיסות';
-            } else {
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } else if (!parsedEntities['Date2']) {
+                console.log('flights is one way trip');
                 newMessage.textContent = 'הנה כמה טיסות שמצאתי עבורך';
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // create flight cards for each flight found
+                flights.forEach((flight) => {
+                    createFlightCard(flight);
+                });
+            } else {
+                console.log('flights is round trip');
+                newMessage.textContent = 'הנה כמה טיסות הלוך שמצאתי עבורך';
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // create flight cards for each flight found
+                let flights1 = flights[0];
+                console.log('flights1', flights1);
+                flights1.forEach((flight) => {
+                    createFlightCard(flight);
+                });
+
+                newMessage = document.createElement('div');
+                newMessage.className = 'message-back';
+                newMessage.textContent = 'הנה כמה טיסות חזור שמצאתי עבורך';
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                let flights2 = flights[1];
+                console.log('flights2', flights2);
+                flights2.forEach((flight) => {
+                    createFlightCard(flight);
+                });
             }
-            chatMessages.appendChild(newMessage);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            // create flight cards for each flight found
-            let counter = 1;
-            flights.forEach((flight) => {
-                createFlightCard(flight);
-            });
         }
         if (intent == 1) {
             const ticket = data.response;

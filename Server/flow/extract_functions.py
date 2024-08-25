@@ -38,6 +38,16 @@ APCode = {
         "מינכן": "MUC"
     }   
 
+def correctDateOrder(date1, date2):
+    from datetime import datetime
+    date_format = '%d/%m/%Y'
+    date1_obj = datetime.strptime(date1, date_format)
+    date2_obj = datetime.strptime(date2, date_format)
+    if date1_obj > date2_obj:
+        return date2, date1
+    return date1, date2
+
+
 def extract_entities(text, class_label):
     entities = {
         "Origin": None,
@@ -53,6 +63,7 @@ def extract_entities(text, class_label):
         if len(extract_dates(text)) > 1:
             entities["Date2"] = extract_dates(text)[1]
             entities["Date2"] = format_date(entities["Date2"])
+            entities["Date"], entities["Date2"] = correctDateOrder(entities["Date"], entities["Date2"])
         entities["Origin"] = extract_APCode(entities["Origin"])
         entities["Destination"] = extract_APCode(entities["Destination"])
         # If the origin and destination are the same, set the origin to TLV
