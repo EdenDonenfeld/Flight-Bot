@@ -50,6 +50,9 @@ def extract_entities(text, class_label):
         if extract_dates(text):
             entities["Date"] = extract_dates(text)[0]
             entities["Date"] = format_date(entities["Date"])
+        if len(extract_dates(text)) > 1:
+            entities["Date2"] = extract_dates(text)[1]
+            entities["Date2"] = format_date(entities["Date2"])
         entities["Origin"] = extract_APCode(entities["Origin"])
         entities["Destination"] = extract_APCode(entities["Destination"])
         # If the origin and destination are the same, set the origin to TLV
