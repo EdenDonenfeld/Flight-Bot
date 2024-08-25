@@ -66,10 +66,75 @@ export function confirmIntent(response, entities, flagWelcome) {
         console.log(userConfirmed);
         newIntentVerifiedRightMessage.disabled = true;
         newIntentVerifiedWrongMessage.disabled = true;
+        wrongLabel();
     };
     intentVerifiedWrongMessage.appendChild(newIntentVerifiedWrongMessage);
     intentVerifiedWrongMessage.scrollTop =
         intentVerifiedWrongMessage.scrollHeight;
+
+
+    function wrongLabel() {
+        let intentVerifiedMessage = document.getElementById('chat-messages');
+
+        if (intentVerifiedMessage) {
+            let newIntentVerifiedMessage = document.createElement('div');
+            newIntentVerifiedMessage.className = 'message-back';
+
+            let messageText = 'איזה באסה שלא הצלחתי להבין את כוונתך, בוא ננסה שוב :';
+            newIntentVerifiedMessage.textContent = messageText;
+
+            intentVerifiedMessage.appendChild(newIntentVerifiedMessage);
+
+            intentVerifiedMessage.scrollTop = intentVerifiedMessage.scrollHeight;
+        } else {
+            console.error("Chat messages container element not found.");
+        }
+
+        const options = ['הזמנת טיסה', 'ביטול טיסה'];
+        const selectElement = document.createElement('select');
+        selectElement.style.width = '150px';
+        selectElement.style.marginRight = '10px';
+
+        options.forEach(optionText => {
+            const optionElement = document.createElement('option');
+            optionElement.value = optionText.toLowerCase().replace(' ', '-');
+            optionElement.textContent = optionText;
+            selectElement.appendChild(optionElement);
+        });
+
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'הבא';
+        nextButton.style.padding = '5px 10px';
+        nextButton.onclick = function() {
+            const selectedValue = selectElement.value;
+            if (selectedValue === 'הזמנת-טיסה') {
+                nextButton.disabled = true;
+                confirmEntities(0, entities);
+            } else if (selectedValue === 'ביטול-טיסה') {
+                nextButton.disabled = true;
+                confirmEntities(1, entities);
+            } else {
+                nextButton.disabled = true;
+                console.log("Unknown option selected");
+            }
+        };
+
+        let dropdownContainer = document.getElementById('dropdown-container');
+
+        // If dropdown container doesn't exist, create it
+        if (!dropdownContainer) {
+            dropdownContainer = document.createElement('div');
+            dropdownContainer.id = 'dropdown-container';
+            dropdownContainer.style.display = 'flex';
+            dropdownContainer.style.justifyContent = 'flex-start';
+            dropdownContainer.style.marginTop = '10px';
+
+            intentVerifiedMessage.appendChild(dropdownContainer);
+        }
+
+        dropdownContainer.appendChild(selectElement);
+        dropdownContainer.appendChild(nextButton);
+    }
 
     /// Entities Confirmation :
     function confirmEntities(predictedLabel, entities) {
