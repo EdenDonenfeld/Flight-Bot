@@ -126,8 +126,9 @@ export function confirmIntent(response, entities, flagWelcome) {
             dropdownContainer = document.createElement('div');
             dropdownContainer.id = 'dropdown-container';
             dropdownContainer.style.display = 'flex';
-            dropdownContainer.style.justifyContent = 'flex-start';
+            dropdownContainer.style.justifyContent = 'flex-end';
             dropdownContainer.style.marginTop = '10px';
+            dropdownContainer.style.marginBottom = '10px';
 
             intentVerifiedMessage.appendChild(dropdownContainer);
         }
