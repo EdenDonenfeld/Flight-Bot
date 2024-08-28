@@ -4,7 +4,7 @@ APCode = {
         "יוון": "ATH",
         "תל אביב": "TLV",
         "ניו יורק": "JFK",
-        "לוס אנג'לס": "LAX",
+        "לוס אנגלס": "LAX",
         "פריז": "CDG",
         "לונדון": "LHR",
         "ברלין": "TXL",
@@ -96,6 +96,9 @@ def extract_dates(text):
 
 #same code but in a function
 def extract_places(text):
+    #remove all the special characters from the text
+    text = re.sub(r'[^א-תa-zA-Z0-9]', '', text)
+
     places = list(APCode.keys())
     places_pattern = "|".join(places)
 
