@@ -9,9 +9,9 @@ export function confirmIntent(response, entities, flagWelcome) {
 
     let hebrewResponseData = '';
     if (predictedLabel == 0) {
-        hebrewResponseData = 'אני רוצה להזמין כרטיס';
+        hebrewResponseData = 'אתה רוצה להזמין כרטיס';
     } else if (predictedLabel == 1) {
-        hebrewResponseData = 'אני רוצה החזר על הכרטיס';
+        hebrewResponseData = 'אתה רוצה החזר על הכרטיס';
     } else if (predictedLabel == 2) {
         let intentVerifiedMessage = document.getElementById('chat-messages');
         let newIntentVerifiedMessage = document.createElement('div');
@@ -30,8 +30,7 @@ export function confirmIntent(response, entities, flagWelcome) {
     let intentVerifiedMessage = document.getElementById('chat-messages');
     let newIntentVerifiedMessage = document.createElement('div');
     newIntentVerifiedMessage.className = 'message-back';
-    let messageText =
-        'זיהיתי את ההודעה שלך כ' + hebrewResponseData + ', האם זו כוונתך?';
+    let messageText = 'לתחושתי ' + hebrewResponseData + ', האם זו כוונתך?';
 
     if (flagWelcome) {
         messageText = 'שלום לך! ' + messageText;
@@ -72,7 +71,6 @@ export function confirmIntent(response, entities, flagWelcome) {
     intentVerifiedWrongMessage.scrollTop =
         intentVerifiedWrongMessage.scrollHeight;
 
-
     function wrongLabel() {
         let intentVerifiedMessage = document.getElementById('chat-messages');
 
@@ -80,14 +78,16 @@ export function confirmIntent(response, entities, flagWelcome) {
             let newIntentVerifiedMessage = document.createElement('div');
             newIntentVerifiedMessage.className = 'message-back';
 
-            let messageText = 'איזה באסה שלא הצלחתי להבין את כוונתך, בוא ננסה שוב :';
+            let messageText =
+                'איזה באסה שלא הצלחתי להבין את כוונתך, בוא ננסה שוב :';
             newIntentVerifiedMessage.textContent = messageText;
 
             intentVerifiedMessage.appendChild(newIntentVerifiedMessage);
 
-            intentVerifiedMessage.scrollTop = intentVerifiedMessage.scrollHeight;
+            intentVerifiedMessage.scrollTop =
+                intentVerifiedMessage.scrollHeight;
         } else {
-            console.error("Chat messages container element not found.");
+            console.error('Chat messages container element not found.');
         }
 
         const options = ['הזמנת טיסה', 'ביטול טיסה'];
@@ -95,7 +95,7 @@ export function confirmIntent(response, entities, flagWelcome) {
         selectElement.style.width = '150px';
         selectElement.style.marginRight = '10px';
 
-        options.forEach(optionText => {
+        options.forEach((optionText) => {
             const optionElement = document.createElement('option');
             optionElement.value = optionText.toLowerCase().replace(' ', '-');
             optionElement.textContent = optionText;
@@ -105,7 +105,7 @@ export function confirmIntent(response, entities, flagWelcome) {
         const nextButton = document.createElement('button');
         nextButton.textContent = 'הבא';
         nextButton.style.padding = '5px 10px';
-        nextButton.onclick = function() {
+        nextButton.onclick = function () {
             const selectedValue = selectElement.value;
             if (selectedValue === 'הזמנת-טיסה') {
                 nextButton.disabled = true;
@@ -115,7 +115,7 @@ export function confirmIntent(response, entities, flagWelcome) {
                 confirmEntities(1, entities);
             } else {
                 nextButton.disabled = true;
-                console.log("Unknown option selected");
+                console.log('Unknown option selected');
             }
         };
 
@@ -140,7 +140,7 @@ export function confirmIntent(response, entities, flagWelcome) {
     /// Entities Confirmation :
     function confirmEntities(predictedLabel, entities) {
         const dictEntities = JSON.parse(entities);
-        const requireEntities = [0, 0, 0, 0];
+        /*const requireEntities = [0, 0, 0, 0];
         if (predictedLabel == 0 || predictedLabel == 1) {
             requireEntities[0] = 1;
             requireEntities[1] = 1;
@@ -151,16 +151,78 @@ export function confirmIntent(response, entities, flagWelcome) {
         if (dictEntities['Origin'] != null) existsEntities[0] = 1;
         if (dictEntities['Destination'] != null) existsEntities[1] = 1;
         if (dictEntities['Date'] != null) existsEntities[2] = 1;
-        if (dictEntities['Date2'] != null) existsEntities[3] = 1;
+        if (dictEntities['Date2'] != null) existsEntities[3] = 1;*/
 
-        if (existsEntities[0] - requireEntities[0] < 0) return;
-        //Missing Origin;
-        if (existsEntities[1] - requireEntities[1] < 0) return;
-        //Missing Destination;
-        if (existsEntities[2] - requireEntities[2] < 0) return;
-        //Missing Date;
-        if (existsEntities[3] - requireEntities[3] < 0) return;
-        //Missing Date2;
+        if (dictEntities['Origin'] == false) {
+            console.log('Missing Origin');
+            return;
+        } //Missing Origin - UnRealvent(Default TLV);
+        if (dictEntities['Destination'] == false) {
+            let requireDestinationMessage =
+                document.getElementById('chat-messages');
+            let newRequireDestinationMessage = document.createElement('div');
+            newRequireDestinationMessage.className = 'message-back';
+            newRequireDestinationMessage.textContent =
+                'הופ הופ הופ, לא הצלחתי להבין מה היעד שאנחנו טסים אליו, בוא ננסה שוב. מה היעד אליו אנחנו טסים ?';
+            requireDestinationMessage.appendChild(newRequireDestinationMessage);
+            requireDestinationMessage.scrollTop =
+                requireDestinationMessage.scrollHeight;
+
+            submitButton.addEventListener('click', function () {
+                /*TODO*/
+            });
+            return;
+        } //Missing Destination;
+        if (dictEntities['Date'] == false) {
+            let requireDestinationMessage =
+                document.getElementById('chat-messages');
+            let newRequireDestinationMessage = document.createElement('div');
+            newRequireDestinationMessage.className = 'message-back';
+            newRequireDestinationMessage.textContent =
+                'הופ הופ הופ, לא הצלחתי להבין באיזה תאריך אנחנו טסים, בוא ננסה שוב. מתי אנחנו טסים ?';
+            requireDestinationMessage.appendChild(newRequireDestinationMessage);
+            requireDestinationMessage.scrollTop =
+                requireDestinationMessage.scrollHeight;
+
+            let dateInput = document.createElement('input'); //Date Input
+            dateInput.type = 'date';
+            dateInput.className = 'date-selector';
+
+            let nextButton = document.createElement('button'); //Next button
+            nextButton.textContent = 'הבא';
+            nextButton.className = 'message-back next-button';
+
+            newRequireDestinationMessage.appendChild(dateInput);
+            newRequireDestinationMessage.appendChild(nextButton);
+
+            requireDestinationMessage.appendChild(newRequireDestinationMessage);
+            requireDestinationMessage.scrollTop =
+                requireDestinationMessage.scrollHeight;
+
+            nextButton.addEventListener('click', function () {
+                let selectedDate = dateInput.value;
+                if (selectedDate) {
+                    const [year, month, day] = selectedDate.split('-');
+                    const finalDate = `${day}/${month}/${year}`;
+                    dictEntities['Date'] = finalDate;
+                    entities = JSON.stringify(dictEntities);
+                    dateInput.disabled = true;
+                    validatedAction(predictedLabel, entities);
+                } else {
+                    let errorMessage = document.createElement('div');
+                    errorMessage.className = 'message-back';
+                    errorMessage.textContent = 'אנא בחר תאריך לפני שממשיך.';
+                    requireDestinationMessage.appendChild(errorMessage);
+                    requireDestinationMessage.scrollTop =
+                        requireDestinationMessage.scrollHeight;
+                }
+            });
+            return;
+        } //Missing Date;
+        if (dictEntities['Date2'] == false) {
+            console.log('Missing Date2');
+            return;
+        } //Missing Date2 - UnRealvent;
 
         validatedAction(predictedLabel, entities);
     }

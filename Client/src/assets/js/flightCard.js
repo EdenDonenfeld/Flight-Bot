@@ -74,18 +74,14 @@ export function createFlightCard(flight, flights2 = []) {
 
 export function createTicketCardCancel(ticket) {
     createTicketCard(ticket, 'red');
-    const ticketCard = document.querySelector('.ticket-card');
+    const ticketCards = document.querySelectorAll('.ticket-card');
+    const ticketCard = ticketCards[ticketCards.length - 1];
     let isFirstClick2 = true;
+    console.log('ticketCard', ticketCard);
+    console.log('isFirstClick2', isFirstClick2);
     ticketCard.addEventListener('click', () => {
+        console.log('Clicked on ticket card');
         ticketCard.style.border = '1px solid red';
-        // delete other ticket cards
-        const cards = document.getElementsByClassName('ticket-card');
-        for (let i = 0; i < cards.length; i++) {
-            if (cards[i] !== ticketCard) {
-                cards[i].remove();
-            }
-        }
-
         if (isFirstClick2) {
             isFirstClick2 = false;
             // send cancel ticket request

@@ -1,4 +1,8 @@
 import re
+from typing import Tuple, Optional
+from Server.flow.extract_locations import extract_places
+
+
 import dateparser
 
 APCode = {
@@ -6,7 +10,7 @@ APCode = {
         "יוון": "ATH",
         "תל אביב": "TLV",
         "ניו יורק": "JFK",
-        "לוס אנג'לס": "LAX",
+        "לוס אנגלס": "LAX",
         "פריז": "CDG",
         "לונדון": "LHR",
         "ברלין": "TXL",
@@ -122,45 +126,6 @@ def extract_dates(text):
             seen.add(match)
     
     return filtered_dates
-
-#same code but in a function
-def extract_places(text):
-    places = list(APCode.keys())
-    places_pattern = "|".join(places)
-
-    before_origin = ["מ", "מאת", "מן", "מן ה"]
-    before_destination = ["ל", "אל", "לאת", "לכיוון", "לכיוון של", "לכיוון של ה", "לכיוון שלא", "לכיוון שלאת"]
-
-    Origin = None
-    Destination = None
-
-    place_matches = re.findall(places_pattern, text)
-    # print(place_matches)
-    if place_matches:
-        for i, place in enumerate(place_matches):
-            if len(place_matches) == 2:
-                other_place = place_matches[i-1]
-            part_to_check = text.split(place)[0]
-            first_part_to_check = part_to_check.split(" ")[-1]
-            second_part_to_check = part_to_check.split(" ")[-2]
-            #check if the parts are in before_origin or before_destination
-            if first_part_to_check in before_origin or second_part_to_check in before_origin:
-                Origin = place
-                if len(place_matches) == 2:
-                    Destination = other_place
-            elif first_part_to_check in before_destination or second_part_to_check in before_destination:
-                Destination = place
-                if len(place_matches) == 2:
-                    Origin = other_place
-        #if didnt find origin or destination set the first place as origin
-        if Origin == None:
-            Origin = place_matches[0]
-        #if didnt find destination set the second place as destination
-        if Destination == None and len(place_matches) == 2:
-            Destination = place_matches[1]
-    else:
-        print("No places found")
-    return Origin, Destination
     
 #function to extract the airport code from the place
 def extract_APCode(place):
@@ -231,20 +196,64 @@ def valid_date_check(date):
 
 
 def main():
-    # For testing purposes
-    dates = ['12/12/2022', '12/12/22', '12-12-2022', '12-12-22', '12.12.2022', '12.12.22', '12/12', '12-5', '12.12', '13.13', '29.2.2023', '29.2.2024']
-    counter = 1
-    for date in dates:
-        print(f"Test {counter}")
-        print(date)
-        date = format_date(date)
-        if date:
-            print(date)
-            print(is_valid_date(date.day, date.month, date.year))
-            print(valid_date_check(date))
+    test_cases = [
+        {
+            "text": "אני רוצה להזמין כרטיס טיסה מניו יורק ללוס אנג'לס ב30.5.24",
+            "expected": ("ניו יורק", "לוס אנגלס")
+        },
+        {
+            "text": "טיסה מתל אביב לפריז ב-15.7.2024",
+            "expected": ("תל אביב", "פריז")
+        },
+        {
+            "text": "אני מעוניין לטוס מלונדון לברלין",
+            "expected": ("לונדון", "ברלין")
+        },
+        {
+            "text": "האם יש טיסות זולות מאמסטרדם לרומא?",
+            "expected": ("אמסטרדם", "רומא")
+        },
+        {
+            "text": "מחפש טיסה מת''א למדריד בחודש הבא",
+            "expected": ("תל אביב", "מדריד")
+        },
+        {
+            "text": "טיסה מישראל ליוון ב-1.8",
+            "expected": ("ישראל", "יוון")
+        },
+        {
+            "text": "אני צריך לטוס מניו-יורק לתל-אביב בדחיפות",
+            "expected": ("ניו יורק", "תל אביב")
+        },
+        {
+            "text": "יש לי פגישה בפרנקפורט, אני טס מוינה",
+            "expected": ("וינה", "פרנקפורט")
+        },
+        {
+            "text": "אני רוצה לטוס ממוסקווה לסנט פטרסבורג",
+            "expected": ("מוסקבה", "סנט פטרסבורג")
+        },
+        {
+            "text": "תזמין לי טיסה מקופנהגן לשטוקהולם",
+            "expected": ("קופנהגן", "סטוקהולם")
+        }
+    ]
+
+    for i, test_case in enumerate(test_cases, 1):
+        text = test_case["text"]
+        expected = test_case["expected"]
+        result = extract_places(text)
+        
+        print(f"Test case {i}:")
+        print(f"Input: {text}")
+        print(f"Expected: {expected}")
+        print(f"Result: {result}")
+        
+        if result == expected:
+            print("PASSED")
         else:
-            print("Invalid date")
-        counter += 1
+            print("FAILED")
+        print()
 
 
 
