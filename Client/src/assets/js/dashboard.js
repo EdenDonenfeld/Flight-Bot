@@ -28,9 +28,11 @@ function onloadfunction() {
     let chatMessages = document.getElementById('chat-messages');
     let welcomeMessage = document.createElement('div');
     welcomeMessage.className = 'message-back';
-    const messages = ["מה הולך? ברוך הבא לבוט הכי חברי שתכיר אי פעם! כל מה שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)",
-        "שלום שלום וברוך הבא! הגעת לצאטבוט הכי תותח ביקום, לכל דבר שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)",
-        "הופה, תראו מי הגיע אלינו! ברוך הבא לצאטבוט! כל מה שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)"];
+    const messages = [
+        'מה הולך? ברוך הבא לבוט הכי חברי שתכיר אי פעם! כל מה שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)',
+        'שלום שלום וברוך הבא! הגעת לצאטבוט הכי תותח ביקום, לכל דבר שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)',
+        'הופה, תראו מי הגיע אלינו! ברוך הבא לצאטבוט! כל מה שתצטרך אני פה לעזור - מהזמנת טיסה עד לביטולה וכל מה שיש בינהם :)',
+    ];
     const randomIndex = Math.floor(Math.random() * messages.length);
     welcomeMessage.textContent = messages[randomIndex];
     chatMessages.appendChild(welcomeMessage);
