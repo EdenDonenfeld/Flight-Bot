@@ -3,67 +3,69 @@ from typing import Tuple, Optional
 
 #same code but in a function
 def extract_places(text):
+    
     #remove all the special characters from the text
     text = re.sub(r'[^א-תa-zA-Z0-9\s]', '', text)
-    words = text.split(" ")
+    Origin, Destination = extract_places1(text)
+    if Origin == None or Destination == None:
+        words = text.split(" ")
 
-    places = list(APCode.keys())
+        places = list(APCode.keys())
 
-    before_origin = ["מ", "מאת", "מן", "מן ה"]
-    before_destination = ["ל", "אל", "לאת", "לכיוון", "לכיוון של", "לכיוון של ה", "לכיוון שלא", "לכיוון שלאת"]
+        before_origin = ["מ", "מאת", "מן", "מן ה"]
+        before_destination = ["ל", "אל", "לאת", "לכיוון", "לכיוון של", "לכיוון של ה", "לכיוון שלא", "לכיוון שלאת"]
 
-    Origin = None
-    Destination = None
+        
 
-    # print(f"Debug: Text after preprocessing: {text}")
-    # print(f"Debug: Words: {words}")
-    # print(f"Debug: Available places: {places}")
+        # print(f"Debug: Text after preprocessing: {text}")
+        # print(f"Debug: Words: {words}")
+        # print(f"Debug: Available places: {places}")
 
-    i = 0
-    while i < len(words):
-        # Check for two-word locations
-        if i < len(words) - 1:
-            two_word_phrase = words[i] + " " + words[i+1]
-            closest_match = find_closest_match(two_word_phrase, places)
-            # print(f"Debug: Checking two-word phrase: {two_word_phrase}")
+        i = 0
+        while i < len(words):
+            # Check for two-word locations
+            if i < len(words) - 1:
+                two_word_phrase = words[i] + " " + words[i+1]
+                closest_match = find_closest_match(two_word_phrase, places)
+                # print(f"Debug: Checking two-word phrase: {two_word_phrase}")
+                # print(f"Debug: Closest match: {closest_match}")
+                if closest_match:
+                    if i > 0:
+                        prev_word = words[i-1]
+                        if Origin is not None and (prev_word in before_origin or words[i][0] in before_origin):
+                            Origin = closest_match
+                        elif Destination is not None and (prev_word in before_destination or words[i][0] in before_destination):
+                            Destination = closest_match
+                    
+                    if Origin is None:
+                        Origin = closest_match
+                    elif Destination is None and closest_match != Origin:
+                        Destination = closest_match
+                    
+                    i += 2
+                    continue
+
+            # Check for single-word locations
+            closest_match = find_closest_match(words[i], places)
+            # print(f"Debug: Checking single word: {words[i]}")
             # print(f"Debug: Closest match: {closest_match}")
             if closest_match:
                 if i > 0:
                     prev_word = words[i-1]
-                    if prev_word in before_origin or words[i][0] in before_origin:
+                    if Origin is not None and (prev_word in before_origin or words[i][0] in before_origin):
                         Origin = closest_match
-                    elif prev_word in before_destination or words[i][0] in before_destination:
+                    elif Destination is not None and (prev_word in before_destination or words[i][0] in before_destination):
                         Destination = closest_match
                 
                 if Origin is None:
                     Origin = closest_match
                 elif Destination is None and closest_match != Origin:
                     Destination = closest_match
-                
-                i += 2
-                continue
 
-        # Check for single-word locations
-        closest_match = find_closest_match(words[i], places)
-        # print(f"Debug: Checking single word: {words[i]}")
-        # print(f"Debug: Closest match: {closest_match}")
-        if closest_match:
-            if i > 0:
-                prev_word = words[i-1]
-                if prev_word in before_origin or words[i][0] in before_origin:
-                    Origin = closest_match
-                elif prev_word in before_destination or words[i][0] in before_destination:
-                    Destination = closest_match
-            
-            if Origin is None:
-                Origin = closest_match
-            elif Destination is None and closest_match != Origin:
-                Destination = closest_match
+            i += 1
 
-        i += 1
-
-    # print(f"Debug: Final Origin: {Origin}")
-    # print(f"Debug: Final Destination: {Destination}")
+        # print(f"Debug: Final Origin: {Origin}")
+        # print(f"Debug: Final Destination: {Destination}")
     return Origin, Destination
 
 def levenshtein_distance(s1: str, s2: str) -> int:
@@ -85,7 +87,7 @@ def levenshtein_distance(s1: str, s2: str) -> int:
 
     return previous_row[-1]
 
-def find_closest_match(phrase: str, candidates: list, threshold: int = 1) -> Optional[str]:
+def find_closest_match(phrase: str, candidates: list, threshold: int = 2) -> Optional[str]:
     if len(phrase.split(" ")) == 1:
         if phrase[0] == 'מ' or phrase[0] == 'ל':
             phrase = phrase[1:]
@@ -103,6 +105,47 @@ def find_closest_match(phrase: str, candidates: list, threshold: int = 1) -> Opt
             closest_match = candidate
     
     return closest_match
+
+def extract_places1(text):
+    #remove all the special characters from the text
+    text = re.sub(r'[^א-תa-zA-Z0-9\s]', '', text)
+
+    places = list(APCode.keys())
+    places_pattern = "|".join(places)
+
+    before_origin = ["מ", "מאת", "מן", "מן ה"]
+    before_destination = ["ל", "אל", "לאת", "לכיוון", "לכיוון של", "לכיוון של ה", "לכיוון שלא", "לכיוון שלאת"]
+
+    Origin = None
+    Destination = None
+
+    place_matches = re.findall(places_pattern, text)
+    # print(place_matches)
+    if place_matches:
+        for i, place in enumerate(place_matches):
+            if len(place_matches) == 2:
+                other_place = place_matches[i-1]
+            part_to_check = text.split(place)[0]
+            first_part_to_check = part_to_check.split(" ")[-1]
+            second_part_to_check = part_to_check.split(" ")[-2]
+            #check if the parts are in before_origin or before_destination
+            if first_part_to_check in before_origin or second_part_to_check in before_origin:
+                Origin = place
+                if len(place_matches) == 2:
+                    Destination = other_place
+            elif first_part_to_check in before_destination or second_part_to_check in before_destination:
+                Destination = place
+                if len(place_matches) == 2:
+                    Origin = other_place
+        #if didnt find origin or destination set the first place as origin
+        if Origin == None:
+            Origin = place_matches[0]
+        #if didnt find destination set the second place as destination
+        if Destination == None and len(place_matches) == 2:
+            Destination = place_matches[1]
+    else:
+        print("No places found")
+    return Origin, Destination
 
 def main():
     test_cases = [
