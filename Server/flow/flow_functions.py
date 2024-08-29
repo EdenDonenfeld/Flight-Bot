@@ -53,7 +53,7 @@ def analyze_classv0(sentence):
     return predicted_label, text
 
 
-def analyze_class(text, confidence_threshold=0.7):
+def analyze_class(text, confidence_threshold=0.65):
     classifier = joblib.load('server/training/chatbot_model.joblib')
     vectorizer = joblib.load('server/training/vectorizer.joblib')
     text_vectorized = vectorizer.transform([text])
