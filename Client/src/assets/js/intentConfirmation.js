@@ -165,6 +165,10 @@ export function confirmIntent(response, entities, flagWelcome) {
             requireDestinationMessage.appendChild(newRequireDestinationMessage);
             requireDestinationMessage.scrollTop = requireDestinationMessage.scrollHeight;
             
+            submitButton.addEventListener('click', function () {
+                /*TODO*/
+            });        
+            return
 
         } //Missing Destination;
         if (dictEntities['Date'] == false) {
