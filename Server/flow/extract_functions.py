@@ -1,4 +1,6 @@
 import re
+import dateparser
+
 APCode = {
         "ישראל": "TLV",
         "יוון": "ATH",
@@ -38,7 +40,7 @@ APCode = {
         "מינכן": "MUC"
     }   
 
-def correctDateOrder(date1, date2):
+def correct_date_order(date1, date2):
     from datetime import datetime
     date_format = '%d/%m/%Y'
     date1_obj = datetime.strptime(date1, date_format)
@@ -60,10 +62,13 @@ def extract_entities(text, class_label):
         if extract_dates(text):
             entities["Date"] = extract_dates(text)[0]
             entities["Date"] = format_date(entities["Date"])
+        elif extract_hebrew_dates(text):
+            entities["Date"] = extract_hebrew_dates(text)
+            entities["Date"] = format_date(entities["Date"])
         if len(extract_dates(text)) > 1:
             entities["Date2"] = extract_dates(text)[1]
             entities["Date2"] = format_date(entities["Date2"])
-            entities["Date"], entities["Date2"] = correctDateOrder(entities["Date"], entities["Date2"])
+            entities["Date"], entities["Date2"] = correct_date_order(entities["Date"], entities["Date2"])
         entities["Origin"] = extract_APCode(entities["Origin"])
         entities["Destination"] = extract_APCode(entities["Destination"])
         # If the origin and destination are the same, set the origin to TLV
@@ -71,6 +76,30 @@ def extract_entities(text, class_label):
             entities["Origin"] = "TLV"
         
     return entities
+
+
+# receives a text, extract the date and return it in the format of dd/mm/yyyy
+def extract_hebrew_dates(text):
+    # handle the case of "היום" and "מחר"
+    date_words = {
+        "היום": dateparser.parse("היום").strftime('%d/%m/%Y'),
+        "להיום": dateparser.parse("היום").strftime('%d/%m/%Y'),
+        "מחר": dateparser.parse("מחר").strftime('%d/%m/%Y'),
+        "למחר": dateparser.parse("מחר").strftime('%d/%m/%Y')
+    }
+    
+    text_words = text.split(' ')
+    for word in text_words:
+        if word in date_words:
+            return date_words[word]
+    
+    # handle the case of "ב-5 לאוגוסט" and "ב5 לאוגוסט" and "ב-5 לאוגוסט 2021" and "ב5 לאוגוסט 2021"
+    match = re.search(r'ב-?(\d+ [א-ת]+(?: \d{4})?)', text)
+    if match:
+        print("Match found", match.group(1).strip())
+        print("Parsed date", dateparser.parse(match.group(1).strip()).strftime('%d/%m'))
+        return dateparser.parse(match.group(1).strip()).strftime('%d/%m')
+    return None    
     
 # returns an array of dates in the text format of only with numbers
 def extract_dates(text):
