@@ -1,4 +1,8 @@
-export function createFlightCard(flight) {
+let returnFlights = [];
+
+export function createFlightCard(flight, flights2 = []) {
+    returnFlights = flights2;
+
     // flight is a flight object
     const flightCard = document.createElement('div');
     flightCard.className = 'card';
@@ -61,7 +65,7 @@ export function createFlightCard(flight) {
             container.className = 'container';
             chatMessages.appendChild(container);
 
-            createNextButton('הבא', flight);
+            createNextButton('הבא', flight, returnFlights);
 
             createSeatsContainer(flight.FlightNumber);
         }
@@ -189,7 +193,7 @@ function addMessageBack(message) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function createNextButton(message, flight) {
+function createNextButton(message, flight, returnFlights = []) {
     let chatMessages = document.getElementById('chat-messages');
     let nextButton = document.createElement('button');
     nextButton.className = 'message-back next-button';
@@ -216,11 +220,11 @@ function createNextButton(message, flight) {
         nextButton.remove();
 
         //sends the selected seats to the server
-        sendSelectedSeats(seats, flight);
+        sendSelectedSeats(seats, flight, returnFlights);
     });
 }
 
-async function sendSelectedSeats(seats, flight) {
+async function sendSelectedSeats(seats, flight, returnFlights = []) {
     // console.log(flight);
     ///create the dictionary to send to the server named entities
     let entities = {
@@ -261,6 +265,20 @@ async function sendSelectedSeats(seats, flight) {
         chatMessages.appendChild(newMessage);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         createTicketCard(ticket, 'green');
+
+        // start the flow for return flights now that the ticket is created
+
+        if (returnFlights.length > 0) {
+            newMessage = document.createElement('div');
+            newMessage.className = 'message-back';
+            newMessage.textContent = 'הנה כמה טיסות חזור שמצאתי עבורך';
+            chatMessages.appendChild(newMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            console.log('flights2', returnFlights);
+            returnFlights.forEach((flight) => {
+                createFlightCard(flight);
+            });
+        }
     } catch (error) {
         console.error('Error getting ticket:', error);
     }

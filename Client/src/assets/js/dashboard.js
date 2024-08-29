@@ -136,20 +136,10 @@ export async function validatedAction(intent, entities) {
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 // create flight cards for each flight found
                 let flights1 = flights[0];
+                let flights2 = flights[1];
                 console.log('flights1', flights1);
                 flights1.forEach((flight) => {
-                    createFlightCard(flight);
-                });
-
-                newMessage = document.createElement('div');
-                newMessage.className = 'message-back';
-                newMessage.textContent = 'הנה כמה טיסות חזור שמצאתי עבורך';
-                chatMessages.appendChild(newMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                let flights2 = flights[1];
-                console.log('flights2', flights2);
-                flights2.forEach((flight) => {
-                    createFlightCard(flight);
+                    createFlightCard(flight, flights2);
                 });
             }
         }
