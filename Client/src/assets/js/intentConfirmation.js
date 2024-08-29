@@ -163,7 +163,7 @@ export function confirmIntent(response, entities, flagWelcome) {
             let newRequireDestinationMessage = document.createElement('div');
             newRequireDestinationMessage.className = 'message-back';
             newRequireDestinationMessage.textContent =
-                'הופ הופ הופ, לא הצלחתי להבין מה היעד שאנחנו טסים אליו, בוא ננסה שוב. מה היעד אליו אנחנו טסים ?';
+                'מתנצל, לא הצלחתי להבין מה היעד שאנחנו טסים אליו, בוא ננסה שוב. מה היעד אליו אנחנו טסים ?';
             requireDestinationMessage.appendChild(newRequireDestinationMessage);
             requireDestinationMessage.scrollTop =
                 requireDestinationMessage.scrollHeight;
@@ -179,7 +179,7 @@ export function confirmIntent(response, entities, flagWelcome) {
             let newRequireDestinationMessage = document.createElement('div');
             newRequireDestinationMessage.className = 'message-back';
             newRequireDestinationMessage.textContent =
-                'הופ הופ הופ, לא הצלחתי להבין באיזה תאריך אנחנו טסים, בוא ננסה שוב. מתי אנחנו טסים ?';
+                'מתנצל, לא הצלחתי להבין באיזה תאריך אנחנו טסים, בוא ננסה שוב. אנא הזן תאריך';
             requireDestinationMessage.appendChild(newRequireDestinationMessage);
             requireDestinationMessage.scrollTop =
                 requireDestinationMessage.scrollHeight;
