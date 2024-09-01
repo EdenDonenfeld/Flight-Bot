@@ -1,37 +1,37 @@
 import { validatedAction } from './dashboard.js';
 
 const APCode = {
-    "ישראל": "TLV",
-    "יוון": "ATH",
-    "תל אביב": "TLV",
-    "ניו יורק": "JFK",
-    "לוס אנגלס": "LAX",
-    "פריז": "CDG",
-    "לונדון": "LHR",
-    "ברלין": "TXL",
-    "רומא": "FCO",
-    "מדריד": "MAD",
-    "אמסטרדם": "AMS",
-    "פראג": "PRG",
-    "בודפשט": "BUD",
-    "וינה": "VIE",
-    "פרנקפורט": "FRA",
-    "מינכן": "MUC",
-    "זיריך": "ZRH",
-    "קופנהגן": "CPH",
-    "אוסלו": "OSL",
-    "סטוקהולם": "ARN",
-    "הלסינקי": "HEL",
-    "ריגה": "RIX",
-    "וילנה": "VNO",
-    "קייב": "KBP",
-    "מוסקבה": "SVO",
-    "סנט פטרסבורג": "LED",
-    "קראקוב": "KRK",
-    "וורשה": "WAW",
-    "בוקרשט": "OTP",
-    "סופיה": "SOF",
-    "זלצבורג": "ZRH"
+    ישראל: 'TLV',
+    יוון: 'ATH',
+    'תל אביב': 'TLV',
+    'ניו יורק': 'JFK',
+    'לוס אנגלס': 'LAX',
+    פריז: 'CDG',
+    לונדון: 'LHR',
+    ברלין: 'TXL',
+    רומא: 'FCO',
+    מדריד: 'MAD',
+    אמסטרדם: 'AMS',
+    פראג: 'PRG',
+    בודפשט: 'BUD',
+    וינה: 'VIE',
+    פרנקפורט: 'FRA',
+    מינכן: 'MUC',
+    זיריך: 'ZRH',
+    קופנהגן: 'CPH',
+    אוסלו: 'OSL',
+    סטוקהולם: 'ARN',
+    הלסינקי: 'HEL',
+    ריגה: 'RIX',
+    וילנה: 'VNO',
+    קייב: 'KBP',
+    מוסקבה: 'SVO',
+    'סנט פטרסבורג': 'LED',
+    קראקוב: 'KRK',
+    וורשה: 'WAW',
+    בוקרשט: 'OTP',
+    סופיה: 'SOF',
+    זלצבורג: 'ZRH',
 };
 
 export function confirmIntent(response, entities, flagWelcome) {
@@ -192,38 +192,45 @@ export function confirmIntent(response, entities, flagWelcome) {
             return;
         } //Missing Origin - UnRealvent(Default TLV);
         if (dictEntities['Destination'] == false) {
-            let requireDestinationMessage = document.getElementById('chat-messages');
+            let requireDestinationMessage =
+                document.getElementById('chat-messages');
             let newRequireDestinationMessage = document.createElement('div');
             newRequireDestinationMessage.className = 'message-back';
             newRequireDestinationMessage.textContent =
                 'מתנצל, לא הצלחתי להבין מה היעד שאנחנו טסים אליו, בוא ננסה שוב. מה היעד אליו אנחנו טסים ?';
-    
+
             // Create destination dropdown with autocomplete
             let destinationSelect = createAutocompleteDropdown();
             newRequireDestinationMessage.appendChild(destinationSelect);
-    
+
             // Create "Next" button
             let nextButton = document.createElement('button');
             nextButton.textContent = 'הבא';
             nextButton.className = 'message-back next-button';
             newRequireDestinationMessage.appendChild(nextButton);
-    
+
             // Append the message with the dropdown and button to the chat
             requireDestinationMessage.appendChild(newRequireDestinationMessage);
-            requireDestinationMessage.scrollTop = requireDestinationMessage.scrollHeight;
-    
+            requireDestinationMessage.scrollTop =
+                requireDestinationMessage.scrollHeight;
+
             // Add event listener for the "Next" button
             nextButton.addEventListener('click', function () {
-                let selectedDestination = destinationSelect.querySelector('input').value;
-    
+                let selectedDestination =
+                    destinationSelect.querySelector('input').value;
+
                 if (selectedDestination) {
                     // Save the selected destination in dictEntities
                     dictEntities['Destination'] = selectedDestination;
-    
+
                     const finalDestination = APCode[selectedDestination];
                     dictEntities['Destination'] = finalDestination;
                     entities = JSON.stringify(dictEntities);
                     lockContainer(destinationSelect);
+                    if (dictEntities['Date'] == false) {
+                        confirmDate();
+                        return;
+                    }
                     validatedAction(predictedLabel, entities);
                 } else {
                     // If no destination is selected, prompt the user
@@ -231,13 +238,15 @@ export function confirmIntent(response, entities, flagWelcome) {
                     errorMessage.className = 'message-back';
                     errorMessage.textContent = 'אנא בחר יעד לפני שממשיך.';
                     requireDestinationMessage.appendChild(errorMessage);
-                    requireDestinationMessage.scrollTop = requireDestinationMessage.scrollHeight;
+                    requireDestinationMessage.scrollTop =
+                        requireDestinationMessage.scrollHeight;
                 }
             });
-    
+
             return;
         } //Missing Destination;
-        if (dictEntities['Date'] == false) {
+
+        function confirmDate() {
             let requireDestinationMessage =
                 document.getElementById('chat-messages');
             let newRequireDestinationMessage = document.createElement('div');
@@ -282,6 +291,11 @@ export function confirmIntent(response, entities, flagWelcome) {
                 }
             });
             return;
+        }
+
+        if (dictEntities['Date'] == false) {
+            confirmDate();
+            return;
         } //Missing Date;
         if (dictEntities['Date2'] == false) {
             console.log('Missing Date2');
@@ -292,42 +306,42 @@ export function confirmIntent(response, entities, flagWelcome) {
         function createAutocompleteDropdown() {
             let container = document.createElement('div');
             container.className = 'autocomplete-container';
-        
+
             let input = document.createElement('input');
             input.setAttribute('type', 'text');
             input.setAttribute('placeholder', 'הקלד יעד...');
-        
+
             let dropdown = document.createElement('ul');
             dropdown.className = 'autocomplete-dropdown';
-        
-            input.addEventListener('input', function() {
+
+            input.addEventListener('input', function () {
                 // Clear current dropdown options
                 dropdown.innerHTML = '';
-        
+
                 let filter = input.value.toLowerCase();
                 for (let destination in APCode) {
                     if (destination.toLowerCase().includes(filter)) {
                         let item = document.createElement('li');
                         item.textContent = destination;
                         item.dataset.value = APCode[destination];
-                        item.addEventListener('click', function() {
+                        item.addEventListener('click', function () {
                             input.value = destination;
                             dropdown.innerHTML = ''; // Clear dropdown after selection
                         });
                         dropdown.appendChild(item);
                     }
                 }
-        
+
                 if (dropdown.childElementCount === 0) {
                     let noMatchItem = document.createElement('li');
                     noMatchItem.textContent = 'לא נמצאו תוצאות';
                     dropdown.appendChild(noMatchItem);
                 }
             });
-        
+
             container.appendChild(input);
             container.appendChild(dropdown);
-        
+
             return container;
         }
 
