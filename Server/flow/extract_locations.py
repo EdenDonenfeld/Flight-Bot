@@ -87,7 +87,7 @@ def levenshtein_distance(s1: str, s2: str) -> int:
 
     return previous_row[-1]
 
-def find_closest_match(phrase: str, candidates: list, threshold: int = 2) -> Optional[str]:
+def find_closest_match(phrase: str, candidates: list, threshold: int = 1) -> Optional[str]:
     if len(phrase.split(" ")) == 1:
         if phrase[0] == 'מ' or phrase[0] == 'ל':
             phrase = phrase[1:]
