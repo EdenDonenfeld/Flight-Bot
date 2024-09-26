@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/src/assets/css/dashboard.css">
-    <title>FlightBot    </title>
+    <link rel="icon" href="/Client/src/assets/img/Photo52.png">
+    <title>FlightBot</title>
 
     <!-- Add Firebase products that you want to use -->
     <script type="module">
@@ -54,7 +55,7 @@
             window.signOut();
         }
         const myTicketsForm = () => {
-            window.location.assign('../myTickets');
+            window.location.assign('/myTickets');
         }
     </script>
 </head>
@@ -68,6 +69,7 @@
         <div class="chat-messages" id="chat-messages"></div>
 
         <div class="input-container">
+            
             <input type="text" id="messageInput" placeholder="כתוב הודעה" value="אני רוצה להזמין כרטיס טיסה מניו יורק ללוס אנג'לס ב30.5.24">
             <button id="submitButton">שלח</button>
         </div>
@@ -75,7 +77,7 @@
     </div>
 
     <button class="signOut" onclick="logOutForm()">SignOut</button>
-    <button class="myTickets" onclick="window.location.assign=('/myTickets')">MyTickets</button>
+    <button class="myTickets" onclick="myTicketsForm()">MyTickets</button>
 
 </body>
 

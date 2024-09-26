@@ -1,28 +1,38 @@
-export function createFlightCard(flight) {   // flight is a flight object
+let returnFlights = [];
+
+export function createFlightCard(flight, flights2 = []) {
+    returnFlights = flights2;
+
+    // flight is a flight object
     const flightCard = document.createElement('div');
     flightCard.className = 'card';
-    const datetimeString = flight["Date"];
+    const datetimeString = flight['Date'];
     const dateObj = new Date(datetimeString);
+    let day = dateObj.getDate();
+    let month = dateObj.getMonth() + 1;
+    let year = dateObj.getFullYear();
+    let date = `${day}.${month}.${year}`;
     let hours = dateObj.getHours();
     let minutes = dateObj.getMinutes();
     if (minutes < 10) {
         minutes = `0${minutes}`;
     }
     const departure = `${hours}:${minutes}`;
-    const duration = flight["Duration"].split(":")[0];
+    const duration = flight['Duration'].split(':')[0];
     let arrivalHours = hours + parseInt(duration);
     let arrival = `${arrivalHours}:${minutes}`;
     if (arrivalHours > 24) {
         arrivalHours = arrivalHours - 24;
         arrival = `${arrivalHours}:${minutes}`;
     }
-    
+
     flightCard.innerHTML = `
+        <p class="date"><strong>תאריך :</strong> ${date}</p>
         <p class="departure"><strong>המראה :</strong> ${departure}</p>
         <p class="duration"><strong>משך טיסה :</strong> ${flight['Duration']}</p>
         <p class="arrival"><strong>נחיתה :</strong> ${arrival}</p>
         <p class="origin"><strong>מ :</strong> ${flight['Origin']}</p>
-        <p class="arrow"></p>
+        <p class="arrow">&larr;</p>
         <p class="destination"><strong>ל :</strong> ${flight['Destination']}</p>
         <p class="price"><strong>מחיר :</strong> ${flight['Price']}$ </p>
     `;
@@ -47,7 +57,7 @@ export function createFlightCard(flight) {   // flight is a flight object
         if (isFirstClick) {
             isFirstClick = false;
 
-            addMessageBack("בחר מושבים עבור הטיסה");
+            addMessageBack('בחר מושבים עבור הטיסה');
 
             // create container for the seats
             const container = document.createElement('div');
@@ -55,10 +65,27 @@ export function createFlightCard(flight) {   // flight is a flight object
             container.className = 'container';
             chatMessages.appendChild(container);
 
-            createNextButton("הבא", flight);
+            createNextButton('הבא', flight, returnFlights);
 
             createSeatsContainer(flight.FlightNumber);
+        }
+    });
+}
 
+export function createTicketCardCancel(ticket) {
+    createTicketCard(ticket, 'red');
+    const ticketCards = document.querySelectorAll('.ticket-card');
+    const ticketCard = ticketCards[ticketCards.length - 1];
+    let isFirstClick2 = true;
+    console.log('ticketCard', ticketCard);
+    console.log('isFirstClick2', isFirstClick2);
+    ticketCard.addEventListener('click', () => {
+        console.log('Clicked on ticket card');
+        ticketCard.style.border = '1px solid red';
+        if (isFirstClick2) {
+            isFirstClick2 = false;
+            // send cancel ticket request
+            sendCancelTicket(ticket);
         }
     });
 }
@@ -76,9 +103,7 @@ async function createSeatsContainer(flightNumber) {
         </div>
     `;
 
-    const avaliableSeats =  await listenForSeats(flightNumber);
-
-    console.log("Avaliable Seats: ", avaliableSeats);
+    const avaliableSeats = await listenForSeats(flightNumber);
 
     createSeats(avaliableSeats);
 }
@@ -103,37 +128,44 @@ async function listenForSeats(flightNumber) {
 }
 
 function createSeats(avaliableSeats) {
-    const rowsContainer = document.querySelector(".rows");
+    const rowsContainer = document.querySelector('.rows');
     const nextButton = document.querySelector('.next-button');
 
     // Function to create a single row
     function createRow(rowNumber) {
-        const row = document.createElement("div");
-        row.classList.add("row");
-        
+        const row = document.createElement('div');
+        row.classList.add('row');
+
         for (let i = 0; i < 6; i++) {
-            const column = document.createElement("div");
-            column.classList.add("column");
+            const column = document.createElement('div');
+            column.classList.add('column');
 
             // Setting the ID of each column to its corresponding letter (A-F)
             column.id = rowNumber + String.fromCharCode(65 + i);
 
             // Creating a button for each seat
-            const button = document.createElement("button");
+            const button = document.createElement('button');
             button.textContent = column.id;
-            button.classList.add("seat");
+            button.classList.add('seat');
             button.dataset.seatId = column.id;
+            if (!avaliableSeats.includes(button.textContent)) {
+                button.disabled = true;
+                button.classList.add('disabled-seat');
+            }
 
-            button.addEventListener("click", function() {
-                this.classList.toggle("selected");
+            button.addEventListener('click', function () {
+                this.classList.toggle('selected');
                 // Show next button if at least one seat is selected
-                nextButton.style.display = document.querySelectorAll('.selected').length > 0 ? 'block' : 'none';
+                nextButton.style.display =
+                    document.querySelectorAll('.selected').length > 0
+                        ? 'block'
+                        : 'none';
             });
 
             column.appendChild(button);
             row.appendChild(column);
         }
-        
+
         rowsContainer.appendChild(row);
     }
 
@@ -148,20 +180,19 @@ function createSeats(avaliableSeats) {
 }
 
 function addMessageBack(message) {
-     // add a message to the chat
-     let chatMessages = document.getElementById("chat-messages");
-     let newMessage = document.createElement('div');
-     newMessage.className = "message-back";
-     newMessage.textContent = message;
-     chatMessages.appendChild(newMessage);
-     chatMessages.scrollTop = chatMessages.scrollHeight;
+    // add a message to the chat
+    let chatMessages = document.getElementById('chat-messages');
+    let newMessage = document.createElement('div');
+    newMessage.className = 'message-back';
+    newMessage.textContent = message;
+    chatMessages.appendChild(newMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-
-function createNextButton(message, flight) {
-    let chatMessages = document.getElementById("chat-messages");
+function createNextButton(message, flight, returnFlights = []) {
+    let chatMessages = document.getElementById('chat-messages');
     let nextButton = document.createElement('button');
-    nextButton.className = "message-back next-button";
+    nextButton.className = 'message-back next-button';
     nextButton.style.display = 'none';
     nextButton.textContent = message;
     chatMessages.appendChild(nextButton);
@@ -175,7 +206,7 @@ function createNextButton(message, flight) {
         }
 
         const seats = [];
-        selectedSeats.forEach(seat => {
+        selectedSeats.forEach((seat) => {
             seats.push(seat.dataset.seatId);
         });
 
@@ -185,22 +216,19 @@ function createNextButton(message, flight) {
         nextButton.remove();
 
         //sends the selected seats to the server
-        sendSelectedSeats(seats, flight);
-        
-        
+        sendSelectedSeats(seats, flight, returnFlights);
     });
-
 }
 
-async function sendSelectedSeats(seats, flight) {
+async function sendSelectedSeats(seats, flight, returnFlights = []) {
     // console.log(flight);
     ///create the dictionary to send to the server named entities
     let entities = {
-        "seats": seats,
-        "user": window.user,
-        "label": 0,
-        "flight_num": flight.FlightNumber,
-        "flight": flight
+        seats: seats,
+        user: window.user,
+        label: 0,
+        flight_num: flight.FlightNumber,
+        flight: flight,
     };
     ///conver the dictionary to string
     entities = JSON.stringify(entities);
@@ -208,33 +236,109 @@ async function sendSelectedSeats(seats, flight) {
         const response = await fetch(`/api/finalActions`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({entities: entities})
+            body: JSON.stringify({ entities: entities }),
         });
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        
+
         const data = await response.json();
         const ticket = data.response;
 
         // Adding a message from server
-        let chatMessages = document.getElementById("chat-messages");
+        let chatMessages = document.getElementById('chat-messages');
         let newMessage = document.createElement('div');
-        newMessage.className = "message-back";
+        newMessage.className = 'message-back';
         // check if ticket is empty
         if (ticket.length == 0) {
-            newMessage.textContent = "לא ניתן להזמין כרטיסים";
+            newMessage.textContent = 'לא ניתן להזמין כרטיסים';
         } else {
-            newMessage.textContent = "הכרטיסים שהזמנת";
+            newMessage.textContent = 'הכרטיס שהזמנת';
         }
         chatMessages.appendChild(newMessage);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+        createTicketCard(ticket, 'green');
 
-    }
-    catch (error) {
+        // start the flow for return flights now that the ticket is created
+
+        if (returnFlights.length > 0) {
+            newMessage = document.createElement('div');
+            newMessage.className = 'message-back';
+            newMessage.textContent = 'הנה כמה טיסות חזור שמצאתי עבורך';
+            chatMessages.appendChild(newMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            console.log('flights2', returnFlights);
+            returnFlights.forEach((flight) => {
+                createFlightCard(flight);
+            });
+        }
+    } catch (error) {
         console.error('Error getting ticket:', error);
+    }
+}
+
+function createTicketCard(ticket, color) {
+    // ticket is a Ticket object dictionary
+    const ticketCard = document.createElement('div');
+    ticketCard.className = 'ticket-card';
+    const ticket_id = ticket['TicketID'];
+    const flight_number = ticket['FlightNumber'];
+    const seats = ticket['Seats'].join(', ');
+
+    if (color === 'green') {
+        ticketCard.classList.add('green');
+    } else if (color === 'red') {
+        ticketCard.classList.add('red');
+    }
+
+    ticketCard.innerHTML = `
+    <p class="ticket-id"><strong>מספר כרטיס: </strong> ${ticket_id}</p>
+    <p class="flight-number"><strong>מספר טיסה :</strong> ${flight_number}</p>
+    <p class="seats"><strong>מושבים :</strong> ${seats}</p>
+  `;
+
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.appendChild(ticketCard);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+async function sendCancelTicket(ticket) {
+    // send to /api/finalActions
+    let entities = {
+        user: window.user,
+        label: 1,
+        ticket_id: ticket.TicketID,
+        ticket: ticket,
+    };
+    ///conver the dictionary to string
+    entities = JSON.stringify(entities);
+    try {
+        const response = await fetch(`/api/finalActions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ entities: entities }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        const responseText = data.response;
+
+        // Adding a message from server
+        let chatMessages = document.getElementById('chat-messages');
+        let newMessage = document.createElement('div');
+        newMessage.className = 'message-back';
+        newMessage.textContent = responseText;
+        chatMessages.appendChild(newMessage);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    } catch (error) {
+        console.error('Error getting response:', error);
     }
 }

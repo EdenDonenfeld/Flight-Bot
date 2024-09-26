@@ -19,6 +19,22 @@ def add_new_user(user_id: str):
     user_ref.set(user.to_dict())
     print("User", user_id, "added successfully to the database")
 
+def get_tickets(uid):
+    try:
+        db = firestore.client()
+        user_ref = db.collection('Users').document(uid)
+        user_doc = user_ref.get()
+
+        if user_doc.exists:
+            # Retrieve the tickets array from the user's document
+            user_data = user_doc.to_dict()
+            return user_data.get('Tickets', [])
+        else:
+            print(f'User with ID {uid} does not exist.')
+            return []
+    except Exception as e:
+        print(f'Error retrieving tickets: {e}')
+        return []
 
 def return_available_seats(flight_num: str):
     # Call the data base - return the available seats for the flight
@@ -64,7 +80,7 @@ def order_ticket(user_id: str, flight_num: str, seats: list):
     # Add ticket to user and save
     user.add_ticket(db, ticket)
 
-    return ticket_id
+    return ticket.to_dict()
 
 
 
@@ -204,11 +220,15 @@ def check_status(user_id: str, ticket_id: str):
     return flight["Status"]
 
 
-def search_flights(origin: str, destination: str, date: datetime):
+def search_flights(origin: str, destination: str, date: str):
     # Call the data base - search for flights
-    # date is y/m/d
+    # date is str dd/mm/yyyy
     # return 3 closest flights, if there's less than 3, return all
     # add flights to the database
+
+    # convert date to datetime object
+    date = datetime.strptime(date, "%d/%m/%Y")
+    
     db = firestore.client()
     flights = db.collection('Flights').where("Origin", "==", origin).where("Destination", "==", destination)
     flights_list = flights.get()

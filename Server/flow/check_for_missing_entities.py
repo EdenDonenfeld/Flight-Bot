@@ -9,7 +9,7 @@ def check_for_missing(Entities, Predicted_label):
     # label 6 - know what is allowed in the flight
 
     # entities = {"Origin": None, "Destination": None, "Date": None, "Date2": None}
-    if Predicted_label >= 0 and Predicted_label <= 4:
+    if Predicted_label == 0 or Predicted_label == 1:
         if Entities["Origin"] == None:
             Entities["Origin"] = False
         if Entities["Destination"] == None:
@@ -17,6 +17,4 @@ def check_for_missing(Entities, Predicted_label):
         if Entities["Date"] == None:
             Entities["Date"] = False
     
-    if Predicted_label == 3:
-        if Entities["Date2"] == None:
-            Entities["Date2"] = False
+    

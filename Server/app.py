@@ -10,10 +10,10 @@ import json
 import mimetypes
 from flask import Flask, render_template, request, jsonify, send_file
 from Server.flow.flow_functions import analyze_class
-from Server.flow.extract_functions import extract_entities, format_date
+from Server.flow.extract_functions import extract_entities
 from Server.flow.check_for_missing_entities import check_for_missing
-from Server.flow.launchDBFunc import launch_functions, get_flights, action_by_intent
-from Server.database.functions import init, add_new_user, return_available_seats
+from Server.flow.launchDBFunc import launch_functions, action_by_intent
+from Server.database.functions import init, add_new_user, return_available_seats, get_tickets
 
 def create_app():
     app = Flask(__name__, static_folder='../Client', template_folder='../Client')
@@ -48,6 +48,10 @@ def create_app():
     @app.route('/dashboard')
     def dashboard():
         return render_template('/src/pages/dashboard.html')
+    
+    @app.route('/myTickets')
+    def myTickets():
+        return render_template('/src/pages/myTickets.html')
 
     @app.route('/api/flightbot', methods=['POST'])
     def flightbot():
@@ -55,28 +59,25 @@ def create_app():
         message = data.get('message', '')
         user_id = data.get('user_id', '')
 
-        print("Received message:", message)
-        predicted_label, text = analyze_class(message)
+        predicted_label = analyze_class(message)
         # Convert predicted_label to a regular Python integer
         predicted_label = int(predicted_label)
         # validate predicated label
 
         entities = extract_entities(message, predicted_label)
-        print("Entities:", entities)
 
-        #check for missing entities
+        #TODO: check for missing entities
         check_for_missing(entities, predicted_label)
+ 
+        #TODO: validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
 
-        #validate entities - here the user should be asked to provide the missing entities, or correct the provided entities
-
-        #return text and entities
-        response_data = text 
-        response_message = f"{text} {str(entities)}"
+        #return entities
+        response_message = f"{str(entities)}"
         response_entities = json.dumps(entities)
 
         # lanch_functions(predicted_label, uid)
         # return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, entities: response_entities})
-        return jsonify({'response': response_message, 'predicted_label': predicted_label, 'response_data': response_data, 'entities': response_entities})
+        return jsonify({'response': response_message, 'predicted_label': predicted_label, 'entities': response_entities})
 
     @app.route('/api/flightbot/user', methods=['POST'])
     def check_user():
@@ -94,24 +95,21 @@ def create_app():
     def get_seats(flight_id):
         seats = return_available_seats(flight_id)
         return jsonify({'response': seats})
-        
-
 
     @app.route('/api/valflightbot', methods=['POST'])
     def vallightbotv():
         data = request.get_json()
         entities = data.get('entities', '')
         entities = json.loads(entities)
-        try:
-            entities["Date"] = format_date(entities["Date"])
-        except:
-            pass
-
+        print("Entities:", entities)
+    
         label = data.get('label', '')
         user = data.get('user', '')
 
+        # if one way, response is only tickets, if round trup, response is tickets and flag
         response = action_by_intent(label, entities, user["uid"])
-        # print("Response: ", response)
+
+        print("Response: ", response)
         return jsonify({'response': response})
     
     # alpha version: buy flight ticket
@@ -125,4 +123,14 @@ def create_app():
         response = launch_functions(entities["label"], entities, entities["user"]["uid"])
         # print("Response: ", response)
         return jsonify({'response': response, 'label': entities["label"]})
+    
+    @app.route('/api/myTickets', methods=['POST'])
+    def sendUserTickets():
+        data = request.get_json()
+        user_id = data.get('user-id', '')
+        print("User ID: ", user_id)
+        # get_tickets not working
+        tickets = get_tickets(user_id)
+        return jsonify({'response': tickets})
+
     return app

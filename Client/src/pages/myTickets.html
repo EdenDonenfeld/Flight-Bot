@@ -4,8 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/assets/css/dashboard.css">
-    <title>FlightBot Client</title>
+    <link rel="stylesheet" href="/static/src/assets/css/dashboard.css">
+    <link rel="icon" href="/Client/src/assets/img/Photo52.png">
+
+
+    <title>FlightBot    </title>
+
+    <style>
+        body {
+            background-color: rgb(240, 240, 233);
+        }
+    </style>
 
     <!-- Add Firebase products that you want to use -->
     <script type="module">
@@ -28,6 +37,7 @@
             onAuthStateChanged
         };
     </script>
+    <script type="module" src="/static/src/assets/js/myTickets.js"></script>
     <script defer type="module" src="/static/src/assets/js/firebase.js"></script>
     <script defer type="module" src="/static/src/assets/js/auth.js"></script>
     <script defer>
@@ -36,9 +46,8 @@
                 window.setCallbackAuthChanged((user) => {
                     if (!user) {window.location.assign('/')}
                     else {
-                        const email = user.email
-                        const element = document.getElementById("helloEmail")
-                        element.textContent = "Hello " + email
+                        window.user = user
+                        const uid = user.uid
                     }
                 })
                 clearInterval(i)
@@ -48,7 +57,7 @@
 </head>
 
 <body>
-    <h1>Hello</h1>
+    <div class="tickets-container"></div>
 </body>
 
 </html>
